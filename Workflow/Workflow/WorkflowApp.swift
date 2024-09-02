@@ -22,7 +22,6 @@ struct WorkflowApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-
     var body: some Scene {
         WindowGroup {
             ContentView()
