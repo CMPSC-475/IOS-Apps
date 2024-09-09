@@ -9,10 +9,12 @@ import Foundation
 import SwiftUI
 
 struct FoundWordsScrollView: View {
+    var foundWords: [String]
+    
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
-                ForEach(["Nandan", "Spells", "Gamma", "and", "rays"], id: \.self) { word in
+                ForEach(foundWords, id: \.self) { word in
                     Text(word)
                         .padding()
                         .background(Color.white.opacity(0.2))
@@ -27,5 +29,9 @@ struct FoundWordsScrollView: View {
 }
 
 #Preview {
-    FoundWordsScrollView()
+    ZStack {
+        Color.blue
+        FoundWordsScrollView(foundWords: ["A","B"])
+        
+    }
 }
