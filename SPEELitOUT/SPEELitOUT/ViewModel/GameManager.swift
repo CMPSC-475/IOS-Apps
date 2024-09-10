@@ -38,11 +38,17 @@ class GameManager: ObservableObject {
             letters = Set(fiveLetterWord.map { String($0) })
         } else if let fourLetterWord = fourLetterWords.randomElement() {
             var tempLetters = Set(fourLetterWord.map { String($0) })
-            while letters.count < 5 {
+            while tempLetters.count < 5 {
                 let randomLetter = String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!)
                 tempLetters.insert(randomLetter)
             }
             letters = tempLetters
+        } else {
+            // If no suitable 4 or 5-letter word is found, generate 5 random unique letters
+            while letters.count < 5 {
+                let randomLetter = String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!)
+                letters.insert(randomLetter)
+            }
         }
         
         // Shuffle the letters
@@ -62,8 +68,8 @@ class GameManager: ObservableObject {
     }
     
     func submitWord() {
-        guard isValidWord, !foundWords.contains(currentWord) else { return }
-        foundWords.append(currentWord)
+        guard isValidWord, !foundWords.contains(currentWord.lowercased()) else { return }
+        foundWords.append(currentWord.lowercased())
         updateScore()
         resetCurrentWord()
     }
@@ -77,22 +83,22 @@ class GameManager: ObservableObject {
     
     func shuffleLetters() {
         let shuffledLetters = scrambleProblem.letters.shuffled()
-        //print("Shuffled letters: \(shuffledLetters)")
+        
         scrambleProblem = ScrambleProblem(letters: shuffledLetters, validWords: scrambleProblem.validWords)
     }
     
     private func updateScore() {
-        //score += currentWord.count  // Base score on word length
-        if currentWord.count == 4 {score+=1}
-        if currentWord.count > 4 {
+        // Update score based on the current word
+        if currentWord.count == 4 {
+            score += 1
+        } else if currentWord.count > 4 {
             score += currentWord.count
         }
-        if currentWord.count == 5 {score+=10}
+        if currentWord.count == 5 {
+            score += 10
+        }
     }
 
-    
-
-    
     private func resetCurrentWord() {
         currentWord = ""
         isValidWord = false // Reset the word validity
@@ -100,7 +106,7 @@ class GameManager: ObservableObject {
     
     // Load valid words from the Words.swift file
     private static func loadValidWords() {
-        validWords = Words.words.map { $0.uppercased() } // Load and uppercase words from Words.swift
+        validWords = Words.words // Load words from Words.swift (no need to uppercase)
     }
     
     private static func getFilteredWords() -> ([String], [String]) {
@@ -111,12 +117,10 @@ class GameManager: ObservableObject {
     
     // Check if the current word is valid
     func checkWordValidity() {
-        if GameManager.validWords.contains(currentWord.uppercased()) {
+        if GameManager.validWords.contains(currentWord.lowercased()) {
             isValidWord = true
-            //print("'\(currentWord)' is a valid word.")
         } else {
             isValidWord = false
-            //print("'\(currentWord)' is not a valid word.") 
         }
     }
 }

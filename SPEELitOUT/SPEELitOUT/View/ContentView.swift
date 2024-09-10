@@ -29,7 +29,7 @@ struct ContentView: View {
                         .foregroundStyle(Color.white)
                     Spacer()
                     NewGameButtonView(action: {
-                        //print("New Game tapped")
+                        
                         gameManager.newGame()
                         currentWord = ""
                     })
@@ -54,8 +54,8 @@ struct ContentView: View {
                 HStack {
                     ForEach(gameManager.scrambleProblem.letters, id: \.self) { letter in
                         LetterButtonView(letter: letter, currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
-                            .onChange(of: currentWord) { newValue in
-                                gameManager.currentWord = newValue
+                            .onChange(of: currentWord) {
+                                gameManager.currentWord = currentWord
                                 gameManager.checkWordValidity()
                             }
                     }
@@ -84,7 +84,7 @@ struct ContentView: View {
                 // Shuffle, hints, and preferences buttons
                 HStack {
                     ShuffleButtonView(action: {
-                        //print("Shuffle tapped!")
+                        
                         gameManager.shuffleLetters()
                     })
                     Spacer(minLength: 20)

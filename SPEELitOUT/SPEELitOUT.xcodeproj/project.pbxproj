@@ -97,6 +97,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		468C26DD2C901F95006F33C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				468C5C4A2C8679CC008F9E75 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		468C26DF2C901FEC006F33C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				46061B872C8F63B1002083F9 /* GameManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		468C26E02C9020EF006F33C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				468C5C862C86919E008F9E75 /* ScrollView.swift */,
+				468C5C782C8686FC008F9E75 /* NewGameButtonView.swift */,
+				468C5C7A2C86876D008F9E75 /* LetterButtonView.swift */,
+				468C5C7C2C8687ED008F9E75 /* DeleteButtonView.swift */,
+				468C5C7E2C86881C008F9E75 /* SubmitButtonView.swift */,
+				468C5C802C868847008F9E75 /* ShuffleButtonView.swift */,
+				468C5C822C86887C008F9E75 /* HintsButtonView.swift */,
+				468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */,
+				468C5C762C867DE2008F9E75 /* TitleTextView.swift */,
+				46061B852C8F6302002083F9 /* ScrambleProblem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		468C5C3C2C8679CC008F9E75 = {
 			isa = PBXGroup;
 			children = (
@@ -121,19 +154,10 @@
 			isa = PBXGroup;
 			children = (
 				468C5C482C8679CC008F9E75 /* SPEELitOUTApp.swift */,
-				468C5C4A2C8679CC008F9E75 /* ContentView.swift */,
+				468C26E02C9020EF006F33C6 /* Model */,
+				468C26DD2C901F95006F33C6 /* View */,
 				46061B892C8F6AE3002083F9 /* Words.swift */,
-				46061B852C8F6302002083F9 /* ScrambleProblem.swift */,
-				46061B872C8F63B1002083F9 /* GameManager.swift */,
-				468C5C862C86919E008F9E75 /* ScrollView.swift */,
-				468C5C782C8686FC008F9E75 /* NewGameButtonView.swift */,
-				468C5C7A2C86876D008F9E75 /* LetterButtonView.swift */,
-				468C5C7C2C8687ED008F9E75 /* DeleteButtonView.swift */,
-				468C5C7E2C86881C008F9E75 /* SubmitButtonView.swift */,
-				468C5C802C868847008F9E75 /* ShuffleButtonView.swift */,
-				468C5C822C86887C008F9E75 /* HintsButtonView.swift */,
-				468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */,
-				468C5C762C867DE2008F9E75 /* TitleTextView.swift */,
+				468C26DF2C901FEC006F33C6 /* ViewModel */,
 				468C5C4C2C8679CC008F9E75 /* Item.swift */,
 				468C5C4E2C8679CF008F9E75 /* Assets.xcassets */,
 				468C5C502C8679CF008F9E75 /* Preview Content */,
