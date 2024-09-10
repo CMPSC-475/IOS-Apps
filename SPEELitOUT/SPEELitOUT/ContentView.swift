@@ -14,7 +14,8 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Color.blue
+            //Color.blue
+            Color.orange
             VStack {
                 HStack{
                     TitleTextView()
@@ -27,7 +28,11 @@ struct ContentView: View {
                         .font(.headline)
                         .foregroundStyle(Color.white)
                     Spacer()
-                    NewGameButtonView()
+                    NewGameButtonView(action: {
+                        //print("New Game tapped")
+                        gameManager.newGame()
+                        currentWord = ""
+                    })
                 }
                 .padding()
 
@@ -50,19 +55,19 @@ struct ContentView: View {
                     ForEach(gameManager.scrambleProblem.letters, id: \.self) { letter in
                         LetterButtonView(letter: letter, currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
                             .onChange(of: currentWord) { newValue in
-                                gameManager.currentWord = newValue // Sync the word with the GameManager
-                                gameManager.checkWordValidity()    // Check if the word is valid immediately
+                                gameManager.currentWord = newValue
+                                gameManager.checkWordValidity()
                             }
                     }
                 }
-                                .padding()
+                .padding()
 
                 // Delete and submit buttons
                 HStack {
                     DeleteButtonView(currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
                         .onTapGesture {
-                            gameManager.deleteLastLetter() // Sync with GameManager's delete logic
-                            gameManager.checkWordValidity() // Recheck validity after deletion
+                            gameManager.deleteLastLetter()
+                            gameManager.checkWordValidity()
                         }
                     Spacer(minLength: 2)
                     SubmitButtonView(
@@ -78,10 +83,10 @@ struct ContentView: View {
 
                 // Shuffle, hints, and preferences buttons
                 HStack {
-                    ShuffleButtonView()
-                        .onTapGesture {
-                            gameManager.shuffleLetters()  // Call GameManager's shuffle logic
-                        }
+                    ShuffleButtonView(action: {
+                        //print("Shuffle tapped!")
+                        gameManager.shuffleLetters()
+                    })
                     Spacer(minLength: 20)
                     HintsButtonView()
                     Spacer(minLength: 20)

@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 
 struct ShuffleButtonView: View {
+    var action: () -> Void  // Add a closure for the button's action
+
     var body: some View {
         Button(action: {
-
+            action()  // Perform the action passed in
         }) {
-            Image(systemName: "shuffle") 
+            Image(systemName: "shuffle")
                 .font(.title2)
                 .foregroundColor(.white)
         }
@@ -24,6 +26,6 @@ struct ShuffleButtonView: View {
 #Preview {
     ZStack {
         Color.blue
-        ShuffleButtonView()
+        //ShuffleButtonView()
     }
 }

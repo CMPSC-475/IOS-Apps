@@ -18,6 +18,38 @@
             endingLineNumber = "12"
             landmarkName = "Words"
             landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "F22CAA7C-1C12-4C29-9104-CBB2FF83117E - 453a934a2957c8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "one-time initialization function for words"
+                  moduleName = "SPEELitOUT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nbh5294/Downloads/Words.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "F22CAA7C-1C12-4C29-9104-CBB2FF83117E - 6528a1badeed6434"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SPEELitOUT.Words.words.unsafeMutableAddressor : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "SPEELitOUT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nbh5294/Downloads/Words.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
