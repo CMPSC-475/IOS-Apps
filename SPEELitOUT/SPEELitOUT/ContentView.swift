@@ -10,8 +10,8 @@ import SwiftData
 
 struct ContentView: View {
     @State private var currentWord: String = ""  // Track the current word being formed
-    var gameManager = GameManager()
-    
+    @ObservedObject var gameManager = GameManager()  // Observe the game manager to reflect changes
+
     var body: some View {
         ZStack {
             Color.blue
@@ -19,7 +19,7 @@ struct ContentView: View {
                 HStack{
                     TitleTextView()
                 }
-                .padding(.top, 0) // Adjust this value to move HStack down
+                .padding(.top, 0)
                 
                 // Header with score and new game button
                 HStack {
@@ -30,11 +30,11 @@ struct ContentView: View {
                     NewGameButtonView()
                 }
                 .padding()
-                
+
                 // Scrollable list of found words
                 FoundWordsScrollView(foundWords: gameManager.foundWords)
                     .padding(.horizontal)
-                
+
                 // Letters being constructed
                 HStack {
                     Text("Current Word: ")
@@ -44,19 +44,19 @@ struct ContentView: View {
                         .bold()
                 }
                 .padding()
-                
-                // 5 Buttons with letters
+
+                // 5 Buttons with letters from scrambleProblem
                 HStack {
-                    ForEach(["I", "O", "C", "N", "L"], id: \.self) { letter in
-                        LetterButtonView(letter: letter, currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))  // Keep gameManager.isValidWord synced
-                            .onChange(of: currentWord) { _ in
-                                gameManager.currentWord = currentWord // Sync the word with the GameManager
-                                gameManager.checkWordValidity() // Check if the word is valid
+                    ForEach(gameManager.scrambleProblem.letters, id: \.self) { letter in
+                        LetterButtonView(letter: letter, currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
+                            .onChange(of: currentWord) { newValue in
+                                gameManager.currentWord = newValue // Sync the word with the GameManager
+                                gameManager.checkWordValidity()    // Check if the word is valid immediately
                             }
                     }
                 }
-                .padding()
-                
+                                .padding()
+
                 // Delete and submit buttons
                 HStack {
                     DeleteButtonView(currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
@@ -75,7 +75,7 @@ struct ContentView: View {
                     .padding()
                 }
                 .padding()
-                
+
                 // Shuffle, hints, and preferences buttons
                 HStack {
                     ShuffleButtonView()
