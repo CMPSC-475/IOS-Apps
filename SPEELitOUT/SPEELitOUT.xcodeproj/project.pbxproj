@@ -10,6 +10,11 @@
 		46061B862C8F6302002083F9 /* ScrambleProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B852C8F6302002083F9 /* ScrambleProblem.swift */; };
 		46061B882C8F63B1002083F9 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B872C8F63B1002083F9 /* GameManager.swift */; };
 		46061B8A2C8F6AE3002083F9 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B892C8F6AE3002083F9 /* Words.swift */; };
+		468264542C9B6AED006D6947 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264532C9B6AED006D6947 /* Preferences.swift */; };
+		468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264552C9B6B69006D6947 /* ScrambleModel.swift */; };
+		468264582C9B6CB1006D6947 /* PolygonShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264572C9B6CB1006D6947 /* PolygonShape.swift */; };
+		4682645A2C9B6CDE006D6947 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264592C9B6CDE006D6947 /* PreferencesView.swift */; };
+		4682645C2C9B6CFB006D6947 /* HintsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4682645B2C9B6CFB006D6947 /* HintsView.swift */; };
 		468C5C492C8679CC008F9E75 /* SPEELitOUTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C482C8679CC008F9E75 /* SPEELitOUTApp.swift */; };
 		468C5C4B2C8679CC008F9E75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C4A2C8679CC008F9E75 /* ContentView.swift */; };
 		468C5C4D2C8679CC008F9E75 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C4C2C8679CC008F9E75 /* Item.swift */; };
@@ -50,6 +55,11 @@
 		46061B852C8F6302002083F9 /* ScrambleProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrambleProblem.swift; sourceTree = "<group>"; };
 		46061B872C8F63B1002083F9 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		46061B892C8F6AE3002083F9 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Words.swift; path = ../../../Downloads/Words.swift; sourceTree = "<group>"; };
+		468264532C9B6AED006D6947 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		468264552C9B6B69006D6947 /* ScrambleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrambleModel.swift; sourceTree = "<group>"; };
+		468264572C9B6CB1006D6947 /* PolygonShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonShape.swift; sourceTree = "<group>"; };
+		468264592C9B6CDE006D6947 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		4682645B2C9B6CFB006D6947 /* HintsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintsView.swift; sourceTree = "<group>"; };
 		468C5C452C8679CC008F9E75 /* SPEELitOUT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SPEELitOUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		468C5C482C8679CC008F9E75 /* SPEELitOUTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPEELitOUTApp.swift; sourceTree = "<group>"; };
 		468C5C4A2C8679CC008F9E75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +136,11 @@
 				468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */,
 				468C5C762C867DE2008F9E75 /* TitleTextView.swift */,
 				46061B852C8F6302002083F9 /* ScrambleProblem.swift */,
+				468264532C9B6AED006D6947 /* Preferences.swift */,
+				468264552C9B6B69006D6947 /* ScrambleModel.swift */,
+				468264572C9B6CB1006D6947 /* PolygonShape.swift */,
+				468264592C9B6CDE006D6947 /* PreferencesView.swift */,
+				4682645B2C9B6CFB006D6947 /* HintsView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -320,11 +335,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4682645A2C9B6CDE006D6947 /* PreferencesView.swift in Sources */,
 				468C5C792C8686FC008F9E75 /* NewGameButtonView.swift in Sources */,
 				468C5C7F2C86881C008F9E75 /* SubmitButtonView.swift in Sources */,
+				468264582C9B6CB1006D6947 /* PolygonShape.swift in Sources */,
 				468C5C832C86887C008F9E75 /* HintsButtonView.swift in Sources */,
 				46061B882C8F63B1002083F9 /* GameManager.swift in Sources */,
 				468C5C4B2C8679CC008F9E75 /* ContentView.swift in Sources */,
+				4682645C2C9B6CFB006D6947 /* HintsView.swift in Sources */,
 				468C5C812C868847008F9E75 /* ShuffleButtonView.swift in Sources */,
 				468C5C872C86919E008F9E75 /* ScrollView.swift in Sources */,
 				468C5C7B2C86876D008F9E75 /* LetterButtonView.swift in Sources */,
@@ -334,6 +352,8 @@
 				468C5C772C867DE2008F9E75 /* TitleTextView.swift in Sources */,
 				468C5C4D2C8679CC008F9E75 /* Item.swift in Sources */,
 				468C5C492C8679CC008F9E75 /* SPEELitOUTApp.swift in Sources */,
+				468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */,
+				468264542C9B6AED006D6947 /* Preferences.swift in Sources */,
 				46061B862C8F6302002083F9 /* ScrambleProblem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

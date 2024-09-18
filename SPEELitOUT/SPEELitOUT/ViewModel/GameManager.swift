@@ -8,52 +8,65 @@
 import Foundation
 
 class GameManager: ObservableObject {
-    @Published private(set) var scrambleProblem: ScrambleProblem
     @Published var currentWord: String = ""
     @Published private(set) var foundWords: [String] = []
     @Published var score: Int = 0
     @Published var isValidWord: Bool = false // Tracks if the current word is valid
     
-    private static var validWords: [String] = [] // Loaded from the Words.swift file
+    @Published var preferences: Preferences
+    @Published var scrambleProblem: ScrambleModel
+    @Published var totalWords: Int = 0
+    @Published var totalPoints: Int = 0
+    @Published var pangrams: Int = 0
+    @Published var wordStats: [String: Int] = [:]
+    
+    private static var validWords: Set<String> = [] // Use Set for faster lookups
     
     init() {
-        // Initialize validWords before creating scrambleProblem
         GameManager.loadValidWords() // Load valid words
-        self.scrambleProblem = GameManager.createScrambleProblem()
+        self.preferences = Preferences(language: .english, letterCount: .five)
+        self.scrambleProblem = ScrambleModel(preferences: preferences)
     }
     
     // MARK: - Game Logic
     
-    private static func createScrambleProblem() -> ScrambleProblem {
-        let letters = generateRandomLetters()
-        return ScrambleProblem(letters: letters, validWords: validWords) // Use validWords loaded in init
+    func calculateHints() {
+        totalWords = scrambleProblem.totalWords
+        totalPoints = scrambleProblem.totalPoints
+        pangrams = scrambleProblem.pangrams
+        wordStats = scrambleProblem.wordStats
     }
-    
+
+    private static func createScrambleProblem() -> ScrambleModel {
+        let letters = generateRandomLetters()
+        return ScrambleModel(
+            preferences: Preferences(language: .english, letterCount: .five),
+            letters: letters,
+            centerLetter: letters.first!,
+            validWords: Array(validWords)
+        )
+    }
+
     private static func generateRandomLetters() -> [String] {
         let (fourLetterWords, fiveLetterWords) = getFilteredWords()
         var letters: Set<String> = Set()
         
-        // Ensure we get 5 unique letters
         if let fiveLetterWord = fiveLetterWords.randomElement() {
             letters = Set(fiveLetterWord.map { String($0) })
         } else if let fourLetterWord = fourLetterWords.randomElement() {
-            var tempLetters = Set(fourLetterWord.map { String($0) })
-            while tempLetters.count < 5 {
-                let randomLetter = String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!)
-                tempLetters.insert(randomLetter)
-            }
-            letters = tempLetters
-        } else {
-            // If no suitable 4 or 5-letter word is found, generate 5 random unique letters
+            letters = Set(fourLetterWord.map { String($0) })
             while letters.count < 5 {
-                let randomLetter = String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!)
-                letters.insert(randomLetter)
+                letters.insert(String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!))
+            }
+        } else {
+            while letters.count < 5 {
+                letters.insert(String("ABCDEFGHIJKLMNOPQRSTUVWXYZ".randomElement()!))
             }
         }
         
-        // Shuffle the letters
         return Array(letters).shuffled()
     }
+    
     
     func addLetter(_ letter: String) {
         guard currentWord.count < 5 else { return }
@@ -82,21 +95,34 @@ class GameManager: ObservableObject {
     }
     
     func shuffleLetters() {
-        let shuffledLetters = scrambleProblem.letters.shuffled()
-        
-        scrambleProblem = ScrambleProblem(letters: shuffledLetters, validWords: scrambleProblem.validWords)
+        var nonCenterLetters = scrambleProblem.letters.filter { $0 != scrambleProblem.centerLetter }
+        nonCenterLetters.shuffle()
+        scrambleProblem.letters = [scrambleProblem.centerLetter] + nonCenterLetters
     }
+    
+    func updatePreferences(newPreferences: Preferences) {
+        preferences = newPreferences
+
+        // Regenerate the scramble problem based on the new preferences
+        let letters = GameManager.generateRandomLetters()
+        guard let centerLetter = letters.first else {
+            // Handle the case where letters are empty
+            print("Error: No letters generated.")
+            return
+        }
+
+        scrambleProblem = ScrambleModel(
+            preferences: preferences,
+            letters: letters,
+            centerLetter: centerLetter,
+            validWords: Array(GameManager.validWords)
+        )
+    }
+
     
     private func updateScore() {
         // Update score based on the current word
-        if currentWord.count == 4 {
-            score += 1
-        } else if currentWord.count > 4 {
-            score += currentWord.count
-        }
-        if currentWord.count == 5 {
-            score += 10
-        }
+        score += (currentWord.count == 5) ? 10 : currentWord.count
     }
 
     private func resetCurrentWord() {
@@ -106,21 +132,17 @@ class GameManager: ObservableObject {
     
     // Load valid words from the Words.swift file
     private static func loadValidWords() {
-        validWords = Words.words // Load words from Words.swift (no need to uppercase)
+        validWords = Set(Words.words.map { $0.lowercased() }) // Use Set for fast lookups
     }
     
     private static func getFilteredWords() -> ([String], [String]) {
         let fourLetterWords = validWords.filter { $0.count == 4 }
         let fiveLetterWords = validWords.filter { $0.count == 5 }
-        return (fourLetterWords, fiveLetterWords)
+        return (Array(fourLetterWords), Array(fiveLetterWords))
     }
     
     // Check if the current word is valid
     func checkWordValidity() {
-        if GameManager.validWords.contains(currentWord.lowercased()) {
-            isValidWord = true
-        } else {
-            isValidWord = false
-        }
+        isValidWord = GameManager.validWords.contains(currentWord.lowercased())
     }
 }

@@ -9,14 +9,14 @@ import Foundation
 
 struct ScrambleProblem {
     var letters: [String]
-    let validWords: [String]
+    var validWords: Set<String> = []
     
     // Example of computed property for the pangram
     var pangram: String? {
         validWords.first { Set($0).count == letters.count }
     }
     
-    init(letters: [String], validWords: [String]) {
+    init(letters: [String], validWords: Set<String>) {
         self.letters = letters
         self.validWords = validWords
     }
