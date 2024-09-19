@@ -14,6 +14,8 @@ struct ContentView: View {
 
     @State private var showingPreferences = false
     @State private var showingHints = false
+    @State private var preferences = Preferences(language: .english, letterCount: .five)
+    @State private var isPreferencesPresented = false
 
     var body: some View {
         ZStack {
@@ -33,6 +35,7 @@ struct ContentView: View {
                     NewGameButtonView(action: {
                         gameManager.newGame()
                         currentWord = ""
+                        gameManager.updateHints()
                     })
                 }
                 .padding()
@@ -61,6 +64,7 @@ struct ContentView: View {
                         gameManager.checkWordValidity()
                     },
                     sides: gameManager.preferences.letterCount.rawValue
+                    
                 )
 
                 // Delete and submit buttons
@@ -76,6 +80,7 @@ struct ContentView: View {
                         onSubmit: {
                             gameManager.submitWord()  // Call the GameManager's submission logic
                             currentWord = "" // Reset current word after submission
+                            gameManager.updateHints()
                         }
                     )
                     .padding()
@@ -89,11 +94,28 @@ struct ContentView: View {
                     })
                     Spacer(minLength: 20)
 
-                    HintsView(isPresented: $showingHints, totalWords: $gameManager.totalWords, totalPoints: $gameManager.totalPoints, pangrams: $gameManager.pangrams, wordStats: $gameManager.wordStats)
+                    HintsView(
+                        isPresented: $showingHints,
+                        totalWords: $gameManager.totalWords,
+                        totalPoints: $gameManager.totalPoints,
+                        pangrams: $gameManager.pangrams,
+                        wordStats: $gameManager.wordStats
+                    )
+                    .onAppear {
+                        gameManager.calculateHints() // Ensure hints are updated
+                    }
 
                     Spacer(minLength: 20)
+                    
+                    
 
-                    PreferencesView(isPresented: $showingPreferences, preferences: $gameManager.preferences)
+                    PreferencesView(
+                                    isPresented: $isPreferencesPresented,
+                                    preferences: $preferences,
+                                    onPreferencesUpdated: { newPreferences in
+                                        gameManager.updatePreferences(newPreferences: newPreferences)
+                                    }
+                                    )
                 }
                 .padding()
             }

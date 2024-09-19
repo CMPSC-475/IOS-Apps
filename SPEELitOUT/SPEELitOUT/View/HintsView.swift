@@ -32,10 +32,8 @@ struct HintsView: View {
                 }
                 
                 Section(header: Text("Words by Length")) {
-                    ForEach(wordStats.keys.sorted(), id: \.self) { letter in
-                        if let count = wordStats[letter] {
-                            Text("\(letter): \(count)")
-                        }
+                    ForEach(wordStats.keys.sorted(), id: \.self) { length in
+                        Text("\(length)-letter words: \(wordStats[length] ?? 0)")
                     }
                 }
                 
@@ -46,3 +44,4 @@ struct HintsView: View {
         }
     }
 }
+

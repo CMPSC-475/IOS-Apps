@@ -11,7 +11,7 @@ import SwiftUI
 struct CircularLetterButtonsView: View {
     var letters: [String]
     var centerLetter: String
-    var action: (String) -> Void 
+    var action: (String) -> Void
     var sides: Int
     
     var body: some View {

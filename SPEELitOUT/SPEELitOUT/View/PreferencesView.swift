@@ -11,10 +11,11 @@ import SwiftUI
 struct PreferencesView: View {
     @Binding var isPresented: Bool
     @Binding var preferences: Preferences
+    var onPreferencesUpdated: (Preferences) -> Void
 
     var body: some View {
         Button(action: {
-            isPresented.toggle()  
+            isPresented.toggle()
         }) {
             Image(systemName: "gearshape")
                 .font(.title2)
@@ -40,6 +41,7 @@ struct PreferencesView: View {
                 
                 Button("Done") {
                     isPresented = false  // Close the preferences view
+                    onPreferencesUpdated(preferences) // Notify of the preference change
                 }
             }
         }

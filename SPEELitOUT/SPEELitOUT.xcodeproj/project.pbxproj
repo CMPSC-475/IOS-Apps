@@ -10,6 +10,7 @@
 		46061B882C8F63B1002083F9 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B872C8F63B1002083F9 /* GameManager.swift */; };
 		46061B8A2C8F6AE3002083F9 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B892C8F6AE3002083F9 /* Words.swift */; };
 		4664F3522C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */; };
+		4664F3572C9C56FF00C9DBA3 /* FrenchWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4664F3552C9C566500C9DBA3 /* FrenchWords.swift */; };
 		468264542C9B6AED006D6947 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264532C9B6AED006D6947 /* Preferences.swift */; };
 		468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264552C9B6B69006D6947 /* ScrambleModel.swift */; };
 		468264582C9B6CB1006D6947 /* PolygonShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264572C9B6CB1006D6947 /* PolygonShape.swift */; };
@@ -53,6 +54,7 @@
 		46061B872C8F63B1002083F9 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		46061B892C8F6AE3002083F9 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Words.swift; path = ../../../Downloads/Words.swift; sourceTree = "<group>"; };
 		4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularLetterButtonsView.swift; sourceTree = "<group>"; };
+		4664F3552C9C566500C9DBA3 /* FrenchWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FrenchWords.swift; path = ../../Downloads/FrenchWords.swift; sourceTree = SOURCE_ROOT; };
 		468264532C9B6AED006D6947 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		468264552C9B6B69006D6947 /* ScrambleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrambleModel.swift; sourceTree = "<group>"; };
 		468264572C9B6CB1006D6947 /* PolygonShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonShape.swift; sourceTree = "<group>"; };
@@ -108,6 +110,8 @@
 			children = (
 				468C5C4A2C8679CC008F9E75 /* ContentView.swift */,
 				4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */,
+				4682645B2C9B6CFB006D6947 /* HintsView.swift */,
+				468264592C9B6CDE006D6947 /* PreferencesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -123,6 +127,7 @@
 		468C26E02C9020EF006F33C6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4664F3552C9C566500C9DBA3 /* FrenchWords.swift */,
 				468C5C862C86919E008F9E75 /* ScrollView.swift */,
 				468C5C782C8686FC008F9E75 /* NewGameButtonView.swift */,
 				468C5C7A2C86876D008F9E75 /* LetterButtonView.swift */,
@@ -133,8 +138,6 @@
 				468264532C9B6AED006D6947 /* Preferences.swift */,
 				468264552C9B6B69006D6947 /* ScrambleModel.swift */,
 				468264572C9B6CB1006D6947 /* PolygonShape.swift */,
-				468264592C9B6CDE006D6947 /* PreferencesView.swift */,
-				4682645B2C9B6CFB006D6947 /* HintsView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				468C5C7D2C8687ED008F9E75 /* DeleteButtonView.swift in Sources */,
 				46061B8A2C8F6AE3002083F9 /* Words.swift in Sources */,
 				468C5C772C867DE2008F9E75 /* TitleTextView.swift in Sources */,
+				4664F3572C9C56FF00C9DBA3 /* FrenchWords.swift in Sources */,
 				468C5C4D2C8679CC008F9E75 /* Item.swift in Sources */,
 				468C5C492C8679CC008F9E75 /* SPEELitOUTApp.swift in Sources */,
 				468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */,
