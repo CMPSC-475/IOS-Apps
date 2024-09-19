@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46061B862C8F6302002083F9 /* ScrambleProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B852C8F6302002083F9 /* ScrambleProblem.swift */; };
 		46061B882C8F63B1002083F9 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B872C8F63B1002083F9 /* GameManager.swift */; };
 		46061B8A2C8F6AE3002083F9 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46061B892C8F6AE3002083F9 /* Words.swift */; };
+		4664F3522C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */; };
 		468264542C9B6AED006D6947 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264532C9B6AED006D6947 /* Preferences.swift */; };
 		468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264552C9B6B69006D6947 /* ScrambleModel.swift */; };
 		468264582C9B6CB1006D6947 /* PolygonShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468264572C9B6CB1006D6947 /* PolygonShape.swift */; };
@@ -29,8 +29,6 @@
 		468C5C7D2C8687ED008F9E75 /* DeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C7C2C8687ED008F9E75 /* DeleteButtonView.swift */; };
 		468C5C7F2C86881C008F9E75 /* SubmitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C7E2C86881C008F9E75 /* SubmitButtonView.swift */; };
 		468C5C812C868847008F9E75 /* ShuffleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C802C868847008F9E75 /* ShuffleButtonView.swift */; };
-		468C5C832C86887C008F9E75 /* HintsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C822C86887C008F9E75 /* HintsButtonView.swift */; };
-		468C5C852C8688B0008F9E75 /* PreferencesButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */; };
 		468C5C872C86919E008F9E75 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C5C862C86919E008F9E75 /* ScrollView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,9 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		46061B852C8F6302002083F9 /* ScrambleProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrambleProblem.swift; sourceTree = "<group>"; };
 		46061B872C8F63B1002083F9 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		46061B892C8F6AE3002083F9 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Words.swift; path = ../../../Downloads/Words.swift; sourceTree = "<group>"; };
+		4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularLetterButtonsView.swift; sourceTree = "<group>"; };
 		468264532C9B6AED006D6947 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		468264552C9B6B69006D6947 /* ScrambleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrambleModel.swift; sourceTree = "<group>"; };
 		468264572C9B6CB1006D6947 /* PolygonShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonShape.swift; sourceTree = "<group>"; };
@@ -77,8 +75,6 @@
 		468C5C7C2C8687ED008F9E75 /* DeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonView.swift; sourceTree = "<group>"; };
 		468C5C7E2C86881C008F9E75 /* SubmitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitButtonView.swift; sourceTree = "<group>"; };
 		468C5C802C868847008F9E75 /* ShuffleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleButtonView.swift; sourceTree = "<group>"; };
-		468C5C822C86887C008F9E75 /* HintsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintsButtonView.swift; sourceTree = "<group>"; };
-		468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesButtonView.swift; sourceTree = "<group>"; };
 		468C5C862C86919E008F9E75 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				468C5C4A2C8679CC008F9E75 /* ContentView.swift */,
+				4664F3512C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -132,10 +129,7 @@
 				468C5C7C2C8687ED008F9E75 /* DeleteButtonView.swift */,
 				468C5C7E2C86881C008F9E75 /* SubmitButtonView.swift */,
 				468C5C802C868847008F9E75 /* ShuffleButtonView.swift */,
-				468C5C822C86887C008F9E75 /* HintsButtonView.swift */,
-				468C5C842C8688B0008F9E75 /* PreferencesButtonView.swift */,
 				468C5C762C867DE2008F9E75 /* TitleTextView.swift */,
-				46061B852C8F6302002083F9 /* ScrambleProblem.swift */,
 				468264532C9B6AED006D6947 /* Preferences.swift */,
 				468264552C9B6B69006D6947 /* ScrambleModel.swift */,
 				468264572C9B6CB1006D6947 /* PolygonShape.swift */,
@@ -338,8 +332,8 @@
 				4682645A2C9B6CDE006D6947 /* PreferencesView.swift in Sources */,
 				468C5C792C8686FC008F9E75 /* NewGameButtonView.swift in Sources */,
 				468C5C7F2C86881C008F9E75 /* SubmitButtonView.swift in Sources */,
+				4664F3522C9C4A7200C9DBA3 /* CircularLetterButtonsView.swift in Sources */,
 				468264582C9B6CB1006D6947 /* PolygonShape.swift in Sources */,
-				468C5C832C86887C008F9E75 /* HintsButtonView.swift in Sources */,
 				46061B882C8F63B1002083F9 /* GameManager.swift in Sources */,
 				468C5C4B2C8679CC008F9E75 /* ContentView.swift in Sources */,
 				4682645C2C9B6CFB006D6947 /* HintsView.swift in Sources */,
@@ -348,13 +342,11 @@
 				468C5C7B2C86876D008F9E75 /* LetterButtonView.swift in Sources */,
 				468C5C7D2C8687ED008F9E75 /* DeleteButtonView.swift in Sources */,
 				46061B8A2C8F6AE3002083F9 /* Words.swift in Sources */,
-				468C5C852C8688B0008F9E75 /* PreferencesButtonView.swift in Sources */,
 				468C5C772C867DE2008F9E75 /* TitleTextView.swift in Sources */,
 				468C5C4D2C8679CC008F9E75 /* Item.swift in Sources */,
 				468C5C492C8679CC008F9E75 /* SPEELitOUTApp.swift in Sources */,
 				468264562C9B6B69006D6947 /* ScrambleModel.swift in Sources */,
 				468264542C9B6AED006D6947 /* Preferences.swift in Sources */,
-				46061B862C8F6302002083F9 /* ScrambleProblem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

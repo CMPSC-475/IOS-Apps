@@ -24,9 +24,21 @@ class GameManager: ObservableObject {
     
     init() {
         GameManager.loadValidWords() // Load valid words
-        self.preferences = Preferences(language: .english, letterCount: .five)
-        self.scrambleProblem = ScrambleModel(preferences: preferences)
+
+        let initialPreferences = Preferences(language: .english, letterCount: .five)
+        self.preferences = initialPreferences
+        
+        let letters = GameManager.generateRandomLetters()
+        let centerLetter = letters.first!
+
+        self.scrambleProblem = ScrambleModel(
+            preferences: initialPreferences,
+            letters: letters,
+            centerLetter: centerLetter,
+            validWords: Array(GameManager.validWords)
+        )
     }
+
     
     // MARK: - Game Logic
     

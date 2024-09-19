@@ -12,16 +12,18 @@ struct ContentView: View {
     @State private var currentWord: String = ""  // Track the current word being formed
     @ObservedObject var gameManager = GameManager()  // Observe the game manager to reflect changes
 
+    @State private var showingPreferences = false
+    @State private var showingHints = false
+
     var body: some View {
         ZStack {
-            //Color.blue
             Color.orange
             VStack {
-                HStack{
+                HStack {
                     TitleTextView()
                 }
                 .padding(.top, 0)
-                
+
                 // Header with score and new game button
                 HStack {
                     Text("Score: \(gameManager.score)") // Display the current score
@@ -29,7 +31,6 @@ struct ContentView: View {
                         .foregroundStyle(Color.white)
                     Spacer()
                     NewGameButtonView(action: {
-                        
                         gameManager.newGame()
                         currentWord = ""
                     })
@@ -50,17 +51,17 @@ struct ContentView: View {
                 }
                 .padding()
 
-                // 5 Buttons with letters from scrambleProblem
-                HStack {
-                    ForEach(gameManager.scrambleProblem.letters, id: \.self) { letter in
-                        LetterButtonView(letter: letter, currentWord: $currentWord, isValidWord: .constant(gameManager.isValidWord))
-                            .onChange(of: currentWord) {
-                                gameManager.currentWord = currentWord
-                                gameManager.checkWordValidity()
-                            }
-                    }
-                }
-                .padding()
+                // Circular layout for letter buttons
+                CircularLetterButtonsView(
+                    letters: gameManager.scrambleProblem.letters,
+                    centerLetter: gameManager.scrambleProblem.centerLetter,
+                    action: { letter in
+                        gameManager.addLetter(letter)
+                        currentWord.append(letter)
+                        gameManager.checkWordValidity()
+                    },
+                    sides: gameManager.preferences.letterCount.rawValue
+                )
 
                 // Delete and submit buttons
                 HStack {
@@ -84,13 +85,15 @@ struct ContentView: View {
                 // Shuffle, hints, and preferences buttons
                 HStack {
                     ShuffleButtonView(action: {
-                        
                         gameManager.shuffleLetters()
                     })
                     Spacer(minLength: 20)
-                    HintsButtonView()
+
+                    HintsView(isPresented: $showingHints, totalWords: $gameManager.totalWords, totalPoints: $gameManager.totalPoints, pangrams: $gameManager.pangrams, wordStats: $gameManager.wordStats)
+
                     Spacer(minLength: 20)
-                    PreferencesButtonView()
+
+                    PreferencesView(isPresented: $showingPreferences, preferences: $gameManager.preferences)
                 }
                 .padding()
             }
@@ -101,7 +104,7 @@ struct ContentView: View {
 
 #Preview {
     ZStack {
-        Color.blue
+        Color.orange
         ContentView()
     }
 }
