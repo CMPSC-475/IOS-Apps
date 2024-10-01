@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
+
+
 
 struct ContentView: View {
     @State private var selectedPuzzle = "6x10"  // Default puzzle
@@ -13,7 +16,9 @@ struct ContentView: View {
     private var puzzleOutlines: [PuzzleOutline] = loadPuzzleOutlines()  // Load the puzzle outlines
     private var pentominoOutlines: [PentominoOutline] = loadPentominoOutlines()
     @State private var pentominoPieces: [PentominoPiece] = loadPentominoOutlines().map { PentominoPiece(outline: $0) }
-
+    @State private var piecePositions: [UUID: CGPoint] = [:]  // To track positions of pieces
+    
+    
     
     var body: some View {
         VStack {
@@ -98,8 +103,17 @@ struct ContentView: View {
                         ForEach(0..<4) { column in
                             let index = row * 4 + column
                             if index < pentominoPieces.count {  // Check to avoid out of bounds
-                                PentominoView(piece: $pentominoPieces[index])
+                                let piece = pentominoPieces[index]
+                                PentominoView(piece: Binding<PentominoPiece>(
+                                    get: { pentominoPieces[index] },
+                                    set: { pentominoPieces[index] = $0 }
+                                ))
                                     .frame(width: 100, height: 100)
+                                    .onDrag {
+                                        return NSItemProvider(object: piece.id.uuidString as NSString)
+                                    }
+                                    .onDrop(of: [UTType.text], delegate: PieceDropDelegate(pieceID: piece.id, piecePositions: $piecePositions))
+                                    .position(piecePositions[piece.id] ?? CGPoint(x: 50, y: 50))  // Default position if not set
                             }
                         }
                     }
@@ -110,7 +124,22 @@ struct ContentView: View {
         .background(Color.orange)
         .edgesIgnoringSafeArea(.all)
     }
-    
+
+    // DropDelegate for handling drop actions
+    struct PieceDropDelegate: DropDelegate {
+        let pieceID: UUID
+        @Binding var piecePositions: [UUID: CGPoint]
+
+        func dropEntered(info: DropInfo) {
+            // Update the piece position as it is dragged over the drop target
+            piecePositions[pieceID] = CGPoint(x: info.location.x, y: info.location.y)
+        }
+
+        func performDrop(info: DropInfo) -> Bool {
+            return true
+        }
+    }
+
     func changePuzzle(index: Int) {
         let puzzles = ["6x10", "5x12", "OneHole", "FourNotches", "FourHoles", "13Holes", "Flower"]
         
@@ -123,7 +152,7 @@ struct ContentView: View {
         }
     }
     
-    // New function to update the puzzle solution based on the selected puzzle
+    // Function to update the puzzle solution based on the selected puzzle
     func updatePuzzleSolution(for puzzleName: String) {
         if let outline = puzzleOutlines.first(where: { $0.name == puzzleName }) {
             puzzleSolution = Array(repeating: Array(repeating: 0, count: outline.size.width), count: outline.size.height)
