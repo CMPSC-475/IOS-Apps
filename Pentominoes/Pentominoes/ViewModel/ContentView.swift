@@ -95,10 +95,10 @@ struct ContentView: View {
             VStack {
                 ForEach(0..<3) { row in
                     HStack {
-                        ForEach(0..<4) { col in
-                            let pieceIndex = row * 4 + col
-                            if pieceIndex < pentominoOutlines.count {  // Make sure index is within bounds
-                                PentominoView(pentominoOutline: pentominoOutlines[pieceIndex], pieceIndex: pieceIndex)
+                        ForEach(0..<4) { column in
+                            let index = row * 4 + column
+                            if index < pentominoPieces.count {  // Check to avoid out of bounds
+                                PentominoView(piece: $pentominoPieces[index])
                                     .frame(width: 100, height: 100)
                             }
                         }
