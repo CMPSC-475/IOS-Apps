@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		463D1B792CAC231C00293C3A /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1B782CAC231C00293C3A /* GridView.swift */; };
+		463D1B7B2CAC268200293C3A /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1B7A2CAC268200293C3A /* TestView.swift */; };
+		463D1B7D2CAC2FEE00293C3A /* PentominoOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1B7C2CAC2FEE00293C3A /* PentominoOutline.swift */; };
+		463D1B7F2CAC300800293C3A /* PentominoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1B7E2CAC300800293C3A /* PentominoLoader.swift */; };
+		463D1B812CAC37CD00293C3A /* PentominoPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1B802CAC37CD00293C3A /* PentominoPiece.swift */; };
 		91AF0BF82CA2A60E009CA4C5 /* PentominoesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AF0BF72CA2A60E009CA4C5 /* PentominoesApp.swift */; };
 		91AF0BFA2CA2A60E009CA4C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AF0BF92CA2A60E009CA4C5 /* ContentView.swift */; };
 		91AF0BFC2CA2A611009CA4C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AF0BFB2CA2A611009CA4C5 /* Assets.xcassets */; };
@@ -64,6 +69,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		463D1B782CAC231C00293C3A /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		463D1B7A2CAC268200293C3A /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		463D1B7C2CAC2FEE00293C3A /* PentominoOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PentominoOutline.swift; sourceTree = "<group>"; };
+		463D1B7E2CAC300800293C3A /* PentominoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PentominoLoader.swift; sourceTree = "<group>"; };
+		463D1B802CAC37CD00293C3A /* PentominoPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PentominoPiece.swift; sourceTree = "<group>"; };
 		91AF0BF42CA2A60E009CA4C5 /* Pentominoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pentominoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AF0BF72CA2A60E009CA4C5 /* PentominoesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PentominoesApp.swift; sourceTree = "<group>"; };
 		91AF0BF92CA2A60E009CA4C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,14 +90,14 @@
 		91AF0C272CA2A790009CA4C5 /* Solutions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Solutions.json; sourceTree = "<group>"; };
 		91AF0C282CA2A790009CA4C5 /* PentominoOutlines.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PentominoOutlines.json; sourceTree = "<group>"; };
 		91AF0C292CA2A790009CA4C5 /* PuzzleOutlines.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PuzzleOutlines.json; sourceTree = "<group>"; };
-		91AF0C2D2CA2AFCF009CA4C5 /* Board3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board3.png; sourceTree = "<group>"; };
-		91AF0C2E2CA2AFCF009CA4C5 /* Board6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board6.png; sourceTree = "<group>"; };
-		91AF0C2F2CA2AFCF009CA4C5 /* Board5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board5.png; sourceTree = "<group>"; };
-		91AF0C302CA2AFCF009CA4C5 /* Board4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board4.png; sourceTree = "<group>"; };
-		91AF0C312CA2AFD0009CA4C5 /* Board0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board0.png; sourceTree = "<group>"; };
-		91AF0C322CA2AFD0009CA4C5 /* Board2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board2.png; sourceTree = "<group>"; };
-		91AF0C332CA2AFD0009CA4C5 /* Board7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board7.png; sourceTree = "<group>"; };
-		91AF0C342CA2AFD0009CA4C5 /* Board1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Board1.png; sourceTree = "<group>"; };
+		91AF0C2D2CA2AFCF009CA4C5 /* Board3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board3.png; path = Pentominoes/Model/Board3.png; sourceTree = SOURCE_ROOT; };
+		91AF0C2E2CA2AFCF009CA4C5 /* Board6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board6.png; path = Pentominoes/Model/Board6.png; sourceTree = SOURCE_ROOT; };
+		91AF0C2F2CA2AFCF009CA4C5 /* Board5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board5.png; path = Pentominoes/Model/Board5.png; sourceTree = SOURCE_ROOT; };
+		91AF0C302CA2AFCF009CA4C5 /* Board4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board4.png; path = Pentominoes/Model/Board4.png; sourceTree = SOURCE_ROOT; };
+		91AF0C312CA2AFD0009CA4C5 /* Board0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board0.png; path = Pentominoes/Model/Board0.png; sourceTree = SOURCE_ROOT; };
+		91AF0C322CA2AFD0009CA4C5 /* Board2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board2.png; path = Pentominoes/Model/Board2.png; sourceTree = SOURCE_ROOT; };
+		91AF0C332CA2AFD0009CA4C5 /* Board7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board7.png; path = Pentominoes/Model/Board7.png; sourceTree = SOURCE_ROOT; };
+		91AF0C342CA2AFD0009CA4C5 /* Board1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Board1.png; path = Pentominoes/Model/Board1.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,9 +128,6 @@
 		463D1B752CAC1F5400293C3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				91AF0C272CA2A790009CA4C5 /* Solutions.json */,
-				91AF0C282CA2A790009CA4C5 /* PentominoOutlines.json */,
-				91AF0C292CA2A790009CA4C5 /* PuzzleOutlines.json */,
 				91AF0C312CA2AFD0009CA4C5 /* Board0.png */,
 				91AF0C342CA2AFD0009CA4C5 /* Board1.png */,
 				91AF0C322CA2AFD0009CA4C5 /* Board2.png */,
@@ -129,6 +136,10 @@
 				91AF0C2F2CA2AFCF009CA4C5 /* Board5.png */,
 				91AF0C2E2CA2AFCF009CA4C5 /* Board6.png */,
 				91AF0C332CA2AFD0009CA4C5 /* Board7.png */,
+				91AF0C272CA2A790009CA4C5 /* Solutions.json */,
+				91AF0C282CA2A790009CA4C5 /* PentominoOutlines.json */,
+				91AF0C292CA2A790009CA4C5 /* PuzzleOutlines.json */,
+				463D1B802CAC37CD00293C3A /* PentominoPiece.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +150,9 @@
 				91AF0C212CA2A71E009CA4C5 /* Grid.swift */,
 				91AF0C232CA2A741009CA4C5 /* PuzzleView.swift */,
 				91AF0C252CA2A760009CA4C5 /* PentominoView.swift */,
+				463D1B782CAC231C00293C3A /* GridView.swift */,
+				463D1B7C2CAC2FEE00293C3A /* PentominoOutline.swift */,
+				463D1B7E2CAC300800293C3A /* PentominoLoader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +194,7 @@
 				463D1B752CAC1F5400293C3A /* Model */,
 				91AF0BFB2CA2A611009CA4C5 /* Assets.xcassets */,
 				91AF0BFD2CA2A611009CA4C5 /* Preview Content */,
+				463D1B7A2CAC268200293C3A /* TestView.swift */,
 			);
 			path = Pentominoes;
 			sourceTree = "<group>";
@@ -366,10 +381,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				463D1B812CAC37CD00293C3A /* PentominoPiece.swift in Sources */,
+				463D1B7B2CAC268200293C3A /* TestView.swift in Sources */,
 				91AF0C242CA2A741009CA4C5 /* PuzzleView.swift in Sources */,
+				463D1B7F2CAC300800293C3A /* PentominoLoader.swift in Sources */,
+				463D1B7D2CAC2FEE00293C3A /* PentominoOutline.swift in Sources */,
 				91AF0BFA2CA2A60E009CA4C5 /* ContentView.swift in Sources */,
 				91AF0C262CA2A760009CA4C5 /* PentominoView.swift in Sources */,
 				91AF0BF82CA2A60E009CA4C5 /* PentominoesApp.swift in Sources */,
+				463D1B792CAC231C00293C3A /* GridView.swift in Sources */,
 				91AF0C222CA2A71E009CA4C5 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

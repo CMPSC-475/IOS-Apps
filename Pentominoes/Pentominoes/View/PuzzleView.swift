@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PuzzleView: View {
     var puzzleName: String
+    var puzzleSolution: [[Int]]  // New variable for puzzle solution
 
     // Different grid configurations based on the selected puzzle
     var puzzleConfigurations: [String: (rows: Int, cols: Int)] = [
@@ -26,23 +27,36 @@ struct PuzzleView: View {
         // Get the configuration for the selected puzzle
         let configuration = puzzleConfigurations[puzzleName] ?? (6, 10)
 
-        // Render a grid using the configuration
+        // Render the puzzle grid
         ZStack {
-            Grid(rows: configuration.rows, columns: configuration.cols)
-                .stroke(Color.black, lineWidth: 1)
-
-            // Optionally, you can fill some areas of the grid (like blocked-out areas in puzzles)
-            Rectangle()
-                .fill(Color.gray.opacity(0.5))
-                .frame(width: CGFloat(configuration.cols) * 30, height: CGFloat(configuration.rows) * 30)
+            VStack(spacing: 1) {
+                ForEach(0..<configuration.rows, id: \.self) { row in
+                    HStack(spacing: 1) {
+                        ForEach(0..<configuration.cols, id: \.self) { col in
+                            Rectangle()
+                                .fill(self.getColorForCell(row: row, col: col))
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                }
+            }
         }
-        .frame(width: CGFloat(configuration.cols) * 30, height: CGFloat(configuration.rows) * 30)  // Adjust frame size dynamically
+        .frame(width: CGFloat(configuration.cols) * 30, height: CGFloat(configuration.rows) * 30)
+    }
+    
+    // New function to determine the background color of each cell
+    func getColorForCell(row: Int, col: Int) -> Color {
+        if puzzleSolution.indices.contains(row) && puzzleSolution[row].indices.contains(col) {
+            return puzzleSolution[row][col] == 1 ? Color.blue : Color.gray.opacity(0.6)
+        } else {
+            return Color.gray.opacity(0.8)  // Default color for empty/blocked spaces
+        }
     }
 }
 
 struct PuzzleView_Previews: PreviewProvider {
     static var previews: some View {
-        PuzzleView(puzzleName: "6x10")
+        PuzzleView(puzzleName: "6x10", puzzleSolution: Array(repeating: Array(repeating: 0, count: 10), count: 6))
             .frame(width: 300, height: 180)
             .previewLayout(.sizeThatFits)
             .padding()

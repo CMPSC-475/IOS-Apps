@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedPuzzle = "6x10"  // Default puzzle
+    @State private var puzzleSolution: [[Int]] = Array(repeating: Array(repeating: 0, count: 10), count: 6)  // Default solution grid
+    private var puzzleOutlines: [PuzzleOutline] = loadPuzzleOutlines()  // Load the puzzle outlines
+    private var pentominoOutlines: [PentominoOutline] = loadPentominoOutlines()
+    @State private var pentominoPieces: [PentominoPiece] = loadPentominoOutlines().map { PentominoPiece(outline: $0) }
 
+    
     var body: some View {
         VStack {
             // Top Area: Puzzle Board and Options
@@ -20,16 +25,16 @@ struct ContentView: View {
                         Button(action: {
                             changePuzzle(index: index)
                         }) {
-                            Image("Board\(index)")
+                            Image("Board\(index)")  // Show image on the button
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 80, height: 80)  // Explicit frame size for visibility
-                                .border(Color.black, width: 1) // Add border to ensure visibility
+                                .frame(width: 80, height: 80)
+                                .border(Color.black, width: 1)
                         }
-                        .padding(.bottom, 10)  // Add spacing between buttons
+                        .padding(.bottom, 10)
                     }
                 }
-                .frame(width: 120)  // Set fixed width for the VStack to avoid collapsing
+                .frame(width: 120)
                 
                 Spacer()
 
@@ -39,7 +44,7 @@ struct ContentView: View {
                         .stroke(Color.black, lineWidth: 1)
                         .frame(width: 420, height: 420)
 
-                    PuzzleView(puzzleName: selectedPuzzle)
+                    PuzzleView(puzzleName: selectedPuzzle, puzzleSolution: puzzleSolution)
                         .frame(width: 300, height: 180)
                 }
 
@@ -51,16 +56,16 @@ struct ContentView: View {
                         Button(action: {
                             changePuzzle(index: index)
                         }) {
-                            Image("Board\(index)")
+                            Image("Board\(index)")  // Show image on the button
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 80, height: 80)  // Explicit frame size for visibility
-                                .border(Color.black, width: 1) // Add border to ensure visibility
+                                .frame(width: 80, height: 80)
+                                .border(Color.black, width: 1)
                         }
-                        .padding(.bottom, 10)  // Add spacing between buttons
+                        .padding(.bottom, 10)
                     }
                 }
-                .frame(width: 120)  // Set fixed width for the VStack to avoid collapsing
+                .frame(width: 120)
             }
             .padding()
 
@@ -92,8 +97,10 @@ struct ContentView: View {
                     HStack {
                         ForEach(0..<4) { col in
                             let pieceIndex = row * 4 + col
-                            PentominoView(pieceIndex: pieceIndex)
-                                .frame(width: 100, height: 100)
+                            if pieceIndex < pentominoOutlines.count {  // Make sure index is within bounds
+                                PentominoView(pentominoOutline: pentominoOutlines[pieceIndex], pieceIndex: pieceIndex)
+                                    .frame(width: 100, height: 100)
+                            }
                         }
                     }
                 }
@@ -106,15 +113,35 @@ struct ContentView: View {
     
     func changePuzzle(index: Int) {
         let puzzles = ["6x10", "5x12", "OneHole", "FourNotches", "FourHoles", "13Holes", "Flower"]
-        selectedPuzzle = puzzles[index]
+        
+        if index < puzzles.count {
+            selectedPuzzle = puzzles[index]
+            updatePuzzleSolution(for: selectedPuzzle)  // Update puzzle solution
+        } else {
+            selectedPuzzle = "6x10"  // Default to a valid puzzle
+            updatePuzzleSolution(for: selectedPuzzle)
+        }
     }
     
+    // New function to update the puzzle solution based on the selected puzzle
+    func updatePuzzleSolution(for puzzleName: String) {
+        if let outline = puzzleOutlines.first(where: { $0.name == puzzleName }) {
+            puzzleSolution = Array(repeating: Array(repeating: 0, count: outline.size.width), count: outline.size.height)
+            // Additional logic to fill puzzleSolution based on outlines could be added here
+        }
+    }
+
     func resetGame() {
-        // Logic to reset the game
+        changePuzzle(index: 0)  // Reset to the first puzzle
     }
 
     func solveGame() {
-        // Logic to solve the game
+        // Simulate solving the game by filling some cells in the grid
+        for row in 0..<puzzleSolution.count {
+            for col in 0..<puzzleSolution[row].count {
+                puzzleSolution[row][col] = Int.random(in: 0...1)  // Random 0 or 1
+            }
+        }
     }
 }
 
