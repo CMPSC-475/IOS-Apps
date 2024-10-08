@@ -14,7 +14,8 @@ struct BuildingSelectionView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.buildings) { building in
+                // Sort buildings alphabetically by name
+                ForEach(viewModel.buildings.sorted(by: { $0.name < $1.name })) { building in
                     HStack {
                         Toggle(isOn: Binding<Bool>(
                             get: { building.isSelected },
@@ -25,14 +26,13 @@ struct BuildingSelectionView: View {
 
                         Spacer()
 
-
                         Button(action: {
                             viewModel.toggleFavoriteStatus(building)
                         }) {
                             Image(systemName: building.isFavorited ? "heart.fill" : "heart")
                                 .foregroundColor(building.isFavorited ? .red : .gray)
                         }
-                        .buttonStyle(BorderlessButtonStyle()) 
+                        .buttonStyle(BorderlessButtonStyle())
                     }
                 }
             }
@@ -43,4 +43,3 @@ struct BuildingSelectionView: View {
         }
     }
 }
-
