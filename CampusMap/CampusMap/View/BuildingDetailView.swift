@@ -11,6 +11,7 @@ import SwiftUI
 struct BuildingDetailView: View {
     var building: Building
     @ObservedObject var viewModel: BuildingViewModel
+    @Environment(\.dismiss) var dismiss 
 
     var body: some View {
         VStack {
@@ -28,6 +29,13 @@ struct BuildingDetailView: View {
                 Label(building.isFavorited ? "Unfavorite" : "Favorite", systemImage: building.isFavorited ? "heart.fill" : "heart")
             }
             .padding()
+            
+
+            Button("Dismiss") {
+                dismiss()
+            }
+            .padding()
+            .foregroundColor(.blue)
         }
     }
 }

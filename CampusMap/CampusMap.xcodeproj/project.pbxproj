@@ -14,12 +14,12 @@
 		462B9A312CB30992009B7713 /* CampusMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A302CB30992009B7713 /* CampusMapTests.swift */; };
 		462B9A3B2CB30992009B7713 /* CampusMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A3A2CB30992009B7713 /* CampusMapUITests.swift */; };
 		462B9A3D2CB30992009B7713 /* CampusMapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A3C2CB30992009B7713 /* CampusMapUITestsLaunchTests.swift */; };
-		462B9A4A2CB30A17009B7713 /* buildings.json in Resources */ = {isa = PBXBuildFile; fileRef = 462B9A492CB30A17009B7713 /* buildings.json */; };
 		462B9A4C2CB313DA009B7713 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A4B2CB313DA009B7713 /* Building.swift */; };
 		462B9A4E2CB31411009B7713 /* BuildingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A4D2CB31411009B7713 /* BuildingViewModel.swift */; };
 		462B9A502CB31442009B7713 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A4F2CB31442009B7713 /* MapView.swift */; };
 		462B9A522CB3145A009B7713 /* BuildingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A512CB3145A009B7713 /* BuildingDetailView.swift */; };
 		462B9A542CB3146B009B7713 /* BuildingSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */; };
+		4669DD1C2CB4818D00A2AD67 /* buildings.json in Resources */ = {isa = PBXBuildFile; fileRef = 4669DD1B2CB4818D00A2AD67 /* buildings.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,12 +50,12 @@
 		462B9A362CB30992009B7713 /* CampusMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampusMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		462B9A3A2CB30992009B7713 /* CampusMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapUITests.swift; sourceTree = "<group>"; };
 		462B9A3C2CB30992009B7713 /* CampusMapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		462B9A492CB30A17009B7713 /* buildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = buildings.json; path = "../../../Downloads/Assignment 6/buildings.json"; sourceTree = "<group>"; };
 		462B9A4B2CB313DA009B7713 /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
 		462B9A4D2CB31411009B7713 /* BuildingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingViewModel.swift; sourceTree = "<group>"; };
 		462B9A4F2CB31442009B7713 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		462B9A512CB3145A009B7713 /* BuildingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingDetailView.swift; sourceTree = "<group>"; };
 		462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingSelectionView.swift; sourceTree = "<group>"; };
+		4669DD1B2CB4818D00A2AD67 /* buildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = buildings.json; path = CampusMap/buildings.json; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,16 +106,14 @@
 		462B9A1C2CB3098F009B7713 /* CampusMap */ = {
 			isa = PBXGroup;
 			children = (
-				462B9A492CB30A17009B7713 /* buildings.json */,
+				462B9A592CB3192C009B7713 /* View */,
+				462B9A572CB3190D009B7713 /* View Model */,
+				462B9A562CB318F0009B7713 /* Model */,
 				462B9A1D2CB3098F009B7713 /* CampusMapApp.swift */,
-				462B9A4B2CB313DA009B7713 /* Building.swift */,
 				462B9A212CB3098F009B7713 /* Item.swift */,
+				4669DD1B2CB4818D00A2AD67 /* buildings.json */,
 				462B9A232CB30991009B7713 /* Assets.xcassets */,
 				462B9A252CB30991009B7713 /* Preview Content */,
-				462B9A4D2CB31411009B7713 /* BuildingViewModel.swift */,
-				462B9A4F2CB31442009B7713 /* MapView.swift */,
-				462B9A512CB3145A009B7713 /* BuildingDetailView.swift */,
-				462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */,
 			);
 			path = CampusMap;
 			sourceTree = "<group>";
@@ -143,6 +141,32 @@
 				462B9A3C2CB30992009B7713 /* CampusMapUITestsLaunchTests.swift */,
 			);
 			path = CampusMapUITests;
+			sourceTree = "<group>";
+		};
+		462B9A562CB318F0009B7713 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				462B9A4B2CB313DA009B7713 /* Building.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		462B9A572CB3190D009B7713 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				462B9A4D2CB31411009B7713 /* BuildingViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		462B9A592CB3192C009B7713 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				462B9A4F2CB31442009B7713 /* MapView.swift */,
+				462B9A512CB3145A009B7713 /* BuildingDetailView.swift */,
+				462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				462B9A272CB30991009B7713 /* Preview Assets.xcassets in Resources */,
-				462B9A4A2CB30A17009B7713 /* buildings.json in Resources */,
+				4669DD1C2CB4818D00A2AD67 /* buildings.json in Resources */,
 				462B9A242CB30991009B7713 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

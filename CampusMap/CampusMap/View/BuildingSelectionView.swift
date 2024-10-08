@@ -22,11 +22,17 @@ struct BuildingSelectionView: View {
                         )) {
                             Text(building.name)
                         }
-                        
-                        if building.isFavorited {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
+
+                        Spacer()
+
+
+                        Button(action: {
+                            viewModel.toggleFavoriteStatus(building)
+                        }) {
+                            Image(systemName: building.isFavorited ? "heart.fill" : "heart")
+                                .foregroundColor(building.isFavorited ? .red : .gray)
                         }
+                        .buttonStyle(BorderlessButtonStyle()) 
                     }
                 }
             }
@@ -37,3 +43,4 @@ struct BuildingSelectionView: View {
         }
     }
 }
+
