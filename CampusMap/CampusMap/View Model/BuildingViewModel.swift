@@ -11,14 +11,13 @@ import MapKit
 class BuildingViewModel: ObservableObject {
     @Published var buildings: [Building] = []
     @Published var selectedBuildings: [Building] = []
-    @Published var displayedBuildings: [Building] = []
     @Published var region: MKCoordinateRegion
     @Published var showingDetail: Bool = false
     @Published var selectedBuilding: Building?
-    @Published var showingFavorites: Bool = false
-    
+    @Published var showingFavorites: Bool = false // Track if favorites are being shown
+
     private let userDefaultsKey = "selectedBuildings"
-    
+
     init() {
         self.region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 40.798214, longitude: -77.859909),
@@ -27,43 +26,39 @@ class BuildingViewModel: ObservableObject {
         
         loadBuildings()
         loadPersistedData()
-
-        self.displayedBuildings = selectedBuildings
     }
     
     // Load buildings from buildings.json
     func loadBuildings() {
-            if let url = Bundle.main.url(forResource: "buildings", withExtension: "json") {
-                if let data = try? Data(contentsOf: url) {
-                    let decoder = JSONDecoder()
-                    do {
-                        buildings = try decoder.decode([Building].self, from: data)
-                    } catch {
-                        print("Error decoding JSON: \(error)")
-                    }
+        if let url = Bundle.main.url(forResource: "buildings", withExtension: "json") {
+            if let data = try? Data(contentsOf: url) {
+                let decoder = JSONDecoder()
+                do {
+                    buildings = try decoder.decode([Building].self, from: data)
+                } catch {
+                    print("Error decoding JSON: \(error)")
                 }
             }
         }
-
-
-    func toggleFavoriteDisplay() {
-        if showingFavorites {
-
-            displayedBuildings = selectedBuildings
-        } else {
-
-            displayedBuildings = buildings.filter { $0.isFavorited }
-        }
-        showingFavorites.toggle()
+    }
+    
+    // Get displayed buildings based on current state
+    var displayedBuildings: [Building] {
+        showingFavorites ? buildings.filter { $0.isFavorited } : selectedBuildings
     }
 
+    // Toggle the display mode between showing selected and favorited buildings
+    func toggleFavoriteDisplay() {
+        showingFavorites.toggle()
+        updateSelectedBuildings() // Update the selected buildings based on current selection
+    }
 
+    // Deselect all buildings
     func deselectAllBuildings() {
         for index in buildings.indices {
             buildings[index].isSelected = false
         }
         selectedBuildings.removeAll()
-        displayedBuildings = selectedBuildings
     }
     
     func toggleBuildingSelection(_ building: Building) {
@@ -75,9 +70,9 @@ class BuildingViewModel: ObservableObject {
 
     func updateSelectedBuildings() {
         selectedBuildings = buildings.filter { $0.isSelected }
-        displayedBuildings = selectedBuildings 
         persistSelectedBuildings()
     }
+    
 
     func toggleFavoriteStatus(_ building: Building) {
         if let index = buildings.firstIndex(where: { $0.opp_bldg_code == building.opp_bldg_code }) {
