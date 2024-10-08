@@ -34,8 +34,9 @@ struct BuildingDetailView: View {
                 .font(.title)
             
             if let year = building.year_constructed {
-                Text("Year of Construction \(year)")
-                    .font(.subheadline)
+                Text("Year of Construction : \(year)")
+                    .font(.headline)
+                    .padding()
             }
             
             Button(action: {

@@ -77,9 +77,10 @@ class BuildingViewModel: ObservableObject {
     
     func toggleFavoriteStatus(_ building: Building) {
         if let index = buildings.firstIndex(where: { $0.opp_bldg_code == building.opp_bldg_code }) {
+
             buildings[index].isFavorited.toggle()
             persistFavoriteBuildings()
-            objectWillChange.send()
+
         }
     }
 
@@ -114,3 +115,4 @@ class BuildingViewModel: ObservableObject {
         }
     }
 }
+
