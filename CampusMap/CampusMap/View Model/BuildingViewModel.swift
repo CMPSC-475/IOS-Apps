@@ -14,9 +14,10 @@ class BuildingViewModel: ObservableObject {
     @Published var region: MKCoordinateRegion
     @Published var showingDetail: Bool = false
     @Published var selectedBuilding: Building?
-    @Published var showingFavorites: Bool = false // Track if favorites are being shown
+    @Published var showingFavorites: Bool = false
 
     private let userDefaultsKey = "selectedBuildings"
+    private let favoritesUserDefaultsKey = "favoritedBuildings"
 
     init() {
         self.region = MKCoordinateRegion(
@@ -26,6 +27,7 @@ class BuildingViewModel: ObservableObject {
         
         loadBuildings()
         loadPersistedData()
+        loadPersistedFavorites() // Load previously favorited buildings
     }
     
     // Load buildings from buildings.json
@@ -47,10 +49,10 @@ class BuildingViewModel: ObservableObject {
         showingFavorites ? buildings.filter { $0.isFavorited } : selectedBuildings
     }
 
-    // Toggle the display mode between showing selected and favorited buildings
+
     func toggleFavoriteDisplay() {
         showingFavorites.toggle()
-        updateSelectedBuildings() // Update the selected buildings based on current selection
+        updateSelectedBuildings()
     }
 
     // Deselect all buildings
@@ -73,10 +75,10 @@ class BuildingViewModel: ObservableObject {
         persistSelectedBuildings()
     }
     
-
     func toggleFavoriteStatus(_ building: Building) {
         if let index = buildings.firstIndex(where: { $0.opp_bldg_code == building.opp_bldg_code }) {
             buildings[index].isFavorited.toggle()
+            persistFavoriteBuildings()
             objectWillChange.send()
         }
     }
@@ -84,6 +86,11 @@ class BuildingViewModel: ObservableObject {
     func persistSelectedBuildings() {
         let selectedCodes = selectedBuildings.map { $0.opp_bldg_code }
         UserDefaults.standard.set(selectedCodes, forKey: userDefaultsKey)
+    }
+
+    func persistFavoriteBuildings() {
+        let favoritedCodes = buildings.filter { $0.isFavorited }.map { $0.opp_bldg_code }
+        UserDefaults.standard.set(favoritedCodes, forKey: favoritesUserDefaultsKey)
     }
 
     func loadPersistedData() {
@@ -94,6 +101,16 @@ class BuildingViewModel: ObservableObject {
                 return mutableBuilding
             }
             updateSelectedBuildings()
+        }
+    }
+
+    func loadPersistedFavorites() {
+        if let favoritedCodes = UserDefaults.standard.array(forKey: favoritesUserDefaultsKey) as? [Int] {
+            buildings = buildings.map { building in
+                var mutableBuilding = building
+                mutableBuilding.isFavorited = favoritedCodes.contains(building.opp_bldg_code)
+                return mutableBuilding
+            }
         }
     }
 }
