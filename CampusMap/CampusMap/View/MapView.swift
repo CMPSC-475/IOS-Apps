@@ -7,9 +7,32 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
+
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private var locationManager = CLLocationManager()
+    
+    @Published var location: CLLocationCoordinate2D? = nil
+
+    override init() {
+        super.init()
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let newLocation = locations.last?.coordinate {
+            location = newLocation
+            //have to change from the defaut to current
+        }
+    }
+}
 
 struct MapView: View {
     @ObservedObject var viewModel = BuildingViewModel()
+    @StateObject private var locationManager = LocationManager()
+    @State private var isCenteredOnUser = false
 
     var body: some View {
         VStack {
@@ -29,20 +52,29 @@ struct MapView: View {
                     }
                 }
             }
+            .onAppear {
+                if let userLocation = locationManager.location {
+                    viewModel.region.center = userLocation
+                }
+            }
             .edgesIgnoringSafeArea(.all)
-
+            
             HStack {
                 Spacer(minLength: 0.1)
+
                 Button(action: {
-                    viewModel.toggleFavoriteDisplay()
+                    if let userLocation = locationManager.location {
+                        viewModel.region.center = userLocation
+                        isCenteredOnUser = true
+                    }
                 }) {
-                    Image(systemName: viewModel.showingFavorites ? "heart.fill" : "heart")
-                        .foregroundColor(viewModel.showingFavorites ? .red : .gray)
+                    Image(systemName: "location.fill")
+                        .foregroundColor(.blue)
                         .font(.title)
                 }
+                .disabled(isCenteredOnUser)
 
                 Spacer()
-                
 
                 Button("Select Buildings") {
                     viewModel.showingDetail = true
@@ -62,7 +94,6 @@ struct MapView: View {
                         .font(.title)
                 }
                 Spacer()
-                
             }
 
             .sheet(item: $viewModel.selectedBuilding) { building in
@@ -71,6 +102,7 @@ struct MapView: View {
         }
     }
 }
+
 
 #Preview {
     MapView()

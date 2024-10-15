@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4611F1062CBDAABD0077B7BE /* RouteDirectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */; };
 		462B9A1E2CB3098F009B7713 /* CampusMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A1D2CB3098F009B7713 /* CampusMapApp.swift */; };
 		462B9A222CB3098F009B7713 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A212CB3098F009B7713 /* Item.swift */; };
 		462B9A242CB30991009B7713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 462B9A232CB30991009B7713 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDirectionsView.swift; sourceTree = "<group>"; };
 		462B9A1A2CB3098F009B7713 /* CampusMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampusMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		462B9A1D2CB3098F009B7713 /* CampusMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapApp.swift; sourceTree = "<group>"; };
 		462B9A212CB3098F009B7713 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				462B9A4F2CB31442009B7713 /* MapView.swift */,
+				4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */,
 				462B9A512CB3145A009B7713 /* BuildingDetailView.swift */,
 				462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */,
 			);
@@ -306,6 +309,7 @@
 				462B9A522CB3145A009B7713 /* BuildingDetailView.swift in Sources */,
 				462B9A542CB3146B009B7713 /* BuildingSelectionView.swift in Sources */,
 				462B9A1E2CB3098F009B7713 /* CampusMapApp.swift in Sources */,
+				4611F1062CBDAABD0077B7BE /* RouteDirectionsView.swift in Sources */,
 				462B9A4C2CB313DA009B7713 /* Building.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,10 +399,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show it on the map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map.";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -452,10 +459,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show it on the map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map.";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;

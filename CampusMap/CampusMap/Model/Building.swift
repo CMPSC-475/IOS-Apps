@@ -21,16 +21,20 @@ struct Building: Codable, Identifiable {
     let photo: String?
     var isSelected: Bool = false
     var isFavorited: Bool = false
-    
+    var isRouteStart: Bool = false
+    var isRouteEnd: Bool = false
 
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
     
-    private enum CodingKeys: String, CodingKey{
-        case name,latitude,longitude,opp_bldg_code,year_constructed,photo
+    private enum CodingKeys: String, CodingKey {
+        case name, latitude, longitude, opp_bldg_code, year_constructed, photo
     }
-    
 }
 
 

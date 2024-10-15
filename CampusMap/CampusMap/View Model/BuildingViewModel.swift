@@ -7,30 +7,71 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
-class BuildingViewModel: ObservableObject {
+class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var buildings: [Building] = []
     @Published var selectedBuildings: [Building] = []
     @Published var region: MKCoordinateRegion
     @Published var showingDetail: Bool = false
     @Published var selectedBuilding: Building?
     @Published var showingFavorites: Bool = false
+    @Published var showingRoute: Bool = false
+    @Published var route: MKRoute?
+    @Published var routeSteps: [MKRoute.Step] = []
+    @Published var currentStepIndex: Int = 0
+    @Published var expectedTravelTime: TimeInterval = 0
+    @Published var isMapCentered: Bool = false
+    @Published var isCenterButtonDisabled: Bool = false
+    @Published var routeStart: CLLocationCoordinate2D?
+    @Published var routeEnd: CLLocationCoordinate2D?
+    @Published var selectedFilter: BuildingFilter = .all
+    @Published var userLocation: CLLocationCoordinate2D?
+    @Published var mapCenter: CLLocationCoordinate2D?
 
     private let userDefaultsKey = "selectedBuildings"
     private let favoritesUserDefaultsKey = "favoritedBuildings"
 
-    init() {
+    // Location Manager
+    private var locationManager: CLLocationManager?
+
+    override init() {
         self.region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 40.798214, longitude: -77.859909),
             span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         )
-        
+        self.locationManager = CLLocationManager()
+        super.init()
+
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.startUpdatingLocation()
+
         loadBuildings()
         loadPersistedData()
-        loadPersistedFavorites() // Load previously favorited buildings
+        loadPersistedFavorites()
     }
-    
-    // Load buildings from buildings.json
+
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let location = locations.last else { return }
+        userLocation = location.coordinate
+        if mapCenter == nil {
+            mapCenter = location.coordinate
+        }
+        if isMapCentered {
+            region.center = location.coordinate
+        }
+    }   
+
+
+    func mapViewDidChangeVisibleRegion() {
+        isCenterButtonDisabled = false
+        isMapCentered = false
+    }
+
     func loadBuildings() {
         if let url = Bundle.main.url(forResource: "buildings", withExtension: "json") {
             if let data = try? Data(contentsOf: url) {
@@ -43,26 +84,43 @@ class BuildingViewModel: ObservableObject {
             }
         }
     }
-    
-    // Get displayed buildings based on current state
+
+
     var displayedBuildings: [Building] {
-        showingFavorites ? buildings.filter { $0.isFavorited } : selectedBuildings
+        switch selectedFilter {
+        case .all:
+            return buildings
+        case .favorited:
+            return buildings.filter { $0.isFavorited }
+        case .selected:
+            return selectedBuildings
+        case .nearby:
+            return nearbyBuildings(maxDistance: 500)
+        }
     }
 
+
+    func nearbyBuildings(maxDistance: Double) -> [Building] {
+        guard let userLocation = locationManager?.location else { return [] }
+        return buildings.filter { building in
+            let buildingLocation = CLLocation(latitude: building.latitude, longitude: building.longitude)
+            return userLocation.distance(from: buildingLocation) <= maxDistance
+        }
+    }
 
     func toggleFavoriteDisplay() {
         showingFavorites.toggle()
         updateSelectedBuildings()
     }
 
-    // Deselect all buildings
     func deselectAllBuildings() {
         for index in buildings.indices {
             buildings[index].isSelected = false
         }
         selectedBuildings.removeAll()
+        persistSelectedBuildings()
     }
-    
+
     func toggleBuildingSelection(_ building: Building) {
         if let index = buildings.firstIndex(where: { $0.opp_bldg_code == building.opp_bldg_code }) {
             buildings[index].isSelected.toggle()
@@ -74,13 +132,11 @@ class BuildingViewModel: ObservableObject {
         selectedBuildings = buildings.filter { $0.isSelected }
         persistSelectedBuildings()
     }
-    
+
     func toggleFavoriteStatus(_ building: Building) {
         if let index = buildings.firstIndex(where: { $0.opp_bldg_code == building.opp_bldg_code }) {
-
             buildings[index].isFavorited.toggle()
             persistFavoriteBuildings()
-
         }
     }
 
@@ -114,5 +170,46 @@ class BuildingViewModel: ObservableObject {
             }
         }
     }
+
+    func calculateRoute() {
+        guard let start = routeStart, let end = routeEnd else { return }
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
+        request.transportType = .walking
+
+        let directions = MKDirections(request: request)
+        directions.calculate { [weak self] response, error in
+            if let route = response?.routes.first {
+                DispatchQueue.main.async {
+                    self?.route = route
+                    self?.routeSteps = route.steps.filter { !$0.instructions.isEmpty }
+                    self?.expectedTravelTime = route.expectedTravelTime
+                    self?.currentStepIndex = 0
+                    self?.showingRoute = true
+                }
+            } else {
+                print("Error calculating route: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
+
+
+    func setRoutePoint(_ coordinate: CLLocationCoordinate2D, asStart: Bool) {
+        if asStart {
+            routeStart = coordinate
+        } else {
+            routeEnd = coordinate
+        }
+        if routeStart != nil && routeEnd != nil {
+            calculateRoute()
+        }
+    }
 }
 
+enum BuildingFilter: String, CaseIterable {
+    case all = "All"
+    case favorited = "Favorited"
+    case selected = "Selected"
+    case nearby = "Nearby"
+}

@@ -5,17 +5,23 @@
 //  Created by Hirpara, Nandan Ashvinbhai on 10/6/24.
 //
 
-import Foundation
 import SwiftUI
 
 struct BuildingSelectionView: View {
     @ObservedObject var viewModel: BuildingViewModel
-    
+
     var body: some View {
         NavigationView {
             List {
-                // Sort buildings alphabetically by name
-                ForEach(viewModel.buildings.sorted(by: { $0.name < $1.name })) { building in
+                Picker("Filter", selection: $viewModel.selectedFilter) {
+                    ForEach(BuildingFilter.allCases, id: \.self) { filter in
+                        Text(filter.rawValue).tag(filter)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+
+                ForEach(viewModel.displayedBuildings.sorted(by: { $0.name < $1.name })) { building in
                     HStack {
                         Toggle(isOn: Binding<Bool>(
                             get: { building.isSelected },

@@ -5,53 +5,47 @@
 //  Created by Hirpara, Nandan Ashvinbhai on 10/6/24.
 //
 
-import Foundation
 import SwiftUI
 
 struct BuildingDetailView: View {
     var building: Building
     @ObservedObject var viewModel: BuildingViewModel
     @Environment(\.dismiss) var dismiss
-
     var body: some View {
         VStack {
-
-            if let photoName = building.photo, let uiImage = UIImage(named: photoName) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 200) 
-                    .clipped()
-            } else {
-
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(height: 200) 
-                    .overlay(Text("No Image Available").foregroundColor(.white))
-            }
-            
             Text(building.name)
-                .font(.title)
-            
-            if let year = building.year_constructed {
-                Text("Year of Construction : \(year)")
-                    .font(.headline)
-                    .padding()
+                .font(.largeTitle)
+                .padding()
+
+            if let photo = building.photo {
+                Image(photo)
+                    .resizable()
+                    .scaledToFit()
             }
-            
-            Button(action: {
-                viewModel.toggleFavoriteStatus(building)
-            }) {
-                Label(building.isFavorited ? "Unfavorite" : "Favorite", systemImage: building.isFavorited ? "heart.fill" : "heart")
+
+            Text("Year Constructed: \(building.year_constructed ?? 0)")
+                .padding()
+
+            HStack {
+                Button("Set as Start") {
+                    viewModel.setRoutePoint(building.coordinate, asStart: true)
+                    viewModel.showingRoute = true
+                }
+                .padding()
+
+                Button("Set as End") {
+                    viewModel.setRoutePoint(building.coordinate, asStart: false)
+                    viewModel.showingRoute = true
+                }
+                .padding()
+                
+                Button("Dismiss") {
+                                dismiss()
+                            }
+                            .padding()
+                            .foregroundColor(.blue)
             }
-            .padding()
-            
-            Button("Dismiss") {
-                dismiss()
-            }
-            .padding()
-            .foregroundColor(.blue)
         }
-        .padding()
+        .navigationBarTitle("Building Details", displayMode: .inline)
     }
 }
