@@ -23,7 +23,7 @@ struct Building: Codable, Identifiable {
     var isFavorited: Bool = false
     var isRouteStart: Bool = false
     var isRouteEnd: Bool = false
-
+    var isDisplayedOnMap: Bool = false
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }

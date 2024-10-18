@@ -173,6 +173,7 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func calculateRoute() {
         guard let start = routeStart, let end = routeEnd else { return }
+
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))

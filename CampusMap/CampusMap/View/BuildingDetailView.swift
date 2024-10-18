@@ -45,6 +45,27 @@ struct BuildingDetailView: View {
                             .padding()
                             .foregroundColor(.blue)
             }
+            
+            HStack {
+
+                Button("Set Current Location as Start") {
+                    if let userLocation = viewModel.userLocation {
+                        viewModel.setRoutePoint(userLocation, asStart: true)
+                    }
+                }
+                
+                .padding()
+
+                Button("Set Current Location as End") {
+                    if let userLocation = viewModel.userLocation {
+                        viewModel.setRoutePoint(userLocation, asStart: false)
+                    }
+                }
+
+
+                .padding()
+                .foregroundColor(.blue)
+            }
         }
         .navigationBarTitle("Building Details", displayMode: .inline)
     }
