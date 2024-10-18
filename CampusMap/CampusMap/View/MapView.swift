@@ -13,7 +13,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     
     @Published var location: CLLocationCoordinate2D? = nil
-
+    
     override init() {
         super.init()
         self.locationManager.delegate = self
@@ -24,10 +24,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let newLocation = locations.last?.coordinate {
             location = newLocation
-            //have to change from the defaut to current
         }
     }
 }
+
 
 struct MapView: View {
     @ObservedObject var viewModel = BuildingViewModel()
@@ -36,7 +36,7 @@ struct MapView: View {
 
     var body: some View {
         VStack {
-            Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.displayedBuildings) { building in
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: viewModel.displayedBuildings) { building in
                 MapAnnotation(coordinate: building.coordinate) {
                     VStack {
                         Circle()
