@@ -25,7 +25,7 @@ struct CampusMapApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MapView()
+            MapView(viewModel: BuildingViewModel())
         }
         .modelContainer(sharedModelContainer)
     }

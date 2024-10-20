@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import Combine
 
 class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var buildings: [Building] = []
@@ -29,6 +30,9 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var mapCenter: CLLocationCoordinate2D?
     @Published var shouldDisplayBuildings: Bool = false
+    
+    var mapView: MKMapView?
+    
     private let userDefaultsKey = "selectedBuildings"
     private let favoritesUserDefaultsKey = "favoritedBuildings"
 

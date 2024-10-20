@@ -7,9 +7,49 @@
 
 import SwiftUI
 
-struct BuildingSelectionView: View {
+struct BuildingSelectionViewController: UIViewControllerRepresentable {
     @ObservedObject var viewModel: BuildingViewModel
 
+    func makeUIViewController(context: Context) -> UIHostingController<BuildingSelectionView> {
+        let hostingController = UIHostingController(rootView: BuildingSelectionView(viewModel: viewModel, onDone: {
+            context.coordinator.dismissViewController()
+        }))
+        hostingController.view.backgroundColor = .white // Set a background color if needed
+        return hostingController
+    }
+
+    func updateUIViewController(_ uiViewController: UIHostingController<BuildingSelectionView>, context: Context) {
+        // Update the root view with the latest view model
+        uiViewController.rootView = BuildingSelectionView(viewModel: viewModel, onDone: {
+            context.coordinator.dismissViewController()
+        })
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject {
+        var parent: BuildingSelectionViewController
+
+        init(_ parent: BuildingSelectionViewController) {
+            self.parent = parent
+        }
+
+        func dismissViewController() {
+            // Get the current UIViewController that presented this view
+            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                rootViewController.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+
+struct BuildingSelectionView: View {
+    @ObservedObject var viewModel: BuildingViewModel
+    var onDone: () -> Void
+    
     var body: some View {
         NavigationView {
             List {
@@ -44,7 +84,8 @@ struct BuildingSelectionView: View {
             }
             .navigationBarTitle("Select Buildings", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") {
-                viewModel.showingDetail = false
+                //viewModel.showingDetail = false
+                onDone()
             })
         }
     }

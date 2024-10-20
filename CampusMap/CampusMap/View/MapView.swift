@@ -28,106 +28,141 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 }
 
-
-struct MapView: View {
-    @ObservedObject var viewModel = BuildingViewModel()
+struct MapView: UIViewControllerRepresentable {
+    @ObservedObject var viewModel: BuildingViewModel
     @StateObject private var locationManager = LocationManager()
-    @State private var isCenteredOnUser = false
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
 
-    var body: some View {
-        VStack {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: viewModel.displayedBuildings) { building in
-                MapAnnotation(coordinate: building.coordinate) {
-                    VStack {
-                        Circle()
-                            .fill(building.isFavorited ? Color.red : Color.blue)
-                            .frame(width: 30, height: 30)
-                            .onTapGesture {
-                                viewModel.selectedBuilding = building
-                            }
+    func makeUIViewController(context: Context) -> UIViewController {
+        let viewController = UIViewController()
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        
+        viewController.view.addSubview(mapView)
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor)
+        ])
+        
+        // Set up buttons
+        let selectButton = UIButton(type: .system)
+        selectButton.setTitle("Select Buildings", for: .normal)
+        selectButton.addTarget(context.coordinator, action: #selector(Coordinator.selectBuildings), for: .touchUpInside)
 
-                        Text(building.name)
-                            .font(.caption)
-                            .foregroundColor(.black)
-                    }
-                }
+        let centerButton = UIButton(type: .system)
+        centerButton.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        centerButton.addTarget(context.coordinator, action: #selector(Coordinator.centerOnUser), for: .touchUpInside)
+        
+        let toggleVisibilityButton = UIButton(type: .system)
+        toggleVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        toggleVisibilityButton.addTarget(context.coordinator, action: #selector(Coordinator.toggleVisibility), for: .touchUpInside)
+
+        let deselectButton = UIButton(type: .system)
+        deselectButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        deselectButton.addTarget(context.coordinator, action: #selector(Coordinator.deselectAll), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        viewController.view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor)
+        ])
+        
+        // Store the mapView in the view model
+        context.coordinator.mapView = mapView
+        
+        return viewController
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        if let mapView = context.coordinator.mapView {
+            if let userLocation = locationManager.location {
+                let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                mapView.setRegion(region, animated: true)
             }
-            .onAppear {
-                if let userLocation = locationManager.location {
-                    viewModel.region.center = userLocation
-                }
-            }
-            .edgesIgnoringSafeArea(.all)
             
-            HStack{
-                Button("Select Buildings") {
-                    viewModel.showingDetail = true
-                }
-                .font(.title)
-                .sheet(isPresented: $viewModel.showingDetail) {
-                    BuildingSelectionView(viewModel: viewModel)
-                }
+            // Update annotations based on the displayed buildings
+            mapView.removeAnnotations(mapView.annotations)
+            let annotations = viewModel.displayedBuildings.map { building in
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = building.coordinate
+                annotation.title = building.name
+                return annotation
             }
+            mapView.addAnnotations(annotations)
+        }
+    }
+
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: MapView
+        var mapView: MKMapView?
+
+        init(_ parent: MapView) {
+            self.parent = parent
+        }
+
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            guard let annotationTitle = view.annotation?.title else { return }
+            if let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
+                parent.viewModel.selectedBuilding = building
+                showBuildingDetail(for: building)
+            }
+        }
+
+        func showBuildingDetail(for building: Building) {
+            let buildingDetailView = BuildingDetailView(building: building, viewModel: parent.viewModel)
             
+            // Present the BuildingDetailView
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                if let rootViewController = scene.windows.first?.rootViewController {
+                    let hostingController = UIHostingController(rootView: buildingDetailView)
+                    rootViewController.present(hostingController, animated: true)
+                }
+            }
+        }
 
-            Spacer()
+        @objc func selectBuildings() {
+            let buildingSelectionViewController = BuildingSelectionViewController(viewModel: parent.viewModel)
             
-            HStack {
-                Spacer(minLength: 0.1)
-
-                Button(action: {
-                    if let userLocation = locationManager.location {
-                        viewModel.region.center = userLocation
-                        isCenteredOnUser = true
-                    }
-                }) {
-                    Image(systemName: "location.fill")
-                        .foregroundColor(.blue)
-                        .font(.title)
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                if let rootViewController = scene.windows.first?.rootViewController {
+                    let hostingController = UIHostingController(rootView: buildingSelectionViewController)
+                    rootViewController.present(hostingController, animated: true)
                 }
-                .disabled(isCenteredOnUser)
-
-                Spacer()
-                Spacer()
-                
-                Button(action: {
-                    if viewModel.displayedBuildings.isEmpty {
-                        viewModel.showAllBuildings()
-                    } else {
-                        viewModel.hideDisplayedBuildings()
-                    }
-                }) {
-                    Image(systemName: viewModel.displayedBuildings.isEmpty ? "eye" : "eye.slash")
-                        .font(.caption)
-                        .frame(width: 12, height: 12)
-                        .padding()
-                        .background(viewModel.displayedBuildings.isEmpty ? Color.green : Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                
-                Spacer()
-                Spacer()
-
-                Button(action: {
-                    viewModel.deselectAllBuildings()
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .foregroundColor(.blue)
-                        .font(.title)
-                }
-                Spacer()
-
             }
+        }
 
-            .sheet(item: $viewModel.selectedBuilding) { building in
-                BuildingDetailView(building: building, viewModel: viewModel)
+        @objc func centerOnUser() {
+            if let userLocation = parent.locationManager.location {
+                let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                mapView?.setRegion(region, animated: true)
             }
+        }
+
+        @objc func toggleVisibility() {
+            if parent.viewModel.displayedBuildings.isEmpty {
+                parent.viewModel.showAllBuildings()
+            } else {
+                parent.viewModel.hideDisplayedBuildings()
+            }
+        }
+
+        @objc func deselectAll() {
+            parent.viewModel.deselectAllBuildings()
         }
     }
 }
 
-
 #Preview {
-    MapView()
+    MapView(viewModel: BuildingViewModel())
 }
