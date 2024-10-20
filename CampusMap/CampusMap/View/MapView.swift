@@ -53,9 +53,19 @@ struct MapView: UIViewControllerRepresentable {
             mapView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor)
         ])
         
+        // Create a container view for the buttons
+        let buttonContainer = UIView()
+        buttonContainer.backgroundColor = .white
+        buttonContainer.layer.cornerRadius = 10
+        buttonContainer.layer.shadowColor = UIColor.black.cgColor
+        buttonContainer.layer.shadowOpacity = 0.2
+        buttonContainer.layer.shadowOffset = CGSize(width: 0, height: 2)
+        buttonContainer.layer.shadowRadius = 4
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        
         // Set up buttons
         let selectButton = UIButton(type: .system)
-        selectButton.setTitle("Select Buildings", for: .normal)
+        selectButton.setImage(UIImage(systemName: "building.2"), for: .normal)
         selectButton.addTarget(context.coordinator, action: #selector(Coordinator.selectBuildings), for: .touchUpInside)
 
         let centerButton = UIButton(type: .system)
@@ -70,7 +80,6 @@ struct MapView: UIViewControllerRepresentable {
         deselectButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
         deselectButton.addTarget(context.coordinator, action: #selector(Coordinator.deselectAll), for: .touchUpInside)
 
-        // Button to remove route
         let removeRouteButton = UIButton(type: .system)
         removeRouteButton.setTitle("Remove Route", for: .normal)
         removeRouteButton.addTarget(context.coordinator, action: #selector(Coordinator.removeRoute), for: .touchUpInside)
@@ -79,11 +88,18 @@ struct MapView: UIViewControllerRepresentable {
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.addSubview(stackView)
         
+        buttonContainer.addSubview(stackView)
+
+        viewController.view.addSubview(buttonContainer)
+
         NSLayoutConstraint.activate([
-            stackView.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor)
+            stackView.centerXAnchor.constraint(equalTo: buttonContainer.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: buttonContainer.centerYAnchor),
+            buttonContainer.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            buttonContainer.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20),
+            buttonContainer.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
+            buttonContainer.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         // Store the mapView in the view model
