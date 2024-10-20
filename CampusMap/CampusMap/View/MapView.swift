@@ -91,7 +91,7 @@ struct MapView: UIViewControllerRepresentable {
                 mapView.setRegion(region, animated: true)
             }
             
-            // Update annotations based on the displayed buildings
+            // Update annotations
             mapView.removeAnnotations(mapView.annotations)
             let annotations = viewModel.displayedBuildings.map { building in
                 let annotation = MKPointAnnotation()
@@ -100,6 +100,11 @@ struct MapView: UIViewControllerRepresentable {
                 return annotation
             }
             mapView.addAnnotations(annotations)
+            
+            // Display the route as a polyline
+            if viewModel.route != nil {
+                context.coordinator.displayRoute()
+            }
         }
     }
 
@@ -118,7 +123,27 @@ struct MapView: UIViewControllerRepresentable {
                 showBuildingDetail(for: building)
             }
         }
-
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let polyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: polyline)
+                renderer.strokeColor = UIColor.blue
+                renderer.lineWidth = 4.0
+                return renderer
+            }
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        
+        func displayRoute() {
+            guard let route = parent.viewModel.route else { return }
+            
+            // Remove existing overlays
+            mapView?.removeOverlays(mapView?.overlays ?? [])
+            
+            // Add new polyline overlay for the route
+            mapView?.addOverlay(route.polyline)
+        }
+        
         func showBuildingDetail(for building: Building) {
             let buildingDetailView = BuildingDetailView(building: building, viewModel: parent.viewModel)
             

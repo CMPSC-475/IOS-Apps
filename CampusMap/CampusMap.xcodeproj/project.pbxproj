@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4611F1062CBDAABD0077B7BE /* RouteDirectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */; };
+		4611F1062CBDAABD0077B7BE /* RouteDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611F1052CBDAABD0077B7BE /* RouteDetailsView.swift */; };
 		462B9A1E2CB3098F009B7713 /* CampusMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A1D2CB3098F009B7713 /* CampusMapApp.swift */; };
 		462B9A222CB3098F009B7713 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462B9A212CB3098F009B7713 /* Item.swift */; };
 		462B9A242CB30991009B7713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 462B9A232CB30991009B7713 /* Assets.xcassets */; };
@@ -41,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDirectionsView.swift; sourceTree = "<group>"; };
+		4611F1052CBDAABD0077B7BE /* RouteDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsView.swift; sourceTree = "<group>"; };
 		462B9A1A2CB3098F009B7713 /* CampusMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampusMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		462B9A1D2CB3098F009B7713 /* CampusMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapApp.swift; sourceTree = "<group>"; };
 		462B9A212CB3098F009B7713 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				462B9A4F2CB31442009B7713 /* MapView.swift */,
-				4611F1052CBDAABD0077B7BE /* RouteDirectionsView.swift */,
+				4611F1052CBDAABD0077B7BE /* RouteDetailsView.swift */,
 				462B9A512CB3145A009B7713 /* BuildingDetailView.swift */,
 				462B9A532CB3146B009B7713 /* BuildingSelectionView.swift */,
 			);
@@ -309,7 +309,7 @@
 				462B9A522CB3145A009B7713 /* BuildingDetailView.swift in Sources */,
 				462B9A542CB3146B009B7713 /* BuildingSelectionView.swift in Sources */,
 				462B9A1E2CB3098F009B7713 /* CampusMapApp.swift in Sources */,
-				4611F1062CBDAABD0077B7BE /* RouteDirectionsView.swift in Sources */,
+				4611F1062CBDAABD0077B7BE /* RouteDetailsView.swift in Sources */,
 				462B9A4C2CB313DA009B7713 /* Building.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
