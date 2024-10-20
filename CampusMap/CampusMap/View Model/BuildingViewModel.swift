@@ -182,6 +182,10 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    func clearRoute() {
+        route = nil
+    }
+    
     func setRoutePoint(_ coordinate: CLLocationCoordinate2D, asStart: Bool) {
         if asStart {
             routeStart = coordinate

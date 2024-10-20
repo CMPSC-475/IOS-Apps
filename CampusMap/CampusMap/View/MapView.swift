@@ -42,6 +42,9 @@ struct MapView: UIViewControllerRepresentable {
         mapView.delegate = context.coordinator
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
+        // Enable user location
+        mapView.showsUserLocation = true
+        
         viewController.view.addSubview(mapView)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
@@ -67,7 +70,12 @@ struct MapView: UIViewControllerRepresentable {
         deselectButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
         deselectButton.addTarget(context.coordinator, action: #selector(Coordinator.deselectAll), for: .touchUpInside)
 
-        let stackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton])
+        // Button to remove route
+        let removeRouteButton = UIButton(type: .system)
+        removeRouteButton.setTitle("Remove Route", for: .normal)
+        removeRouteButton.addTarget(context.coordinator, action: #selector(Coordinator.removeRoute), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton, removeRouteButton])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -185,8 +193,14 @@ struct MapView: UIViewControllerRepresentable {
         @objc func deselectAll() {
             parent.viewModel.deselectAllBuildings()
         }
+
+        @objc func removeRoute() {
+            parent.viewModel.clearRoute() // Clear the route from the view model
+            mapView?.removeOverlays(mapView?.overlays ?? []) // Remove the route from the map
+        }
     }
 }
+
 
 #Preview {
     MapView(viewModel: BuildingViewModel())
