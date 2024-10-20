@@ -24,6 +24,7 @@ struct Building: Codable, Identifiable {
     var isRouteStart: Bool = false
     var isRouteEnd: Bool = false
     var isDisplayedOnMap: Bool = false
+    var isHidden : Bool = false
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }

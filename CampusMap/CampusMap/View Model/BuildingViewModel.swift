@@ -28,7 +28,7 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var selectedFilter: BuildingFilter = .all
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var mapCenter: CLLocationCoordinate2D?
-
+    @Published var shouldDisplayBuildings: Bool = false
     private let userDefaultsKey = "selectedBuildings"
     private let favoritesUserDefaultsKey = "favoritedBuildings"
 
@@ -55,7 +55,6 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         guard let location = locations.last else { return }
         userLocation = location.coordinate
         if mapCenter == nil {
@@ -64,7 +63,7 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         if isMapCentered {
             region.center = location.coordinate
         }
-    }   
+    }
 
 
     func mapViewDidChangeVisibleRegion() {
@@ -85,20 +84,28 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-
+    func applyFilter() {
+        switch selectedFilter {
+        case .all:
+            shouldDisplayBuildings = false
+        default:
+            shouldDisplayBuildings = true
+        }
+        objectWillChange.send()
+    }
+    
     var displayedBuildings: [Building] {
         switch selectedFilter {
         case .all:
-            return buildings
+            return buildings.filter { !$0.isHidden }
         case .favorited:
-            return buildings.filter { $0.isFavorited }
+            return buildings.filter { $0.isFavorited && !$0.isHidden }
         case .selected:
-            return selectedBuildings
+            return selectedBuildings.filter {!$0.isHidden }
         case .nearby:
-            return nearbyBuildings(maxDistance: 500)
+            return nearbyBuildings(maxDistance: 500).filter { !$0.isHidden }
         }
     }
-
 
     func nearbyBuildings(maxDistance: Double) -> [Building] {
         guard let userLocation = locationManager?.location else { return [] }
@@ -170,14 +177,28 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
+    
+    func setRoutePoint(_ coordinate: CLLocationCoordinate2D, asStart: Bool) {
+        if asStart {
+            routeStart = coordinate
+            print("Start Point Set: \(coordinate)")
+        } else {
+            routeEnd = coordinate
+            print("End Point Set: \(coordinate)")
+        }
+        if routeStart != nil && routeEnd != nil {
+            calculateRoute()
+        }
+    }
 
     func calculateRoute() {
         guard let start = routeStart, let end = routeEnd else { return }
-
+        
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
-        request.transportType = .walking
+        request.transportType = MKDirectionsTransportType.walking
+        request.requestsAlternateRoutes = true
 
         let directions = MKDirections(request: request)
         directions.calculate { [weak self] response, error in
@@ -196,16 +217,23 @@ class BuildingViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
 
-    func setRoutePoint(_ coordinate: CLLocationCoordinate2D, asStart: Bool) {
-        if asStart {
-            routeStart = coordinate
-        } else {
-            routeEnd = coordinate
-        }
-        if routeStart != nil && routeEnd != nil {
-            calculateRoute()
+
+    // Function to hide displayed buildings
+    func hideDisplayedBuildings() {
+        for index in buildings.indices {
+            if displayedBuildings.contains(where: { $0.opp_bldg_code == buildings[index].opp_bldg_code }) {
+                buildings[index].isHidden = true
+            }
         }
     }
+
+    // Function to show all buildings again
+    func showAllBuildings() {
+        for index in buildings.indices {
+            buildings[index].isHidden = false
+        }
+    }
+    
 }
 
 enum BuildingFilter: String, CaseIterable {

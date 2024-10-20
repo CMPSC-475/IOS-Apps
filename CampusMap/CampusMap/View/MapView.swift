@@ -59,6 +59,19 @@ struct MapView: View {
             }
             .edgesIgnoringSafeArea(.all)
             
+            HStack{
+                Button("Select Buildings") {
+                    viewModel.showingDetail = true
+                }
+                .font(.title)
+                .sheet(isPresented: $viewModel.showingDetail) {
+                    BuildingSelectionView(viewModel: viewModel)
+                }
+            }
+            
+
+            Spacer()
+            
             HStack {
                 Spacer(minLength: 0.1)
 
@@ -75,16 +88,26 @@ struct MapView: View {
                 .disabled(isCenteredOnUser)
 
                 Spacer()
-
-                Button("Select Buildings") {
-                    viewModel.showingDetail = true
+                Spacer()
+                
+                Button(action: {
+                    if viewModel.displayedBuildings.isEmpty {
+                        viewModel.showAllBuildings()
+                    } else {
+                        viewModel.hideDisplayedBuildings()
+                    }
+                }) {
+                    Image(systemName: viewModel.displayedBuildings.isEmpty ? "eye" : "eye.slash")
+                        .font(.caption)
+                        .frame(width: 12, height: 12)
+                        .padding()
+                        .background(viewModel.displayedBuildings.isEmpty ? Color.green : Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-                .font(.title)
-                .sheet(isPresented: $viewModel.showingDetail) {
-                    BuildingSelectionView(viewModel: viewModel)
-                }
-
-                Spacer(minLength: 0.1)
+                
+                Spacer()
+                Spacer()
 
                 Button(action: {
                     viewModel.deselectAllBuildings()
@@ -94,6 +117,7 @@ struct MapView: View {
                         .font(.title)
                 }
                 Spacer()
+
             }
 
             .sheet(item: $viewModel.selectedBuilding) { building in
