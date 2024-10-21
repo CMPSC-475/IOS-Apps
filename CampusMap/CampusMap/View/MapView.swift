@@ -61,6 +61,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         saveCustomPins(existingPins)
     }
     
+    // Delete all custom pins
+    func deleteAllCustomPins() {
+        UserDefaults.standard.removeObject(forKey: customPinsKey)
+    }
 }
 
 struct MapView: UIViewControllerRepresentable {
@@ -101,7 +105,7 @@ struct MapView: UIViewControllerRepresentable {
         buttonContainer.layer.shadowRadius = 4
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
         
-        // Set up buttons for the first row
+        // Create buttons for the first row
         let selectButton = UIButton(type: .system)
         selectButton.setImage(UIImage(systemName: "building.2"), for: .normal)
         selectButton.addTarget(context.coordinator, action: #selector(Coordinator.selectBuildings), for: .touchUpInside)
@@ -109,7 +113,7 @@ struct MapView: UIViewControllerRepresentable {
         let centerButton = UIButton(type: .system)
         centerButton.setImage(UIImage(systemName: "location.fill"), for: .normal)
         centerButton.addTarget(context.coordinator, action: #selector(Coordinator.centerOnUser), for: .touchUpInside)
-        
+
         let toggleVisibilityButton = UIButton(type: .system)
         toggleVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
         toggleVisibilityButton.addTarget(context.coordinator, action: #selector(Coordinator.toggleVisibility), for: .touchUpInside)
@@ -118,11 +122,20 @@ struct MapView: UIViewControllerRepresentable {
         deselectButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
         deselectButton.addTarget(context.coordinator, action: #selector(Coordinator.deselectAll), for: .touchUpInside)
 
+        // Create buttons for the second row
         let removeRouteButton = UIButton(type: .system)
         removeRouteButton.setTitle("Remove Route", for: .normal)
         removeRouteButton.addTarget(context.coordinator, action: #selector(Coordinator.removeRoute), for: .touchUpInside)
 
-        // Create buttons for map type selection (second row)
+        let deleteAllPinsButton = UIButton(type: .system)
+        deleteAllPinsButton.setTitle("Delete All Pins", for: .normal)
+        deleteAllPinsButton.addTarget(context.coordinator, action: #selector(Coordinator.deleteAllPins), for: .touchUpInside)
+
+        let deleteButton = UIButton(type: .system)
+        deleteButton.setTitle("Delete Pin", for: .normal)
+        deleteButton.addTarget(context.coordinator, action: #selector(Coordinator.deleteCustomPin), for: .touchUpInside)
+
+        // Create buttons for the third row (map type selection)
         let standardButton = UIButton(type: .system)
         standardButton.setTitle("Standard", for: .normal)
         standardButton.addTarget(context.coordinator, action: #selector(Coordinator.setStandardMap), for: .touchUpInside)
@@ -135,30 +148,28 @@ struct MapView: UIViewControllerRepresentable {
         imageryButton.setTitle("Satellite", for: .normal)
         imageryButton.addTarget(context.coordinator, action: #selector(Coordinator.setImageryMap), for: .touchUpInside)
 
-        // Add a button to delete the selected custom pin
-        let deleteButton = UIButton(type: .system)
-        deleteButton.setTitle("Delete Pin", for: .normal)
-        deleteButton.addTarget(context.coordinator, action: #selector(Coordinator.deleteCustomPin), for: .touchUpInside)
-
-        
         // Create stack views for button rows
-        let firstRowStackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton, removeRouteButton])
+        let firstRowStackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton])
         firstRowStackView.axis = .horizontal
-        firstRowStackView.spacing = 20
+        firstRowStackView.spacing = 65
         firstRowStackView.translatesAutoresizingMaskIntoConstraints = false
-        firstRowStackView.addArrangedSubview(deleteButton)
-        
-        let secondRowStackView = UIStackView(arrangedSubviews: [standardButton, hybridButton, imageryButton])
+
+        let secondRowStackView = UIStackView(arrangedSubviews: [removeRouteButton, deleteAllPinsButton, deleteButton])
         secondRowStackView.axis = .horizontal
-        secondRowStackView.spacing = 50
+        secondRowStackView.spacing = 25
         secondRowStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Combine both rows into a vertical stack view
-        let mainStackView = UIStackView(arrangedSubviews: [firstRowStackView, secondRowStackView])
+
+        let thirdRowStackView = UIStackView(arrangedSubviews: [standardButton, hybridButton, imageryButton])
+        thirdRowStackView.axis = .horizontal
+        thirdRowStackView.spacing = 70
+        thirdRowStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Combine all three rows into a vertical stack view
+        let mainStackView = UIStackView(arrangedSubviews: [firstRowStackView, secondRowStackView, thirdRowStackView])
         mainStackView.axis = .vertical
-        mainStackView.spacing = 5
+        mainStackView.spacing = 10
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         buttonContainer.addSubview(mainStackView)
         viewController.view.addSubview(buttonContainer)
 
@@ -168,8 +179,9 @@ struct MapView: UIViewControllerRepresentable {
             buttonContainer.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             buttonContainer.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20),
             buttonContainer.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
-            buttonContainer.heightAnchor.constraint(equalToConstant: 100)
+            buttonContainer.heightAnchor.constraint(equalToConstant: 120) // Adjust height as necessary
         ])
+
         
         // Store the mapView in the view model
         context.coordinator.mapView = mapView
@@ -282,6 +294,15 @@ struct MapView: UIViewControllerRepresentable {
                 // Save the updated pins
                 parent.locationManager.saveCustomPins(allPins)
             }
+        }
+
+        @objc func deleteAllPins() {
+            // Remove all annotations of type MKPointAnnotation
+            guard let mapView = mapView else { return }
+            let annotationsToRemove = mapView.annotations.filter { $0 is MKPointAnnotation }
+            mapView.removeAnnotations(annotationsToRemove)
+            // Clear custom pins from storage
+            parent.locationManager.deleteAllCustomPins()
         }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
