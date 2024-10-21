@@ -53,7 +53,6 @@ struct MapView: UIViewControllerRepresentable {
             mapView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor)
         ])
         
-        // Create a container view for the buttons
         let buttonContainer = UIView()
         buttonContainer.backgroundColor = .white
         buttonContainer.layer.cornerRadius = 10
@@ -63,7 +62,7 @@ struct MapView: UIViewControllerRepresentable {
         buttonContainer.layer.shadowRadius = 4
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
         
-        // Set up buttons
+        // Set up buttons for the first row
         let selectButton = UIButton(type: .system)
         selectButton.setImage(UIImage(systemName: "building.2"), for: .normal)
         selectButton.addTarget(context.coordinator, action: #selector(Coordinator.selectBuildings), for: .touchUpInside)
@@ -84,22 +83,46 @@ struct MapView: UIViewControllerRepresentable {
         removeRouteButton.setTitle("Remove Route", for: .normal)
         removeRouteButton.addTarget(context.coordinator, action: #selector(Coordinator.removeRoute), for: .touchUpInside)
 
-        let stackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton, removeRouteButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        buttonContainer.addSubview(stackView)
+        // Create buttons for map type selection (second row)
+        let standardButton = UIButton(type: .system)
+        standardButton.setTitle("Standard", for: .normal)
+        standardButton.addTarget(context.coordinator, action: #selector(Coordinator.setStandardMap), for: .touchUpInside)
 
+        let hybridButton = UIButton(type: .system)
+        hybridButton.setTitle("Hybrid", for: .normal)
+        hybridButton.addTarget(context.coordinator, action: #selector(Coordinator.setHybridMap), for: .touchUpInside)
+
+        let imageryButton = UIButton(type: .system)
+        imageryButton.setTitle("Imagery", for: .normal)
+        imageryButton.addTarget(context.coordinator, action: #selector(Coordinator.setImageryMap), for: .touchUpInside)
+
+        // Create stack views for button rows
+        let firstRowStackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton, removeRouteButton])
+        firstRowStackView.axis = .horizontal
+        firstRowStackView.spacing = 20
+        firstRowStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let secondRowStackView = UIStackView(arrangedSubviews: [standardButton, hybridButton, imageryButton])
+        secondRowStackView.axis = .horizontal
+        secondRowStackView.spacing = 50
+        secondRowStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Combine both rows into a vertical stack view
+        let mainStackView = UIStackView(arrangedSubviews: [firstRowStackView, secondRowStackView])
+        mainStackView.axis = .vertical
+        mainStackView.spacing = 5
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        buttonContainer.addSubview(mainStackView)
         viewController.view.addSubview(buttonContainer)
 
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: buttonContainer.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: buttonContainer.centerYAnchor),
+            mainStackView.centerXAnchor.constraint(equalTo: buttonContainer.centerXAnchor),
+            mainStackView.centerYAnchor.constraint(equalTo: buttonContainer.centerYAnchor),
             buttonContainer.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             buttonContainer.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20),
             buttonContainer.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
-            buttonContainer.heightAnchor.constraint(equalToConstant: 50)
+            buttonContainer.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         // Store the mapView in the view model
@@ -175,7 +198,8 @@ struct MapView: UIViewControllerRepresentable {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 if let rootViewController = scene.windows.first?.rootViewController {
                     let hostingController = UIHostingController(rootView: buildingDetailView)
-                    rootViewController.present(hostingController, animated: true)
+                    hostingController.modalPresentationStyle = .fullScreen
+                    rootViewController.present(hostingController, animated: true, completion: nil)
                 }
             }
         }
@@ -213,6 +237,18 @@ struct MapView: UIViewControllerRepresentable {
         @objc func removeRoute() {
             parent.viewModel.clearRoute() // Clear the route from the view model
             mapView?.removeOverlays(mapView?.overlays ?? []) // Remove the route from the map
+        }
+        
+        @objc func setStandardMap() {
+            mapView?.mapType = .standard
+        }
+
+        @objc func setHybridMap() {
+            mapView?.mapType = .hybrid
+        }
+
+        @objc func setImageryMap() {
+            mapView?.mapType = .satellite
         }
     }
 }
