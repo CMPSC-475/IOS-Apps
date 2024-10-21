@@ -239,6 +239,21 @@ struct MapView: UIViewControllerRepresentable {
             if let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
                 parent.viewModel.selectedBuilding = building
                 showBuildingDetail(for: building)
+            } else if annotationTitle == "Custom Pin" {
+
+                if let coordinate = view.annotation?.coordinate {
+                    let customBuilding = Building(
+                        latitude: coordinate.latitude,
+                        longitude: coordinate.longitude,
+                        name: annotationTitle!,
+                        opp_bldg_code: 0,
+                        year_constructed: nil,
+                        photo: nil
+                    )
+                    
+                    parent.viewModel.selectedBuilding = customBuilding
+                    showBuildingDetail(for: customBuilding)
+                }
             }
         }
         
