@@ -164,6 +164,9 @@ struct MapView: UIViewControllerRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            if annotation is MKUserLocation {
+                return nil
+            }
             guard let annotationTitle = annotation.title else { return nil }
 
 
@@ -179,11 +182,7 @@ struct MapView: UIViewControllerRepresentable {
 
 
             if let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
-                if building.isFavorited {
-                    annotationView?.markerTintColor = .red //Red for fav
-                } else {
-                    annotationView?.markerTintColor = .blue
-                }
+                annotationView?.markerTintColor = building.isFavorited ? .red : .blue
             }
 
             return annotationView
