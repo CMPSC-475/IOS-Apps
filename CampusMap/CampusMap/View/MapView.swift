@@ -54,6 +54,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    // Function to delete a custom pin
+    func deleteCustomPin(_ pin: MKPointAnnotation) {
+        var existingPins = loadCustomPins()
+        existingPins.removeAll { $0.coordinate.latitude == pin.coordinate.latitude && $0.coordinate.longitude == pin.coordinate.longitude }
+        saveCustomPins(existingPins)
+    }
+    
 }
 
 struct MapView: UIViewControllerRepresentable {
@@ -128,11 +135,18 @@ struct MapView: UIViewControllerRepresentable {
         imageryButton.setTitle("Satellite", for: .normal)
         imageryButton.addTarget(context.coordinator, action: #selector(Coordinator.setImageryMap), for: .touchUpInside)
 
+        // Add a button to delete the selected custom pin
+        let deleteButton = UIButton(type: .system)
+        deleteButton.setTitle("Delete Pin", for: .normal)
+        deleteButton.addTarget(context.coordinator, action: #selector(Coordinator.deleteCustomPin), for: .touchUpInside)
+
+        
         // Create stack views for button rows
         let firstRowStackView = UIStackView(arrangedSubviews: [selectButton, centerButton, toggleVisibilityButton, deselectButton, removeRouteButton])
         firstRowStackView.axis = .horizontal
         firstRowStackView.spacing = 20
         firstRowStackView.translatesAutoresizingMaskIntoConstraints = false
+        firstRowStackView.addArrangedSubview(deleteButton)
         
         let secondRowStackView = UIStackView(arrangedSubviews: [standardButton, hybridButton, imageryButton])
         secondRowStackView.axis = .horizontal
@@ -195,7 +209,8 @@ struct MapView: UIViewControllerRepresentable {
         var parent: MapView
         var mapView: MKMapView?
         var droppedPin: MKPointAnnotation?
-
+        var selectedCustomPin: MKPointAnnotation?
+        
         init(_ parent: MapView) {
             self.parent = parent
         }
@@ -250,8 +265,6 @@ struct MapView: UIViewControllerRepresentable {
                 let touchPoint = gestureRecognizer.location(in: mapView)
                 let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
 
-
-
                 // Add a new pin at the touched location
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
@@ -259,8 +272,8 @@ struct MapView: UIViewControllerRepresentable {
                 mapView.addAnnotation(annotation)
 
                 // Store a reference to the dropped pin
-                droppedPin = annotation
-                
+                selectedCustomPin = annotation
+
                 // Load existing pins
                 let existingPins = parent.locationManager.loadCustomPins()
                 var allPins = existingPins
@@ -277,7 +290,7 @@ struct MapView: UIViewControllerRepresentable {
                 parent.viewModel.selectedBuilding = building
                 showBuildingDetail(for: building)
             } else if annotationTitle == "Custom Pin" {
-
+                
                 if let coordinate = view.annotation?.coordinate {
                     let customBuilding = Building(
                         latitude: coordinate.latitude,
@@ -291,6 +304,9 @@ struct MapView: UIViewControllerRepresentable {
                     parent.viewModel.selectedBuilding = customBuilding
                     showBuildingDetail(for: customBuilding)
                 }
+            }
+            if let customPin = view.annotation as? MKPointAnnotation, customPin.title == "Custom Pin" {
+                selectedCustomPin = customPin
             }
         }
         
@@ -360,6 +376,13 @@ struct MapView: UIViewControllerRepresentable {
         @objc func removeRoute() {
             parent.viewModel.clearRoute() // Clear the route from the view model
             mapView?.removeOverlays(mapView?.overlays ?? []) // Remove the route from the map
+        }
+
+        @objc func deleteCustomPin() {
+            guard let pinToDelete = selectedCustomPin else { return }
+            mapView?.removeAnnotation(pinToDelete)
+            parent.locationManager.deleteCustomPin(pinToDelete)
+            selectedCustomPin = nil // Clear selection after deletion
         }
         
         @objc func setStandardMap() {
