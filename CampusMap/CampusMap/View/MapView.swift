@@ -26,6 +26,34 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             location = newLocation
         }
     }
+    
+    private let customPinsKey = "customPins"
+
+    // Save custom pins
+    func saveCustomPins(_ pins: [MKPointAnnotation]) {
+        let coordinates = pins.map { ["latitude": $0.coordinate.latitude, "longitude": $0.coordinate.longitude, "title": $0.title ?? ""] }
+        UserDefaults.standard.setValue(coordinates, forKey: customPinsKey)
+    }
+
+    // Load custom pins
+    func loadCustomPins() -> [MKPointAnnotation] {
+        guard let savedPins = UserDefaults.standard.array(forKey: customPinsKey) as? [[String: Any]] else {
+            return []
+        }
+
+        return savedPins.compactMap { dict in
+            if let latitude = dict["latitude"] as? CLLocationDegrees,
+               let longitude = dict["longitude"] as? CLLocationDegrees,
+               let title = dict["title"] as? String {
+                let pin = MKPointAnnotation()
+                pin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                pin.title = title
+                return pin
+            }
+            return nil
+        }
+    }
+    
 }
 
 struct MapView: UIViewControllerRepresentable {
@@ -152,6 +180,10 @@ struct MapView: UIViewControllerRepresentable {
             }
             mapView.addAnnotations(annotations)
             
+            // Load and add custom pins
+            let customPins = locationManager.loadCustomPins()
+            mapView.addAnnotations(customPins)
+            
             // Display the route as a polyline
             if viewModel.route != nil {
                 context.coordinator.displayRoute()
@@ -228,6 +260,14 @@ struct MapView: UIViewControllerRepresentable {
 
                 // Store a reference to the dropped pin
                 droppedPin = annotation
+                
+                // Load existing pins
+                let existingPins = parent.locationManager.loadCustomPins()
+                var allPins = existingPins
+                allPins.append(annotation)
+
+                // Save the updated pins
+                parent.locationManager.saveCustomPins(allPins)
             }
         }
 
