@@ -45,6 +45,10 @@ struct MapView: UIViewControllerRepresentable {
         // Enable user location
         mapView.showsUserLocation = true
         
+        // Add long press gesture recognizer to drop a marker
+        let longPressGesture = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(_:)))
+        mapView.addGestureRecognizer(longPressGesture)
+        
         viewController.view.addSubview(mapView)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
@@ -158,34 +162,76 @@ struct MapView: UIViewControllerRepresentable {
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
         var mapView: MKMapView?
+        var droppedPin: MKPointAnnotation?
 
         init(_ parent: MapView) {
             self.parent = parent
         }
 
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            // Return nil for the user's location annotation
             if annotation is MKUserLocation {
                 return nil
             }
-            guard let annotationTitle = annotation.title else { return nil }
-
-
-            let identifier = "BuildingAnnotation"
+            
+            // Check if it's a building annotation by title
+            if let annotationTitle = annotation.title, let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
+                let identifier = "BuildingAnnotation"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+                
+                if annotationView == nil {
+                    annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    annotationView?.canShowCallout = true
+                } else {
+                    annotationView?.annotation = annotation
+                }
+                
+                // Set the marker color based on whether the building is favorited
+                annotationView?.markerTintColor = building.isFavorited ? .red : .blue
+                return annotationView
+            }
+            
+            // Handle custom dropped pin
+            let identifier = "CustomPin"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
-
+            
             if annotationView == nil {
                 annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView?.canShowCallout = true
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             } else {
                 annotationView?.annotation = annotation
             }
-
-
-            if let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
-                annotationView?.markerTintColor = building.isFavorited ? .red : .blue
+            
+            // Set the color for the dropped pin (if it's the dropped pin)
+            if annotation === droppedPin {
+                annotationView?.markerTintColor = .green
             }
-
+            
             return annotationView
+        }
+        // Add long press gesture recognizer to mapView
+        @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+            guard let mapView = mapView else { return }
+
+            if gestureRecognizer.state == .began {
+                let touchPoint = gestureRecognizer.location(in: mapView)
+                let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+
+                // Remove the previous pin if it exists
+                if let existingPin = droppedPin {
+                    mapView.removeAnnotation(existingPin)
+                }
+
+                // Add a new pin at the touched location
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "Custom Pin"
+                mapView.addAnnotation(annotation)
+
+                // Store a reference to the dropped pin
+                droppedPin = annotation
+            }
         }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
