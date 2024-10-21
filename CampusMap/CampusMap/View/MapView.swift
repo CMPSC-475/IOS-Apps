@@ -93,7 +93,7 @@ struct MapView: UIViewControllerRepresentable {
         hybridButton.addTarget(context.coordinator, action: #selector(Coordinator.setHybridMap), for: .touchUpInside)
 
         let imageryButton = UIButton(type: .system)
-        imageryButton.setTitle("Imagery", for: .normal)
+        imageryButton.setTitle("Satellite", for: .normal)
         imageryButton.addTarget(context.coordinator, action: #selector(Coordinator.setImageryMap), for: .touchUpInside)
 
         // Create stack views for button rows
@@ -161,6 +161,32 @@ struct MapView: UIViewControllerRepresentable {
 
         init(_ parent: MapView) {
             self.parent = parent
+        }
+
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard let annotationTitle = annotation.title else { return nil }
+
+
+            let identifier = "BuildingAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+
+            if annotationView == nil {
+                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+            } else {
+                annotationView?.annotation = annotation
+            }
+
+
+            if let building = parent.viewModel.displayedBuildings.first(where: { $0.name == annotationTitle }) {
+                if building.isFavorited {
+                    annotationView?.markerTintColor = .red //Red for fav
+                } else {
+                    annotationView?.markerTintColor = .blue
+                }
+            }
+
+            return annotationView
         }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
