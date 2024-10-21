@@ -218,10 +218,7 @@ struct MapView: UIViewControllerRepresentable {
                 let touchPoint = gestureRecognizer.location(in: mapView)
                 let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
 
-                // Remove the previous pin if it exists
-                if let existingPin = droppedPin {
-                    mapView.removeAnnotation(existingPin)
-                }
+
 
                 // Add a new pin at the touched location
                 let annotation = MKPointAnnotation()
