@@ -9,29 +9,43 @@ import SwiftUI
 
 struct PokemonListView: View {
     @ObservedObject var viewModel = PokemonViewModel()
+    @AppStorage("isDarkMode") private var isDarkMode = false
     
     var body: some View {
         NavigationView {
-            List(viewModel.pokemonList) { pokemon in
-                NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
-                    HStack {
-                        Image(pokemon.formattedID)
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(LinearGradient(pokemon: pokemon))
-                            )
-                        VStack(alignment: .leading) {
-                            Text("#\(pokemon.formattedID)")
-                                .font(.caption)
-                            Text(pokemon.name)
-                                .font(.headline)
+            VStack {
+                List(viewModel.pokemonList) { pokemon in
+                    NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
+                        HStack {
+                            Image(pokemon.formattedID)
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(LinearGradient(pokemon: pokemon))
+                                )
+                            VStack(alignment: .leading) {
+                                Text("#\(pokemon.formattedID)")
+                                    .font(.caption)
+                                Text(pokemon.name)
+                                    .font(.headline)
+                            }
                         }
                     }
                 }
+                .navigationTitle("Pokedex")
+                
+
+                Button(action: {
+                    isDarkMode.toggle() 
+                }) {
+                    Image(systemName: isDarkMode ? "sun.max.circle.fill" : "moon.circle.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(isDarkMode ? .yellow : .blue)
+                        .padding()
+                }
             }
-            .navigationTitle("Pokedex")
+            .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
@@ -43,9 +57,10 @@ extension LinearGradient {
     }
 }
 
+
 #Preview {
     PokemonListView()
         //.environment(\.colorScheme, .light) // Light Mode
-        .environment(\.colorScheme, .dark) // Dark Mode
+        //.environment(\.colorScheme, .dark) // Dark Mode
 }
 
