@@ -8,7 +8,18 @@
 import Foundation
 
 class PokemonViewModel: ObservableObject {
-    @Published var pokedexModel = PokedexModel()
+    @Published var pokedexModel = PokedexModel() {
+        didSet {
+            saveCapturedStatus()
+        }
+    }
+    
+    private let capturedPokemonKey = "capturedPokemon"
+
+    init() {
+        //print("PokemonViewModel initialized")
+        loadCapturedStatus()
+    }
     
     var pokemonList: [Pokemon] {
         pokedexModel.pokemonList
@@ -34,6 +45,29 @@ class PokemonViewModel: ObservableObject {
             pokedexModel.pokemonList[index].captured = captured
             // Notify any listeners of the update
             objectWillChange.send()
+        }
+    }
+    
+    private func saveCapturedStatus() {
+
+        let capturedStatus = pokedexModel.pokemonList.compactMap { pokemon in
+            return pokemon.captured == true ? pokemon.id : nil
+        }
+        //print("Saving captured Pokémon IDs: \(capturedStatus)")
+        UserDefaults.standard.set(capturedStatus, forKey: capturedPokemonKey)
+    }
+
+    private func loadCapturedStatus() {
+
+        if let capturedIDs = UserDefaults.standard.array(forKey: capturedPokemonKey) as? [Int] {
+            //print("Loaded captured Pokémon IDs: \(capturedIDs)")
+            for index in pokedexModel.pokemonList.indices {
+                if capturedIDs.contains(pokedexModel.pokemonList[index].id) {
+                    pokedexModel.pokemonList[index].captured = true
+                } else {
+                    pokedexModel.pokemonList[index].captured = false
+                }
+            }
         }
     }
     
