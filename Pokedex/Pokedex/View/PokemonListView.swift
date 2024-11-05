@@ -41,7 +41,7 @@ struct PokemonListView: View {
                             Text(pokemon.name)
                                 .font(.headline)
                         }
-                        if pokemon.captured {
+                        if pokemon.captured ?? false {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                         }

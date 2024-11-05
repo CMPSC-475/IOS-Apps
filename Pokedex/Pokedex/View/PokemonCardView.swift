@@ -21,7 +21,7 @@ struct PokemonCardView: View {
                         .fill(LinearGradient(pokemon: pokemon))
                 )
                 .overlay(
-                    Image(systemName: pokemon.captured ? "checkmark.circle.fill" : "")
+                    Image(systemName: pokemon.captured ?? false ? "checkmark.circle.fill" : "")
                         .foregroundColor(.green)
                         .padding([.top, .trailing], 5),
                     alignment: .topTrailing

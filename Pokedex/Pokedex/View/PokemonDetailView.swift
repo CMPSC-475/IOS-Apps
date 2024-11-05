@@ -14,7 +14,7 @@ struct PokemonDetailView: View {
     init(pokemon: Pokemon, viewModel: PokemonViewModel) {
         self.pokemon = pokemon
         self.viewModel = viewModel
-        self._isCaptured = State(initialValue: pokemon.captured)
+        self._isCaptured = State(initialValue: pokemon.captured ?? false)
     }
     
     let pokemon: Pokemon

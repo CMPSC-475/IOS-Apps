@@ -15,17 +15,17 @@ class PokemonViewModel: ObservableObject {
     }
     
     var capturedPokemon: [Pokemon] {
-        pokemonList.filter { $0.captured }
+        pokemonList.filter { $0.captured ?? false }
     }
     
     
     func previousEvolutions(for pokemon: Pokemon) -> [Pokemon]? {
-        let previousIDs = pokemon.prevEvolution ?? []
+        let previousIDs = pokemon.prev_evolution ?? []
         return pokemonList.filter { previousIDs.contains($0.id) }
     }
     
     func nextEvolutions(for pokemon: Pokemon) -> [Pokemon]? {
-        let nextIDs = pokemon.nextEvolution ?? []
+        let nextIDs = pokemon.next_evolution ?? []
         return pokemonList.filter { nextIDs.contains($0.id) }
     }
     

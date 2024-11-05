@@ -14,9 +14,9 @@ struct Pokemon: Identifiable, Decodable {
     let weight: Double
     let types: [PokemonType]
     let weaknesses: [PokemonType]
-    var captured: Bool = false  // Default to false
-    let prevEvolution: [Int]?
-    let nextEvolution: [Int]?
+    var captured: Bool? // Default to false
+    let prev_evolution: [Int]?
+    let next_evolution: [Int]?
     
     var formattedID: String {
         String(format: "%03d", id)
@@ -24,20 +24,25 @@ struct Pokemon: Identifiable, Decodable {
 }
 
 class PokedexModel {
-    var pokemonList: [Pokemon] = []
+    @Published var pokemonList: [Pokemon] = []
     
     init() {
-        loadPokemonData()
+        loadPokemons()
+        print("Loaded Pokémon count: \(pokemonList.count)")
     }
     
-    private func loadPokemonData() {
-        if let url = Bundle.main.url(forResource: "pokedex", withExtension: "json"),
-           let data = try? Data(contentsOf: url) {
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            if let decodedData = try? decoder.decode([Pokemon].self, from: data) {
-                pokemonList = decodedData
+    private func loadPokemons() {
+        if let url = Bundle.main.url(forResource: "pokedex", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                self.pokemonList = try decoder.decode([Pokemon].self, from: data)
+                print("Loaded Pokémon count: \(pokemonList.count)") // Should print the correct count
+            } catch {
+                print("Error loading Pokémon data: \(error)")
             }
+        } else {
+            print("Failed to locate pokedex.json in bundle.")
         }
     }
 }
