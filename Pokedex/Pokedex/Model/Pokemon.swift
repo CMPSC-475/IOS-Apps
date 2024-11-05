@@ -14,6 +14,9 @@ struct Pokemon: Identifiable, Decodable {
     let weight: Double
     let types: [PokemonType]
     let weaknesses: [PokemonType]
+    var captured: Bool = false  // Default to false
+    let prevEvolution: [Int]?
+    let nextEvolution: [Int]?
     
     var formattedID: String {
         String(format: "%03d", id)

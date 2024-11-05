@@ -8,59 +8,48 @@
 import SwiftUI
 
 struct PokemonDetailView: View {
+    @ObservedObject var viewModel: PokemonViewModel
+    @State private var isCaptured: Bool
+    
+    init(pokemon: Pokemon, viewModel: PokemonViewModel) {
+        self.pokemon = pokemon
+        self.viewModel = viewModel
+        self._isCaptured = State(initialValue: pokemon.captured)
+    }
+    
     let pokemon: Pokemon
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .center, spacing: 16) {
-                Image(pokemon.formattedID)
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(LinearGradient(pokemon: pokemon))
-                    )
-                Text(pokemon.name)
-                    .font(.largeTitle)
-                    .bold()
-                
-                HStack {
-                    Text(String(format: "%.2f m", pokemon.height))
-                    Text(String(format: "%.2f kg", pokemon.weight))
-                }
-                .font(.subheadline)
-                
-                HStack {
-                    Text("Types")
-                        .font(.headline)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(pokemon.types, id: \.self) { type in
-                                Text(type.rawValue.capitalized)
-                                    .padding()
-                                    .background(Capsule().fill(Color(pokemonType: type)))
-                            }
-                        }
-                    }
-                }
-                
-                HStack {
-                    Text("Weaknesses")
-                        .font(.headline)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(pokemon.weaknesses, id: \.self) { weakness in
-                                Text(weakness.rawValue.capitalized)
-                                    .padding()
-                                    .background(Capsule().fill(Color(pokemonType: weakness)))
-                            }
-                        }
-                    }
-                }
+        VStack {
+            Image(pokemon.formattedID)
+                .resizable()
+                .frame(width: 150, height: 150)
+            
+            Text(pokemon.name)
+                .font(.largeTitle)
+                .bold()
+            
+            Button(action: {
+                isCaptured.toggle()
+                viewModel.updateCaptureStatus(for: pokemon, captured: isCaptured)
+            }) {
+                Text(isCaptured ? "Release" : "Capture")
+                    .font(.headline)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).fill(isCaptured ? .red : .green))
+                    .foregroundColor(.white)
             }
-            .padding()
+            
+            if let prevEvolutions = viewModel.previousEvolutions(for: pokemon) {
+                PokemonRow(viewModel: viewModel, title: "Previous Evolutions", pokemons: prevEvolutions)
+            }
+            if let nextEvolutions = viewModel.nextEvolutions(for: pokemon) {
+                PokemonRow(viewModel: viewModel, title: "Next Evolutions", pokemons: nextEvolutions)
+            }
         }
         .navigationTitle(pokemon.name)
+        .padding()
     }
 }
+
 
