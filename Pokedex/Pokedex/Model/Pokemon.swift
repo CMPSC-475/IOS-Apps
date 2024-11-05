@@ -28,7 +28,7 @@ class PokedexModel {
     
     init() {
         loadPokemons()
-        print("Loaded Pokémon count: \(pokemonList.count)")
+
     }
     
     private func loadPokemons() {
@@ -37,12 +37,12 @@ class PokedexModel {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 self.pokemonList = try decoder.decode([Pokemon].self, from: data)
-                print("Loaded Pokémon count: \(pokemonList.count)") // Should print the correct count
+
             } catch {
-                print("Error loading Pokémon data: \(error)")
+
             }
         } else {
-            print("Failed to locate pokedex.json in bundle.")
+
         }
     }
 }

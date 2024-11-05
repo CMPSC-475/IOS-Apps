@@ -21,9 +21,14 @@ struct PokemonCardView: View {
                         .fill(LinearGradient(pokemon: pokemon))
                 )
                 .overlay(
-                    Image(systemName: pokemon.captured ?? false ? "checkmark.circle.fill" : "")
-                        .foregroundColor(.green)
-                        .padding([.top, .trailing], 5),
+                    // Only show the checkmark if the Pokémon is captured
+                    Group {
+                        if pokemon.captured ?? false {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .padding([.top, .trailing], 5)
+                        }
+                    },
                     alignment: .topTrailing
                 )
             Text(pokemon.name)
@@ -33,4 +38,5 @@ struct PokemonCardView: View {
         .frame(width: 100)
     }
 }
+
 
