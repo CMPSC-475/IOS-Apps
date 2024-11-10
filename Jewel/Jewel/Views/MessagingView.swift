@@ -32,7 +32,7 @@ struct MessageComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MFMessageComposeViewController {
         let vc = MFMessageComposeViewController()
         vc.body = "Invoice details..."
-        vc.recipients = ["+1234567890"]
+        vc.recipients = ["+12345678901"]
         return vc
     }
 

@@ -19,6 +19,7 @@ struct CalculatorView: View {
                     Text("Gold").tag("Gold")
                     Text("Silver").tag("Silver")
                     Text("Platinum").tag("Platinum")
+                    Text("Rose Gold").tag("Rose")
                 }
                 
                 TextField("Weight (grams)", value: $weight, format: .number)
