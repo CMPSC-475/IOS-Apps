@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		46D3B5672CE134B0003A9A76 /* JewelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5662CE134B0003A9A76 /* JewelApp.swift */; };
+		46D3B5692CE134B0003A9A76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5682CE134B0003A9A76 /* ContentView.swift */; };
+		46D3B56B2CE134B0003A9A76 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B56A2CE134B0003A9A76 /* Item.swift */; };
+		46D3B56D2CE134B2003A9A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46D3B56C2CE134B2003A9A76 /* Assets.xcassets */; };
+		46D3B5702CE134B2003A9A76 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46D3B56F2CE134B2003A9A76 /* Preview Assets.xcassets */; };
+		46D3B57A2CE134B2003A9A76 /* JewelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5792CE134B2003A9A76 /* JewelTests.swift */; };
+		46D3B5842CE134B2003A9A76 /* JewelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5832CE134B2003A9A76 /* JewelUITests.swift */; };
+		46D3B5862CE134B2003A9A76 /* JewelUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5852CE134B2003A9A76 /* JewelUITestsLaunchTests.swift */; };
+		46D3B5942CE13528003A9A76 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5932CE13528003A9A76 /* HomeView.swift */; };
+		46D3B5962CE1353E003A9A76 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5952CE1353E003A9A76 /* InventoryView.swift */; };
+		46D3B5982CE13554003A9A76 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5972CE13554003A9A76 /* CalculatorView.swift */; };
+		46D3B59A2CE13566003A9A76 /* InvoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B5992CE13566003A9A76 /* InvoiceView.swift */; };
+		46D3B59C2CE13579003A9A76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3B59B2CE13579003A9A76 /* MessagingView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		46D3B5762CE134B2003A9A76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46D3B55B2CE134B0003A9A76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46D3B5622CE134B0003A9A76;
+			remoteInfo = Jewel;
+		};
+		46D3B5802CE134B2003A9A76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46D3B55B2CE134B0003A9A76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46D3B5622CE134B0003A9A76;
+			remoteInfo = Jewel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		46D3B5632CE134B0003A9A76 /* Jewel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jewel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D3B5662CE134B0003A9A76 /* JewelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelApp.swift; sourceTree = "<group>"; };
+		46D3B5682CE134B0003A9A76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		46D3B56A2CE134B0003A9A76 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		46D3B56C2CE134B2003A9A76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		46D3B56F2CE134B2003A9A76 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		46D3B5752CE134B2003A9A76 /* JewelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JewelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D3B5792CE134B2003A9A76 /* JewelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelTests.swift; sourceTree = "<group>"; };
+		46D3B57F2CE134B2003A9A76 /* JewelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JewelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D3B5832CE134B2003A9A76 /* JewelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelUITests.swift; sourceTree = "<group>"; };
+		46D3B5852CE134B2003A9A76 /* JewelUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		46D3B5932CE13528003A9A76 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		46D3B5952CE1353E003A9A76 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		46D3B5972CE13554003A9A76 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		46D3B5992CE13566003A9A76 /* InvoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceView.swift; sourceTree = "<group>"; };
+		46D3B59B2CE13579003A9A76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		46D3B5602CE134B0003A9A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B5722CE134B2003A9A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B57C2CE134B2003A9A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		46D3B55A2CE134B0003A9A76 = {
+			isa = PBXGroup;
+			children = (
+				46D3B5652CE134B0003A9A76 /* Jewel */,
+				46D3B5782CE134B2003A9A76 /* JewelTests */,
+				46D3B5822CE134B2003A9A76 /* JewelUITests */,
+				46D3B5642CE134B0003A9A76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		46D3B5642CE134B0003A9A76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B5632CE134B0003A9A76 /* Jewel.app */,
+				46D3B5752CE134B2003A9A76 /* JewelTests.xctest */,
+				46D3B57F2CE134B2003A9A76 /* JewelUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		46D3B5652CE134B0003A9A76 /* Jewel */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B5922CE1351C003A9A76 /* Views */,
+				46D3B5662CE134B0003A9A76 /* JewelApp.swift */,
+				46D3B5682CE134B0003A9A76 /* ContentView.swift */,
+				46D3B56A2CE134B0003A9A76 /* Item.swift */,
+				46D3B56C2CE134B2003A9A76 /* Assets.xcassets */,
+				46D3B56E2CE134B2003A9A76 /* Preview Content */,
+			);
+			path = Jewel;
+			sourceTree = "<group>";
+		};
+		46D3B56E2CE134B2003A9A76 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B56F2CE134B2003A9A76 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		46D3B5782CE134B2003A9A76 /* JewelTests */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B5792CE134B2003A9A76 /* JewelTests.swift */,
+			);
+			path = JewelTests;
+			sourceTree = "<group>";
+		};
+		46D3B5822CE134B2003A9A76 /* JewelUITests */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B5832CE134B2003A9A76 /* JewelUITests.swift */,
+				46D3B5852CE134B2003A9A76 /* JewelUITestsLaunchTests.swift */,
+			);
+			path = JewelUITests;
+			sourceTree = "<group>";
+		};
+		46D3B5922CE1351C003A9A76 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46D3B5932CE13528003A9A76 /* HomeView.swift */,
+				46D3B5952CE1353E003A9A76 /* InventoryView.swift */,
+				46D3B5972CE13554003A9A76 /* CalculatorView.swift */,
+				46D3B5992CE13566003A9A76 /* InvoiceView.swift */,
+				46D3B59B2CE13579003A9A76 /* MessagingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		46D3B5622CE134B0003A9A76 /* Jewel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46D3B5892CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "Jewel" */;
+			buildPhases = (
+				46D3B55F2CE134B0003A9A76 /* Sources */,
+				46D3B5602CE134B0003A9A76 /* Frameworks */,
+				46D3B5612CE134B0003A9A76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Jewel;
+			productName = Jewel;
+			productReference = 46D3B5632CE134B0003A9A76 /* Jewel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		46D3B5742CE134B2003A9A76 /* JewelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46D3B58C2CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "JewelTests" */;
+			buildPhases = (
+				46D3B5712CE134B2003A9A76 /* Sources */,
+				46D3B5722CE134B2003A9A76 /* Frameworks */,
+				46D3B5732CE134B2003A9A76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				46D3B5772CE134B2003A9A76 /* PBXTargetDependency */,
+			);
+			name = JewelTests;
+			productName = JewelTests;
+			productReference = 46D3B5752CE134B2003A9A76 /* JewelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		46D3B57E2CE134B2003A9A76 /* JewelUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46D3B58F2CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "JewelUITests" */;
+			buildPhases = (
+				46D3B57B2CE134B2003A9A76 /* Sources */,
+				46D3B57C2CE134B2003A9A76 /* Frameworks */,
+				46D3B57D2CE134B2003A9A76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				46D3B5812CE134B2003A9A76 /* PBXTargetDependency */,
+			);
+			name = JewelUITests;
+			productName = JewelUITests;
+			productReference = 46D3B57F2CE134B2003A9A76 /* JewelUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46D3B55B2CE134B0003A9A76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					46D3B5622CE134B0003A9A76 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					46D3B5742CE134B2003A9A76 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 46D3B5622CE134B0003A9A76;
+					};
+					46D3B57E2CE134B2003A9A76 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 46D3B5622CE134B0003A9A76;
+					};
+				};
+			};
+			buildConfigurationList = 46D3B55E2CE134B0003A9A76 /* Build configuration list for PBXProject "Jewel" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 46D3B55A2CE134B0003A9A76;
+			productRefGroup = 46D3B5642CE134B0003A9A76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				46D3B5622CE134B0003A9A76 /* Jewel */,
+				46D3B5742CE134B2003A9A76 /* JewelTests */,
+				46D3B57E2CE134B2003A9A76 /* JewelUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		46D3B5612CE134B0003A9A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46D3B5702CE134B2003A9A76 /* Preview Assets.xcassets in Resources */,
+				46D3B56D2CE134B2003A9A76 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B5732CE134B2003A9A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B57D2CE134B2003A9A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		46D3B55F2CE134B0003A9A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46D3B5692CE134B0003A9A76 /* ContentView.swift in Sources */,
+				46D3B59A2CE13566003A9A76 /* InvoiceView.swift in Sources */,
+				46D3B5962CE1353E003A9A76 /* InventoryView.swift in Sources */,
+				46D3B5942CE13528003A9A76 /* HomeView.swift in Sources */,
+				46D3B56B2CE134B0003A9A76 /* Item.swift in Sources */,
+				46D3B5982CE13554003A9A76 /* CalculatorView.swift in Sources */,
+				46D3B5672CE134B0003A9A76 /* JewelApp.swift in Sources */,
+				46D3B59C2CE13579003A9A76 /* MessagingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B5712CE134B2003A9A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46D3B57A2CE134B2003A9A76 /* JewelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46D3B57B2CE134B2003A9A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46D3B5862CE134B2003A9A76 /* JewelUITestsLaunchTests.swift in Sources */,
+				46D3B5842CE134B2003A9A76 /* JewelUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		46D3B5772CE134B2003A9A76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46D3B5622CE134B0003A9A76 /* Jewel */;
+			targetProxy = 46D3B5762CE134B2003A9A76 /* PBXContainerItemProxy */;
+		};
+		46D3B5812CE134B2003A9A76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46D3B5622CE134B0003A9A76 /* Jewel */;
+			targetProxy = 46D3B5802CE134B2003A9A76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		46D3B5872CE134B2003A9A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		46D3B5882CE134B2003A9A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		46D3B58A2CE134B2003A9A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Jewel/Preview Content\"";
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.Jewel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		46D3B58B2CE134B2003A9A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Jewel/Preview Content\"";
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.Jewel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		46D3B58D2CE134B2003A9A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.JewelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Jewel";
+			};
+			name = Debug;
+		};
+		46D3B58E2CE134B2003A9A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.JewelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Jewel";
+			};
+			name = Release;
+		};
+		46D3B5902CE134B2003A9A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.JewelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Jewel;
+			};
+			name = Debug;
+		};
+		46D3B5912CE134B2003A9A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QAC364DJ2H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.psu.nbh5294.JewelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Jewel;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		46D3B55E2CE134B0003A9A76 /* Build configuration list for PBXProject "Jewel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46D3B5872CE134B2003A9A76 /* Debug */,
+				46D3B5882CE134B2003A9A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46D3B5892CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "Jewel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46D3B58A2CE134B2003A9A76 /* Debug */,
+				46D3B58B2CE134B2003A9A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46D3B58C2CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "JewelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46D3B58D2CE134B2003A9A76 /* Debug */,
+				46D3B58E2CE134B2003A9A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46D3B58F2CE134B2003A9A76 /* Build configuration list for PBXNativeTarget "JewelUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46D3B5902CE134B2003A9A76 /* Debug */,
+				46D3B5912CE134B2003A9A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46D3B55B2CE134B0003A9A76 /* Project object */;
+}
