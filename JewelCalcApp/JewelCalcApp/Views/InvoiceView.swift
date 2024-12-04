@@ -11,6 +11,7 @@ struct InvoiceView: View {
     @EnvironmentObject var viewModel: InvoiceViewModel
     @State private var showingPDFExportAlert = false
     @State private var exportedPDFURL: URL?
+    @State private var showingInvoiceForm = false // New state for showing form
 
     var body: some View {
         VStack {
@@ -36,9 +37,12 @@ struct InvoiceView: View {
         }
         .navigationTitle("Invoices")
         .toolbar {
-            Button(action: addSampleInvoice) {
+            Button(action: { showingInvoiceForm.toggle() }) {
                 Label("Add Invoice", systemImage: "plus")
             }
+        }
+        .sheet(isPresented: $showingInvoiceForm) {
+            InvoiceFormView(viewModel: viewModel)
         }
         .alert("PDF Exported", isPresented: $showingPDFExportAlert, actions: {
             if let url = exportedPDFURL {
@@ -51,21 +55,6 @@ struct InvoiceView: View {
             Text("The invoice was successfully exported.")
         })
     }
-
-    private func addSampleInvoice() {
-        let sampleItems = [
-            InvoiceItem(description: "Gold Necklace", quantity: 1, price: 500.0),
-            InvoiceItem(description: "Silver Ring", quantity: 2, price: 75.0)
-        ]
-        let newInvoice = Invoice(
-            id: UUID(),
-            date: Date(),
-            customerName: "John Doe",
-            items: sampleItems,
-            totalAmount: 650.0
-        )
-        viewModel.addInvoice(newInvoice)
-    }
 }
 
 struct InvoiceView_Previews: PreviewProvider {
@@ -74,4 +63,88 @@ struct InvoiceView_Previews: PreviewProvider {
             .environmentObject(InvoiceViewModel())
     }
 }
+
+
+struct InvoiceFormView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: InvoiceViewModel
+
+    @State private var customerName = ""
+    @State private var items: [InvoiceItem] = []
+    @State private var newItemDescription = ""
+    @State private var newItemQuantity = 1
+    @State private var newItemPrice = 0.0
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Customer Information")) {
+                    TextField("Customer Name", text: $customerName)
+                }
+
+                Section(header: Text("Items")) {
+                    ForEach(items.indices, id: \.self) { index in
+                        HStack {
+                            Text(items[index].description)
+                            Spacer()
+                            Text("Qty: \(items[index].quantity)")
+                            Text("$\(items[index].price, specifier: "%.2f")")
+                        }
+                    }
+                    .onDelete(perform: deleteItem)
+
+                    HStack {
+                        TextField("Description", text: $newItemDescription)
+                        TextField("Price", value: $newItemPrice, format: .number)
+                            .keyboardType(.decimalPad)
+                        Stepper("Qty: \(newItemQuantity)", value: $newItemQuantity, in: 1...100)
+                        Button("Add") {
+                            addItem()
+                        }
+                    }
+                }
+
+                Button("Save Invoice") {
+                    saveInvoice()
+                }
+            }
+            .navigationTitle("New Invoice")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private func addItem() {
+        guard !newItemDescription.isEmpty, newItemPrice > 0 else { return }
+        let newItem = InvoiceItem(description: newItemDescription, quantity: newItemQuantity, price: newItemPrice)
+        items.append(newItem)
+        newItemDescription = ""
+        newItemPrice = 0.0
+        newItemQuantity = 1
+    }
+
+    private func deleteItem(at offsets: IndexSet) {
+        items.remove(atOffsets: offsets)
+    }
+
+    private func saveInvoice() {
+        guard !customerName.isEmpty, !items.isEmpty else { return }
+        let totalAmount = items.reduce(0) { $0 + ($1.price * Double($1.quantity)) }
+        let newInvoice = Invoice(id: UUID(), date: Date(), customerName: customerName, items: items, totalAmount: totalAmount)
+        viewModel.addInvoice(newInvoice)
+        dismiss()
+    }
+}
+
+struct InvoiceFormView_Previews: PreviewProvider {
+    static var previews: some View {
+        InvoiceFormView(viewModel: InvoiceViewModel())
+    }
+}
+
 
