@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Invoice: Identifiable {
+struct Invoice: Identifiable, Codable {
     let id: UUID
     let date: Date
     let customerName: String
@@ -15,9 +15,10 @@ struct Invoice: Identifiable {
     let totalAmount: Double
 }
 
-struct InvoiceItem {
+struct InvoiceItem: Codable {
     let description: String
     let quantity: Int
     let price: Double
 }
+
 

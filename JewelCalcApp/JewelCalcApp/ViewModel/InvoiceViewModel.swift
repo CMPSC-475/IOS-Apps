@@ -6,16 +6,30 @@
 //
 
 import Foundation
-import PDFKit
+import UIKit
 
 class InvoiceViewModel: ObservableObject {
-    @Published var invoices: [Invoice] = []
-    
+    @Published var invoices: [Invoice] = [] {
+        didSet {
+            saveInvoices()
+        }
+    }
+
+    private let invoicesFileURL: URL
+
+    init() {
+        // Set up the file URL for saving and loading
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        invoicesFileURL = documentsDirectory.appendingPathComponent("invoices.json")
+        loadInvoices()
+    }
+
     func addInvoice(_ invoice: Invoice) {
         invoices.append(invoice)
     }
-    
+
     func generatePDF(for invoice: Invoice) -> URL? {
+        // Same PDF generation code as before
         let pdfMetaData = [
             kCGPDFContextCreator: "JewelCalc",
             kCGPDFContextAuthor: "JewelCalc App",
@@ -62,6 +76,25 @@ class InvoiceViewModel: ObservableObject {
         } catch {
             print("Could not create PDF: \(error)")
             return nil
+        }
+    }
+
+    private func saveInvoices() {
+        do {
+            let data = try JSONEncoder().encode(invoices)
+            try data.write(to: invoicesFileURL)
+        } catch {
+            print("Failed to save invoices: \(error)")
+        }
+    }
+
+    private func loadInvoices() {
+        do {
+            let data = try Data(contentsOf: invoicesFileURL)
+            invoices = try JSONDecoder().decode([Invoice].self, from: data)
+        } catch {
+            print("No saved invoices found or failed to load: \(error)")
+            invoices = []
         }
     }
 }

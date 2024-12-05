@@ -25,6 +25,8 @@
 		4660F9F12D00EE1C002662B5 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F02D00EE1C002662B5 /* Invoice.swift */; };
 		4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F22D00EE34002662B5 /* InvoiceViewModel.swift */; };
 		4660F9F52D00F179002662B5 /* InvoiceViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */; };
+		4660F9F82D010626002662B5 /* CoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F62D010626002662B5 /* CoreDataStack.xcdatamodeld */; };
+		4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F92D01074A002662B5 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		4660F9F02D00EE1C002662B5 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
 		4660F9F22D00EE34002662B5 /* InvoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceViewModel.swift; sourceTree = "<group>"; };
 		4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceViewModelTests.swift; sourceTree = "<group>"; };
+		4660F9F72D010626002662B5 /* CoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStack.xcdatamodel; sourceTree = "<group>"; };
+		4660F9F92D01074A002662B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 		4660F9B12D00E9F3002662B5 /* JewelCalcApp */ = {
 			isa = PBXGroup;
 			children = (
+				4660F9F62D010626002662B5 /* CoreDataStack.xcdatamodeld */,
 				4660F9E42D00EC1D002662B5 /* Views */,
 				4660F9E12D00EBF6002662B5 /* ViewModel */,
 				4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */,
@@ -159,6 +164,7 @@
 			children = (
 				4660F9DF2D00EBE4002662B5 /* InventoryItem.swift */,
 				4660F9F02D00EE1C002662B5 /* Invoice.swift */,
+				4660F9F92D01074A002662B5 /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,11 +327,13 @@
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,
 				4660F9EF2D00EC88002662B5 /* InvoiceView.swift in Sources */,
 				4660F9E62D00EC2A002662B5 /* HomeView.swift in Sources */,
+				4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */,
 				4660F9E82D00EC3D002662B5 /* InventoryView.swift in Sources */,
 				4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */,
 				4660F9EA2D00EC52002662B5 /* AddInventoryItemView.swift in Sources */,
 				4660F9E02D00EBE4002662B5 /* InventoryItem.swift in Sources */,
 				4660F9F12D00EE1C002662B5 /* Invoice.swift in Sources */,
+				4660F9F82D010626002662B5 /* CoreDataStack.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +664,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4660F9F62D010626002662B5 /* CoreDataStack.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4660F9F72D010626002662B5 /* CoreDataStack.xcdatamodel */,
+			);
+			currentVersion = 4660F9F72D010626002662B5 /* CoreDataStack.xcdatamodel */;
+			path = CoreDataStack.xcdatamodeld;
+			sourceTree = "<group>";
+			usesTabs = 0;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4660F9A72D00E9F3002662B5 /* Project object */;
 }
