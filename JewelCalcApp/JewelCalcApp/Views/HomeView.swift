@@ -31,13 +31,13 @@ struct HomeView: View {
                     .environmentObject(InventoryViewModel())
                     .environmentObject(InvoiceViewModel())
                 ) {
-                    Text("Analytics Dashboard")
+                    Text("Dashboard")
                 }
                 
                 NavigationLink(destination: MessagingView(invoices: invoiceViewModel.invoices)) {
                     Text("Messaging")
                 }
-                NavigationLink(destination: AnalyticsDashboardView()) {
+                NavigationLink(destination: AnalyticsDashboardView(invoices: invoiceViewModel.invoices)) {
                     Text("Analytics Dashboard")
                 }
             }

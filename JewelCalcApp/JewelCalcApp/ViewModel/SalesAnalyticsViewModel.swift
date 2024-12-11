@@ -8,21 +8,30 @@
 import Foundation
 
 class SalesAnalyticsViewModel: ObservableObject {
+    @Published var startDate: Date
+    @Published var endDate: Date
+    @Published var selectedCategory: String? = nil
     @Published var filteredInvoices: [Invoice] = []
     @Published var totalSales: Double = 0.0
     @Published var salesByCategory: [String: Double] = [:]
     @Published var salesOverTime: [(Date, Double)] = []
 
     private var allInvoices: [Invoice]
+    var categories: [String] // List of unique categories
 
     init(invoices: [Invoice]) {
         self.allInvoices = invoices
+        self.categories = Array(Set(invoices.flatMap { $0.items.map { $0.category } }))
+        let today = Date()
+        self.startDate = Calendar.current.date(byAdding: .month, value: -1, to: today)!
+        self.endDate = today
+        filterInvoices()
     }
 
-    func filterInvoices(by startDate: Date, endDate: Date, category: String?) {
+    func filterInvoices() {
         filteredInvoices = allInvoices.filter { invoice in
             let withinDateRange = invoice.date >= startDate && invoice.date <= endDate
-            let matchesCategory = category == nil || invoice.items.contains { $0.category == category }
+            let matchesCategory = selectedCategory == nil || invoice.items.contains { $0.category == selectedCategory }
             return withinDateRange && matchesCategory
         }
 
@@ -49,4 +58,3 @@ class SalesAnalyticsViewModel: ObservableObject {
             .map { ($0.key, $0.value) }
     }
 }
-
