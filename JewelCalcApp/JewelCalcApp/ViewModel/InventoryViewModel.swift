@@ -9,21 +9,75 @@ import Foundation
 
 class InventoryViewModel: ObservableObject {
     @Published var inventory: [InventoryItem] = []
-    
+
+    // Search and filter properties
+    @Published var searchText: String = ""
+    @Published var selectedCategory: String = "All"
+    @Published var selectedMaterial: String = "All"
+    @Published var selectedGemstone: String = "All"
+
     func addItem(_ item: InventoryItem) {
         inventory.append(item)
     }
-    
+
     func deleteItem(_ item: InventoryItem) {
         inventory.removeAll { $0.id == item.id }
     }
-    
+
     func updateItem(_ item: InventoryItem) {
         if let index = inventory.firstIndex(where: { $0.id == item.id }) {
             inventory[index] = item
         }
     }
+
+    // Computed properties for filtered inventory and unique options
+    var filteredInventory: [InventoryItem] {
+        inventory.filter { item in
+            let matchesSearch = searchText.isEmpty || item.name.localizedCaseInsensitiveContains(searchText)
+            let matchesCategory = selectedCategory == "All" || item.category == selectedCategory
+            let matchesMaterial = selectedMaterial == "All" || item.material == selectedMaterial
+            let matchesGemstone = selectedGemstone == "All" || item.gemstone == selectedGemstone
+            return matchesSearch && matchesCategory && matchesMaterial && matchesGemstone
+        }
+    }
+
+    var uniqueCategories: [String] {
+        ["All"] + Array(Set(inventory.map { $0.category })).sorted()
+    }
+
+    var uniqueMaterials: [String] {
+        ["All"] + Array(Set(inventory.map { $0.material })).sorted()
+    }
+
+    var uniqueGemstones: [String] {
+        ["All"] + Array(Set(inventory.map { $0.gemstone })).sorted()
+    }
+
+    // Update methods for filters and search
+    func updateSearchText(_ text: String) {
+        searchText = text
+    }
+
+    func updateSelectedCategory(_ category: String) {
+        selectedCategory = category
+    }
+
+    func updateSelectedMaterial(_ material: String) {
+        selectedMaterial = material
+    }
+
+    func updateSelectedGemstone(_ gemstone: String) {
+        selectedGemstone = gemstone
+    }
+
+    func resetFilters() {
+        searchText = ""
+        selectedCategory = "All"
+        selectedMaterial = "All"
+        selectedGemstone = "All"
+    }
 }
+
 
 extension InventoryViewModel {
     var totalInventoryValue: Double {
