@@ -24,6 +24,13 @@ struct HomeView: View {
                 NavigationLink(destination: InvoiceView().environmentObject(invoiceViewModel)) {
                     Text("Invoice Generation")
                 }
+                
+                NavigationLink(destination: DashboardView()
+                    .environmentObject(InventoryViewModel())
+                    .environmentObject(InvoiceViewModel())
+                ) {
+                    Text("Analytics Dashboard")
+                }
 
             }
             .navigationTitle("JewelCalc")

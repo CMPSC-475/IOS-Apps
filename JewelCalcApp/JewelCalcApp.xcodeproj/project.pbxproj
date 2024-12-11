@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */; };
-		4660F9B52D00E9F3002662B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B42D00E9F3002662B5 /* ContentView.swift */; };
 		4660F9B72D00E9F3002662B5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B62D00E9F3002662B5 /* Item.swift */; };
 		4660F9B92D00E9F6002662B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4660F9B82D00E9F6002662B5 /* Assets.xcassets */; };
 		4660F9BC2D00E9F6002662B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4660F9BB2D00E9F6002662B5 /* Preview Assets.xcassets */; };
@@ -27,6 +26,7 @@
 		4660F9F52D00F179002662B5 /* InvoiceViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */; };
 		4660F9F82D010626002662B5 /* CoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F62D010626002662B5 /* CoreDataStack.xcdatamodeld */; };
 		4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F92D01074A002662B5 /* CoreDataStack.swift */; };
+		46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,6 @@
 /* Begin PBXFileReference section */
 		4660F9AF2D00E9F3002662B5 /* JewelCalcApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JewelCalcApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelCalcAppApp.swift; sourceTree = "<group>"; };
-		4660F9B42D00E9F3002662B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4660F9B62D00E9F3002662B5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4660F9B82D00E9F6002662B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4660F9BB2D00E9F6002662B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -70,6 +69,7 @@
 		4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceViewModelTests.swift; sourceTree = "<group>"; };
 		4660F9F72D010626002662B5 /* CoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStack.xcdatamodel; sourceTree = "<group>"; };
 		4660F9F92D01074A002662B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,6 @@
 				4660F9E12D00EBF6002662B5 /* ViewModel */,
 				4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */,
 				4660F9DE2D00EBC8002662B5 /* Models */,
-				4660F9B42D00E9F3002662B5 /* ContentView.swift */,
 				4660F9B62D00E9F3002662B5 /* Item.swift */,
 				4660F9B82D00E9F6002662B5 /* Assets.xcassets */,
 				4660F9BA2D00E9F6002662B5 /* Preview Content */,
@@ -186,6 +185,7 @@
 				4660F9E92D00EC52002662B5 /* AddInventoryItemView.swift */,
 				4660F9EB2D00EC68002662B5 /* CostCalculatorView.swift */,
 				4660F9EE2D00EC88002662B5 /* InvoiceView.swift */,
+				46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 				4660F9EC2D00EC68002662B5 /* CostCalculatorView.swift in Sources */,
 				4660F9E32D00EC06002662B5 /* InventoryViewModel.swift in Sources */,
 				4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */,
-				4660F9B52D00E9F3002662B5 /* ContentView.swift in Sources */,
+				46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */,
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,
 				4660F9EF2D00EC88002662B5 /* InvoiceView.swift in Sources */,
 				4660F9E62D00EC2A002662B5 /* HomeView.swift in Sources */,

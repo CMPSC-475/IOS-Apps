@@ -99,3 +99,13 @@ class InvoiceViewModel: ObservableObject {
     }
 }
 
+extension InvoiceViewModel {
+    var monthlyInvoiceTotals: [String: Double] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return invoices.reduce(into: [:]) { totals, invoice in
+            let month = dateFormatter.string(from: invoice.date)
+            totals[month, default: 0] += invoice.totalAmount
+        }
+    }
+}
