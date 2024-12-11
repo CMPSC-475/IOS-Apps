@@ -12,6 +12,7 @@ struct InvoiceFormView: View {
     @ObservedObject var viewModel: InvoiceViewModel
 
     @State private var customerName = ""
+    @State private var phoneNumber = "" // New field
     @State private var items: [InvoiceItem] = []
     @State private var newItemDescription = ""
     @State private var newItemQuantity = 1
@@ -26,6 +27,8 @@ struct InvoiceFormView: View {
             Form {
                 Section(header: Text("Customer Information")) {
                     TextField("Customer Name", text: $customerName)
+                    TextField("Phone Number", text: $phoneNumber)
+                        .keyboardType(.phonePad)
                 }
 
                 Section(header: Text("Items")) {
@@ -102,7 +105,8 @@ struct InvoiceFormView: View {
             items: items,
             totalAmount: totalAmount,
             paymentStatus: paymentStatus,
-            dueDate: dueDate
+            dueDate: dueDate,
+            phoneNumber: phoneNumber // Save phone number
         )
         if invoiceToEdit != nil {
             viewModel.updateInvoice(newInvoice)
@@ -114,11 +118,13 @@ struct InvoiceFormView: View {
 
     private func loadInvoiceDetails(_ invoice: Invoice) {
         customerName = invoice.customerName
+        phoneNumber = invoice.phoneNumber ?? ""
         items = invoice.items
         paymentStatus = invoice.paymentStatus
         dueDate = invoice.dueDate
     }
 }
+
 
 struct InvoiceFormView_Previews: PreviewProvider {
     static var previews: some View {

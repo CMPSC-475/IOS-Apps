@@ -33,6 +33,10 @@ struct HomeView: View {
                 ) {
                     Text("Analytics Dashboard")
                 }
+                
+                NavigationLink(destination: MessagingView(invoices: invoiceViewModel.invoices)) {
+                    Text("Messaging")
+                }
 
             }
             .navigationTitle("JewelCalc")

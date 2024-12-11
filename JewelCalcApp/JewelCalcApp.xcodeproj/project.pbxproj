@@ -31,6 +31,9 @@
 		46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */; };
 		46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF52D0A2D90000D7625 /* NotificationManager.swift */; };
 		46B25AF82D0A304C000D7625 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF72D0A304C000D7625 /* PreferencesView.swift */; };
+		46B25AFA2D0A377D000D7625 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF92D0A377D000D7625 /* MessagingView.swift */; };
+		46B25AFC2D0A3799000D7625 /* MessageComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AFB2D0A3799000D7625 /* MessageComposeView.swift */; };
+		46B25AFE2D0A3B13000D7625 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AFD2D0A3B13000D7625 /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCalculatorViewModel.swift; sourceTree = "<group>"; };
 		46B25AF52D0A2D90000D7625 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		46B25AF72D0A304C000D7625 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		46B25AF92D0A377D000D7625 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
+		46B25AFB2D0A3799000D7625 /* MessageComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposeView.swift; sourceTree = "<group>"; };
+		46B25AFD2D0A3B13000D7625 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				4660F9E52D00EC2A002662B5 /* HomeView.swift */,
+				46B25AF92D0A377D000D7625 /* MessagingView.swift */,
+				46B25AFD2D0A3B13000D7625 /* ChatView.swift */,
+				46B25AFB2D0A3799000D7625 /* MessageComposeView.swift */,
 				46B25AF72D0A304C000D7625 /* PreferencesView.swift */,
 				4660F9E72D00EC3D002662B5 /* InventoryView.swift */,
 				4660F9E92D00EC52002662B5 /* AddInventoryItemView.swift */,
@@ -336,12 +345,15 @@
 				46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */,
 				4660F9E32D00EC06002662B5 /* InventoryViewModel.swift in Sources */,
 				4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */,
+				46B25AFE2D0A3B13000D7625 /* ChatView.swift in Sources */,
 				46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */,
+				46B25AFC2D0A3799000D7625 /* MessageComposeView.swift in Sources */,
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,
 				4660F9EF2D00EC88002662B5 /* InvoiceView.swift in Sources */,
 				46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */,
 				46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */,
 				4660F9E62D00EC2A002662B5 /* HomeView.swift in Sources */,
+				46B25AFA2D0A377D000D7625 /* MessagingView.swift in Sources */,
 				4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */,
 				4660F9E82D00EC3D002662B5 /* InventoryView.swift in Sources */,
 				4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */,

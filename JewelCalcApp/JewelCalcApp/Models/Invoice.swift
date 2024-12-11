@@ -15,6 +15,7 @@ struct Invoice: Identifiable, Codable {
     let totalAmount: Double
     var paymentStatus: PaymentStatus
     var dueDate: Date
+    var phoneNumber: String?
 }
 
 struct InvoiceItem: Codable {
