@@ -28,70 +28,82 @@ class InvoiceViewModel: ObservableObject {
         invoices.append(invoice)
     }
 
-    func generatePDF(for invoice: Invoice) -> URL? {
-        let pdfMetaData = [
-            kCGPDFContextCreator: "JewelCalc",
-            kCGPDFContextAuthor: "JewelCalc App",
-            kCGPDFContextTitle: "Invoice"
-        ]
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMetaData as [String: Any]
+    func generatePDF(for invoice: Invoice, completion: @escaping (URL?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let pdfMetaData = [
+                kCGPDFContextCreator: "JewelCalc",
+                kCGPDFContextAuthor: "JewelCalc App",
+                kCGPDFContextTitle: "Invoice"
+            ]
+            let format = UIGraphicsPDFRendererFormat()
+            format.documentInfo = pdfMetaData as [String: Any]
 
-        let pageWidth = 8.5 * 72.0
-        let pageHeight = 11 * 72.0
-        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+            let pageWidth = 8.5 * 72.0
+            let pageHeight = 11 * 72.0
+            let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
 
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Invoice-\(invoice.id).pdf")
+            let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("Invoice-\(invoice.id).pdf")
 
-        do {
-            try renderer.writePDF(to: url) { context in
-                context.beginPage()
+            do {
+                try renderer.writePDF(to: url) { context in
+                    context.beginPage()
 
-                let titleAttributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.boldSystemFont(ofSize: 18)
-                ]
-                let textAttributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.systemFont(ofSize: 12)
-                ]
-                let headerAttributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.boldSystemFont(ofSize: 14)
-                ]
+                    let titleAttributes: [NSAttributedString.Key: Any] = [
+                        .font: UIFont.boldSystemFont(ofSize: 18)
+                    ]
+                    let textAttributes: [NSAttributedString.Key: Any] = [
+                        .font: UIFont.systemFont(ofSize: 12)
+                    ]
+                    let headerAttributes: [NSAttributedString.Key: Any] = [
+                        .font: UIFont.boldSystemFont(ofSize: 14)
+                    ]
 
-                let title = "Invoice"
-                title.draw(at: CGPoint(x: 36, y: 36), withAttributes: titleAttributes)
+                    let title = "Invoice"
+                    title.draw(at: CGPoint(x: 36, y: 36), withAttributes: titleAttributes)
 
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .short
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateStyle = .short
 
-                let customerInfo = """
-                Customer: \(invoice.customerName)
-                Date: \(dateFormatter.string(from: invoice.date))
-                Payment Status: \(invoice.paymentStatus.rawValue)
-                Due Date: \(dateFormatter.string(from: invoice.dueDate))
-                """
-                customerInfo.draw(at: CGPoint(x: 36, y: 60), withAttributes: textAttributes)
+                    let customerInfo = """
+                    Customer: \(invoice.customerName)
+                    Date: \(dateFormatter.string(from: invoice.date))
+                    Payment Status: \(invoice.paymentStatus.rawValue)
+                    Due Date: \(dateFormatter.string(from: invoice.dueDate))
+                    """
+                    customerInfo.draw(at: CGPoint(x: 36, y: 60), withAttributes: textAttributes)
 
-                var yOffset: CGFloat = 140
-                let itemHeader = "Items"
-                itemHeader.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: headerAttributes)
+                    var yOffset: CGFloat = 140
+                    let itemHeader = "Items"
+                    itemHeader.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: headerAttributes)
 
-                yOffset += 20
-                for item in invoice.items {
-                    let itemInfo = "\(item.description) - Qty: \(item.quantity) - $\(String(format: "%.2f", item.price))"
-                    itemInfo.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: textAttributes)
                     yOffset += 20
+                    for item in invoice.items {
+                        let itemInfo = "\(item.description) - Qty: \(item.quantity) - $\(String(format: "%.2f", item.price))"
+                        itemInfo.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: textAttributes)
+                        yOffset += 20
+                    }
+
+                    let total = "Total Amount: $\(String(format: "%.2f", invoice.totalAmount))"
+                    total.draw(at: CGPoint(x: 36, y: yOffset + 20), withAttributes: titleAttributes)
                 }
 
-                let total = "Total Amount: $\(String(format: "%.2f", invoice.totalAmount))"
-                total.draw(at: CGPoint(x: 36, y: yOffset + 20), withAttributes: titleAttributes)
+                // Debugging: Check if the file is successfully written
+                print("PDF generated successfully at: \(url)")
+
+                DispatchQueue.main.async {
+                    completion(url)
+                }
+            } catch {
+                print("Could not create PDF: \(error)")
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
-            return url
-        } catch {
-            print("Could not create PDF: \(error)")
-            return nil
         }
     }
+
+
 
 
 

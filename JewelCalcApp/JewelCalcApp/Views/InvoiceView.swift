@@ -12,8 +12,8 @@ struct InvoiceView: View {
     @EnvironmentObject var viewModel: InvoiceViewModel
     @State private var showingInvoiceForm = false
     @State private var selectedInvoice: Invoice?
-    @State private var pdfURLToShare: URL?
-    @State private var showingShareSheet = false
+    @State private var pdfURLToShare: URL? = nil // URL for the PDF to be shared
+    @State private var isGeneratingPDF = false // Track PDF generation state
 
     var body: some View {
         VStack {
@@ -32,10 +32,7 @@ struct InvoiceView: View {
                     }
                     .contextMenu {
                         Button(action: {
-                            if let pdfURL = viewModel.generatePDF(for: invoice) {
-                                pdfURLToShare = pdfURL
-                                showingShareSheet = true
-                            }
+                            generatePDFAndShare(for: invoice)
                         }) {
                             Label("Share PDF", systemImage: "square.and.arrow.up")
                         }
@@ -56,14 +53,30 @@ struct InvoiceView: View {
         .sheet(isPresented: $showingInvoiceForm) {
             InvoiceFormView(viewModel: viewModel, invoiceToEdit: selectedInvoice)
         }
-        .sheet(isPresented: $showingShareSheet) {
+        .sheet(isPresented: Binding<Bool>(
+            get: { pdfURLToShare != nil },
+            set: { if !$0 { pdfURLToShare = nil } }
+        )) {
             if let pdfURLToShare = pdfURLToShare {
                 ShareSheet(activityItems: [pdfURLToShare])
             }
         }
     }
-}
 
+    private func generatePDFAndShare(for invoice: Invoice) {
+        isGeneratingPDF = true
+        viewModel.generatePDF(for: invoice) { pdfURL in
+            DispatchQueue.main.async {
+                isGeneratingPDF = false
+                if let pdfURL = pdfURL {
+                    pdfURLToShare = pdfURL
+                } else {
+                    print("PDF generation failed.")
+                }
+            }
+        }
+    }
+}
 
 
 struct ShareSheet: UIViewControllerRepresentable {
