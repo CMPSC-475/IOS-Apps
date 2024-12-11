@@ -28,6 +28,7 @@
 		4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F92D01074A002662B5 /* CoreDataStack.swift */; };
 		46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */; };
 		46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */; };
+		46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		4660F9F92D01074A002662B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceFormView.swift; sourceTree = "<group>"; };
+		46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCalculatorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 			children = (
 				4660F9E22D00EC06002662B5 /* InventoryViewModel.swift */,
 				4660F9F22D00EE34002662B5 /* InvoiceViewModel.swift */,
+				46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,
 				4660F9EF2D00EC88002662B5 /* InvoiceView.swift in Sources */,
 				46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */,
+				46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */,
 				4660F9E62D00EC2A002662B5 /* HomeView.swift in Sources */,
 				4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */,
 				4660F9E82D00EC3D002662B5 /* InventoryView.swift in Sources */,
