@@ -23,7 +23,7 @@ struct PreferencesView: View {
 
                 Section(header: Text("Appearance")) {
                     Toggle("Dark Mode", isOn: $isDarkMode)
-                        .onChange(of: isDarkMode) { _ in
+                        .onChange(of: isDarkMode) { _, _ in
                             updateAppearance()
                         }
                 }
@@ -51,6 +51,8 @@ struct PreferencesView: View {
     }
 
     private func updateAppearance() {
-        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        }
     }
 }

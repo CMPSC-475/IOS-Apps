@@ -29,9 +29,10 @@ struct JewelCalcApp: App {
     
     
     private func updateAppearance() {
-        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        }
     }
-    
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {

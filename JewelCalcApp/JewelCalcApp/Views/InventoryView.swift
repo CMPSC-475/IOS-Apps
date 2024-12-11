@@ -23,24 +23,24 @@ struct InventoryView: View {
                 TextField("Search by name", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .onChange(of: searchText) { _ in
-                        viewModel.updateSearchText(searchText)
+                    .onChange(of: searchText) { _, newValue in
+                        viewModel.updateSearchText(newValue)
                     }
             }
 
             // Filter Options
             HStack {
                 FilterMenu(title: "Category", selection: $selectedCategory, options: viewModel.uniqueCategories)
-                    .onChange(of: selectedCategory) { _ in
-                        viewModel.updateSelectedCategory(selectedCategory)
+                    .onChange(of: selectedCategory) { _, newValue in
+                        viewModel.updateSelectedCategory(newValue)
                     }
                 FilterMenu(title: "Material", selection: $selectedMaterial, options: viewModel.uniqueMaterials)
-                    .onChange(of: selectedMaterial) { _ in
-                        viewModel.updateSelectedMaterial(selectedMaterial)
+                    .onChange(of: selectedMaterial) { _, newValue in
+                        viewModel.updateSelectedMaterial(newValue)
                     }
                 FilterMenu(title: "Gemstone", selection: $selectedGemstone, options: viewModel.uniqueGemstones)
-                    .onChange(of: selectedGemstone) { _ in
-                        viewModel.updateSelectedGemstone(selectedGemstone)
+                    .onChange(of: selectedGemstone) { _, newValue in
+                        viewModel.updateSelectedGemstone(newValue)
                     }
             }
             .padding(.horizontal)
