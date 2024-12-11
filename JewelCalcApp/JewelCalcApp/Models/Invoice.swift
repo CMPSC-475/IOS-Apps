@@ -22,6 +22,7 @@ struct InvoiceItem: Codable {
     let description: String
     let quantity: Int
     let price: Double
+    let category: String
 }
 
 

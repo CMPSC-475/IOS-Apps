@@ -37,7 +37,9 @@ struct HomeView: View {
                 NavigationLink(destination: MessagingView(invoices: invoiceViewModel.invoices)) {
                     Text("Messaging")
                 }
-
+                NavigationLink(destination: AnalyticsDashboardView()) {
+                    Text("Analytics Dashboard")
+                }
             }
             .navigationTitle("JewelCalc")
             .toolbar {

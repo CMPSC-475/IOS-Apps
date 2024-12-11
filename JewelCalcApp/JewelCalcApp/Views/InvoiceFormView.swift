@@ -12,15 +12,16 @@ struct InvoiceFormView: View {
     @ObservedObject var viewModel: InvoiceViewModel
 
     @State private var customerName = ""
-    @State private var phoneNumber = "" // New field
+    @State private var phoneNumber = ""
     @State private var items: [InvoiceItem] = []
     @State private var newItemDescription = ""
+    @State private var newItemCategory = "" // New field for category
     @State private var newItemQuantity = 1
     @State private var newItemPrice = 0.0
     @State private var paymentStatus: PaymentStatus = .unpaid
     @State private var dueDate = Date()
 
-    var invoiceToEdit: Invoice? // Pass this when editing an invoice
+    var invoiceToEdit: Invoice? // Optional parameter for editing
 
     var body: some View {
         NavigationView {
@@ -42,11 +43,12 @@ struct InvoiceFormView: View {
                     }
                     .onDelete(perform: deleteItem)
 
-                    HStack {
+                    VStack {
                         TextField("Description", text: $newItemDescription)
+                        TextField("Category", text: $newItemCategory) // Field for category
                         TextField("Price", value: $newItemPrice, format: .number)
                             .keyboardType(.decimalPad)
-                        Stepper("Qty: \(newItemQuantity)", value: $newItemQuantity, in: 1...100)
+                        Stepper("Quantity: \(newItemQuantity)", value: $newItemQuantity, in: 1...100)
                         Button("Add") {
                             addItem()
                         }
@@ -83,10 +85,16 @@ struct InvoiceFormView: View {
     }
 
     private func addItem() {
-        guard !newItemDescription.isEmpty, newItemPrice > 0 else { return }
-        let newItem = InvoiceItem(description: newItemDescription, quantity: newItemQuantity, price: newItemPrice)
+        guard !newItemDescription.isEmpty, !newItemCategory.isEmpty, newItemPrice > 0 else { return }
+        let newItem = InvoiceItem(
+            description: newItemDescription,
+            quantity: newItemQuantity,
+            price: newItemPrice,
+            category: newItemCategory // Pass category here
+        )
         items.append(newItem)
         newItemDescription = ""
+        newItemCategory = ""
         newItemPrice = 0.0
         newItemQuantity = 1
     }
@@ -106,7 +114,7 @@ struct InvoiceFormView: View {
             totalAmount: totalAmount,
             paymentStatus: paymentStatus,
             dueDate: dueDate,
-            phoneNumber: phoneNumber // Save phone number
+            phoneNumber: phoneNumber
         )
         if invoiceToEdit != nil {
             viewModel.updateInvoice(newInvoice)
