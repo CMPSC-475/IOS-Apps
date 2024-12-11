@@ -144,3 +144,16 @@ extension InvoiceViewModel {
         }
     }
 }
+
+extension InvoiceViewModel {
+    func checkPendingInvoices() {
+        let today = Date()
+        for invoice in invoices {
+            if invoice.paymentStatus != .paid && invoice.dueDate < Calendar.current.date(byAdding: .day, value: 3, to: today)! {
+                let title = "Pending Invoice Alert"
+                let body = "Invoice for \(invoice.customerName) is due on \(DateFormatter.shortDate.string(from: invoice.dueDate))."
+                NotificationManager.shared.scheduleNotification(title: title, body: body, triggerDate: Date().addingTimeInterval(5))
+            }
+        }
+    }
+}

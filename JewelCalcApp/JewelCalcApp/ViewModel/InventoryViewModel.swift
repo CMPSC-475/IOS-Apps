@@ -91,3 +91,13 @@ extension InventoryViewModel {
         return gemstoneCounts.sorted(by: { $0.value > $1.value }).prefix(3).map { $0.key }
     }
 }
+
+extension InventoryViewModel {
+    func checkLowInventory(threshold: Int = 5) {
+        for item in inventory where item.quantity < threshold {
+            let title = "Low Inventory Alert"
+            let body = "\(item.name) is running low with only \(item.quantity) left in stock."
+            NotificationManager.shared.scheduleNotification(title: title, body: body, triggerDate: Date().addingTimeInterval(5))
+        }
+    }
+}

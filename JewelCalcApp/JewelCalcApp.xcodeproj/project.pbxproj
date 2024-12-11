@@ -29,6 +29,8 @@
 		46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */; };
 		46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */; };
 		46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */; };
+		46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF52D0A2D90000D7625 /* NotificationManager.swift */; };
+		46B25AF82D0A304C000D7625 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF72D0A304C000D7625 /* PreferencesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceFormView.swift; sourceTree = "<group>"; };
 		46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCalculatorViewModel.swift; sourceTree = "<group>"; };
+		46B25AF52D0A2D90000D7625 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		46B25AF72D0A304C000D7625 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,7 @@
 				4660F9E22D00EC06002662B5 /* InventoryViewModel.swift */,
 				4660F9F22D00EE34002662B5 /* InvoiceViewModel.swift */,
 				46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */,
+				46B25AF52D0A2D90000D7625 /* NotificationManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				4660F9E52D00EC2A002662B5 /* HomeView.swift */,
+				46B25AF72D0A304C000D7625 /* PreferencesView.swift */,
 				4660F9E72D00EC3D002662B5 /* InventoryView.swift */,
 				4660F9E92D00EC52002662B5 /* AddInventoryItemView.swift */,
 				4660F9EB2D00EC68002662B5 /* CostCalculatorView.swift */,
@@ -327,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4660F9EC2D00EC68002662B5 /* CostCalculatorView.swift in Sources */,
+				46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */,
 				4660F9E32D00EC06002662B5 /* InventoryViewModel.swift in Sources */,
 				4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */,
 				46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */,
@@ -338,6 +345,7 @@
 				4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */,
 				4660F9E82D00EC3D002662B5 /* InventoryView.swift in Sources */,
 				4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */,
+				46B25AF82D0A304C000D7625 /* PreferencesView.swift in Sources */,
 				4660F9EA2D00EC52002662B5 /* AddInventoryItemView.swift in Sources */,
 				4660F9E02D00EBE4002662B5 /* InventoryItem.swift in Sources */,
 				4660F9F12D00EE1C002662B5 /* Invoice.swift in Sources */,

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var invoiceViewModel = InvoiceViewModel()
+    @StateObject private var inventoryViewModel = InventoryViewModel()
+    @State private var showingPreferences = false
     
     var body: some View {
         NavigationView {
@@ -34,6 +36,18 @@ struct HomeView: View {
 
             }
             .navigationTitle("JewelCalc")
+            .toolbar {
+                Button(action: { showingPreferences = true }) {
+                    Label("Preferences", systemImage: "gear")
+                }
+            }
+            .sheet(isPresented: $showingPreferences) {
+                PreferencesView()
+            }
+            .onAppear {
+                inventoryViewModel.checkLowInventory()
+                invoiceViewModel.checkPendingInvoices()
+            }
         }
     }
 }
