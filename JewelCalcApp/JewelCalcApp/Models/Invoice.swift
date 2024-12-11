@@ -13,6 +13,8 @@ struct Invoice: Identifiable, Codable {
     let customerName: String
     let items: [InvoiceItem]
     let totalAmount: Double
+    var paymentStatus: PaymentStatus
+    var dueDate: Date
 }
 
 struct InvoiceItem: Codable {
@@ -22,3 +24,8 @@ struct InvoiceItem: Codable {
 }
 
 
+enum PaymentStatus: String, Codable, CaseIterable {
+    case unpaid = "Unpaid"
+    case partiallyPaid = "Partially Paid"
+    case paid = "Paid"
+}

@@ -29,7 +29,6 @@ class InvoiceViewModel: ObservableObject {
     }
 
     func generatePDF(for invoice: Invoice) -> URL? {
-        // Same PDF generation code as before
         let pdfMetaData = [
             kCGPDFContextCreator: "JewelCalc",
             kCGPDFContextAuthor: "JewelCalc App",
@@ -48,28 +47,43 @@ class InvoiceViewModel: ObservableObject {
         do {
             try renderer.writePDF(to: url) { context in
                 context.beginPage()
-                
+
                 let titleAttributes: [NSAttributedString.Key: Any] = [
                     .font: UIFont.boldSystemFont(ofSize: 18)
                 ]
                 let textAttributes: [NSAttributedString.Key: Any] = [
                     .font: UIFont.systemFont(ofSize: 12)
                 ]
-                
+                let headerAttributes: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.boldSystemFont(ofSize: 14)
+                ]
+
                 let title = "Invoice"
                 title.draw(at: CGPoint(x: 36, y: 36), withAttributes: titleAttributes)
-                
-                let customerInfo = "Customer: \(invoice.customerName)\nDate: \(invoice.date)"
+
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .short
+
+                let customerInfo = """
+                Customer: \(invoice.customerName)
+                Date: \(dateFormatter.string(from: invoice.date))
+                Payment Status: \(invoice.paymentStatus.rawValue)
+                Due Date: \(dateFormatter.string(from: invoice.dueDate))
+                """
                 customerInfo.draw(at: CGPoint(x: 36, y: 60), withAttributes: textAttributes)
-                
-                var yOffset: CGFloat = 100
+
+                var yOffset: CGFloat = 140
+                let itemHeader = "Items"
+                itemHeader.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: headerAttributes)
+
+                yOffset += 20
                 for item in invoice.items {
-                    let itemInfo = "\(item.description) - Qty: \(item.quantity) - $\(item.price)"
+                    let itemInfo = "\(item.description) - Qty: \(item.quantity) - $\(String(format: "%.2f", item.price))"
                     itemInfo.draw(at: CGPoint(x: 36, y: yOffset), withAttributes: textAttributes)
                     yOffset += 20
                 }
-                
-                let total = "Total Amount: $\(invoice.totalAmount)"
+
+                let total = "Total Amount: $\(String(format: "%.2f", invoice.totalAmount))"
                 total.draw(at: CGPoint(x: 36, y: yOffset + 20), withAttributes: titleAttributes)
             }
             return url
@@ -79,6 +93,15 @@ class InvoiceViewModel: ObservableObject {
         }
     }
 
+
+
+    // Method to update an invoice
+    func updateInvoice(_ updatedInvoice: Invoice) {
+        if let index = invoices.firstIndex(where: { $0.id == updatedInvoice.id }) {
+            invoices[index] = updatedInvoice
+        }
+    }
+    
     private func saveInvoices() {
         do {
             let data = try JSONEncoder().encode(invoices)
