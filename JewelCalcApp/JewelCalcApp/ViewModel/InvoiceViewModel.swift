@@ -157,3 +157,9 @@ extension InvoiceViewModel {
         }
     }
 }
+
+extension InvoiceViewModel {
+    func deleteInvoice(_ invoice: Invoice) {
+        invoices.removeAll { $0.id == invoice.id }
+    }
+}

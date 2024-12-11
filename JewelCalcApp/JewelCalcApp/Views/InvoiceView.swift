@@ -22,25 +22,33 @@ struct InvoiceView: View {
                     .foregroundColor(.gray)
                     .italic()
             } else {
-                List(viewModel.invoices) { invoice in
-                    VStack(alignment: .leading) {
-                        Text("Customer: \(invoice.customerName)")
-                            .font(.headline)
-                        Text("Total: $\(invoice.totalAmount, specifier: "%.2f")")
-                        Text("Payment Status: \(invoice.paymentStatus.rawValue)")
-                        Text("Due Date: \(invoice.dueDate, formatter: DateFormatter.shortDate)")
-                    }
-                    .contextMenu {
-                        Button(action: {
-                            generatePDFAndShare(for: invoice)
-                        }) {
-                            Label("Share PDF", systemImage: "square.and.arrow.up")
+                List {
+                    ForEach(viewModel.invoices) { invoice in
+                        VStack(alignment: .leading) {
+                            Text("Customer: \(invoice.customerName)")
+                                .font(.headline)
+                            Text("Total: $\(invoice.totalAmount, specifier: "%.2f")")
+                            Text("Payment Status: \(invoice.paymentStatus.rawValue)")
+                            Text("Due Date: \(invoice.dueDate, formatter: DateFormatter.shortDate)")
+                        }
+                        .contextMenu {
+                            Button(action: {
+                                generatePDFAndShare(for: invoice)
+                            }) {
+                                Label("Share PDF", systemImage: "square.and.arrow.up")
+                            }
+                            Button(role: .destructive) {
+                                deleteInvoice(invoice)
+                            } label: {
+                                Label("Delete Invoice", systemImage: "trash")
+                            }
+                        }
+                        .onTapGesture {
+                            selectedInvoice = invoice
+                            showingInvoiceForm = true
                         }
                     }
-                    .onTapGesture {
-                        selectedInvoice = invoice
-                        showingInvoiceForm = true
-                    }
+                    .onDelete(perform: deleteInvoiceAt)
                 }
             }
         }
@@ -74,6 +82,18 @@ struct InvoiceView: View {
                     print("PDF generation failed.")
                 }
             }
+        }
+    }
+
+    private func deleteInvoice(_ invoice: Invoice) {
+        withAnimation {
+            viewModel.deleteInvoice(invoice)
+        }
+    }
+
+    private func deleteInvoiceAt(_ offsets: IndexSet) {
+        withAnimation {
+            offsets.map { viewModel.invoices[$0] }.forEach(viewModel.deleteInvoice)
         }
     }
 }
