@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		465237C52D0B638C00C6DF0B /* MetalRateMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */; };
 		4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */; };
 		4660F9B72D00E9F3002662B5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B62D00E9F3002662B5 /* Item.swift */; };
 		4660F9B92D00E9F6002662B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4660F9B82D00E9F6002662B5 /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRateMenu.swift; sourceTree = "<group>"; };
 		4660F9AF2D00E9F3002662B5 /* JewelCalcApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JewelCalcApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelCalcAppApp.swift; sourceTree = "<group>"; };
 		4660F9B62D00E9F3002662B5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */,
 				46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */,
 				46B25B012D0A415D000D7625 /* AnalyticsDashboardView.swift */,
+				465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */,
 				4660F9E82D00EC3D002662B5 /* InventoryView.swift in Sources */,
 				4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */,
+				465237C52D0B638C00C6DF0B /* MetalRateMenu.swift in Sources */,
 				46B25AF82D0A304C000D7625 /* PreferencesView.swift in Sources */,
 				4660F9EA2D00EC52002662B5 /* AddInventoryItemView.swift in Sources */,
 				4660F9E02D00EBE4002662B5 /* InventoryItem.swift in Sources */,
