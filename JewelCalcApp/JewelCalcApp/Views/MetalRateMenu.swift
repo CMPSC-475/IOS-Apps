@@ -47,9 +47,7 @@ struct MetalRateMenu: View {
                 Divider()
 
                 // Save Button
-                Button(action: {
-                    // Save the data logic can be implemented here
-                }) {
+                Button(action: saveData) {
                     Text("Save")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -69,6 +67,14 @@ struct MetalRateMenu: View {
             }
         }
         .navigationTitle("Metal Rate Menu")
+    }
+
+    private func saveData() {
+        let manager = MetalRateManager.shared
+        for purityRate in purityRates {
+            let rate = metalRate * purityRate.percentage / 100
+            manager.ratesByPurity[purityRate.purity] = rate
+        }
     }
 }
 
@@ -93,7 +99,6 @@ struct PurityRateRow: View {
         .padding(.horizontal)
     }
 }
-
 
 
 #Preview {

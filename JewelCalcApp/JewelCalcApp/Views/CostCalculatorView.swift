@@ -9,7 +9,10 @@ import SwiftUI
 
 struct CostCalculatorView: View {
     @StateObject private var viewModel = CostCalculatorViewModel()
-
+    @StateObject private var metalRateManager = MetalRateManager.shared
+    
+    
+    
     @State private var isNatural = true
     @State private var itemName: String = ""
     @State private var purity: String = "18K"
@@ -59,13 +62,18 @@ struct CostCalculatorView: View {
                             .font(.subheadline)
                         Spacer()
                         Picker("Purity", selection: $purity) {
-                            Text("9K").tag("9K")
-                            Text("14K").tag("14K")
-                            Text("18K").tag("18K")
                             Text("22K").tag("22K")
+                            Text("18K").tag("18K")
+                            Text("14K").tag("14K")
+                            Text("9K").tag("9K")
                         }
                         .pickerStyle(MenuPickerStyle())
                         .frame(width: 100)
+                        .onChange(of: purity) { newValue in
+                            if let rate = metalRateManager.ratesByPurity[newValue] {
+                                metalRate = rate
+                            }
+                        }
                     }
                     .padding(.horizontal)
 

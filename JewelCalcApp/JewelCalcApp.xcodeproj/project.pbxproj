@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		465237C52D0B638C00C6DF0B /* MetalRateMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */; };
 		465237C72D0B68C200C6DF0B /* PurityRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465237C62D0B68C200C6DF0B /* PurityRate.swift */; };
+		465237C92D0B6B0700C6DF0B /* MetalRateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465237C82D0B6B0700C6DF0B /* MetalRateManager.swift */; };
 		4660F9B32D00E9F3002662B5 /* JewelCalcAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */; };
 		4660F9B72D00E9F3002662B5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9B62D00E9F3002662B5 /* Item.swift */; };
 		4660F9B92D00E9F6002662B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4660F9B82D00E9F6002662B5 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRateMenu.swift; sourceTree = "<group>"; };
 		465237C62D0B68C200C6DF0B /* PurityRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurityRate.swift; sourceTree = "<group>"; };
+		465237C82D0B6B0700C6DF0B /* MetalRateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRateManager.swift; sourceTree = "<group>"; };
 		4660F9AF2D00E9F3002662B5 /* JewelCalcApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JewelCalcApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4660F9B22D00E9F3002662B5 /* JewelCalcAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelCalcAppApp.swift; sourceTree = "<group>"; };
 		4660F9B62D00E9F3002662B5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */,
 				46B25AF52D0A2D90000D7625 /* NotificationManager.swift */,
 				46B25AFF2D0A413E000D7625 /* SalesAnalyticsViewModel.swift */,
+				465237C82D0B6B0700C6DF0B /* MetalRateManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				46B25B002D0A413E000D7625 /* SalesAnalyticsViewModel.swift in Sources */,
 				4660F9EC2D00EC68002662B5 /* CostCalculatorView.swift in Sources */,
 				46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */,
+				465237C92D0B6B0700C6DF0B /* MetalRateManager.swift in Sources */,
 				4660F9E32D00EC06002662B5 /* InventoryViewModel.swift in Sources */,
 				465237C72D0B68C200C6DF0B /* PurityRate.swift in Sources */,
 				4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */,
