@@ -10,14 +10,11 @@ import SwiftUI
 struct MetalRateMenu: View {
     @State private var metalRate: Float = 0.0
     @State private var purityRates: [PurityRate] = [
-        PurityRate(purity: "22K", percentage: 91.6, rate: 0.0),
-        PurityRate(purity: "18K", percentage: 75.0, rate: 0.0),
-        PurityRate(purity: "14K", percentage: 58.3, rate: 0.0),
-        PurityRate(purity: "9K", percentage: 37.5, rate: 0.0)
+        PurityRate(purity: "22K", percentage: 0.0),
+        PurityRate(purity: "18K", percentage: 0.0),
+        PurityRate(purity: "14K", percentage: 0.0),
+        PurityRate(purity: "9K", percentage: 0.0)
     ]
-    @State private var labour: Float = 0.0
-    @State private var charges: Float = 0.0
-    @State private var taxPercentage: Float = 0.0
 
     var body: some View {
         ScrollView {
@@ -42,65 +39,16 @@ struct MetalRateMenu: View {
                         .font(.headline)
                         .padding(.horizontal)
 
-                    ForEach($purityRates) { $purityRate in
-                        HStack {
-                            Text(purityRate.purity)
-                                .font(.subheadline)
-                                .frame(width: 50, alignment: .leading)
-                            Text("\(purityRate.percentage, specifier: "%.1f")%")
-                                .frame(width: 50, alignment: .center)
-                            TextField("Rate/gms", value: $purityRate.rate, format: .number)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .keyboardType(.decimalPad)
-                                .frame(width: 100)
-                        }
-                        .padding(.horizontal)
+                    ForEach(purityRates) { purityRate in
+                        PurityRateRow(purityRate: purityRate, metalRate: $metalRate)
                     }
-                }
-
-                Divider()
-
-                // Labour, Charges, and Tax Inputs
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("Labour")
-                            .font(.subheadline)
-                        Spacer()
-                        TextField("0.0", value: $labour, format: .number)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.decimalPad)
-                            .frame(width: 100)
-                    }
-                    .padding(.horizontal)
-
-                    HStack {
-                        Text("Charges")
-                            .font(.subheadline)
-                        Spacer()
-                        TextField("0.0", value: $charges, format: .number)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.decimalPad)
-                            .frame(width: 100)
-                    }
-                    .padding(.horizontal)
-
-                    HStack {
-                        Text("Tax %")
-                            .font(.subheadline)
-                        Spacer()
-                        TextField("0.0", value: $taxPercentage, format: .number)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.decimalPad)
-                            .frame(width: 100)
-                    }
-                    .padding(.horizontal)
                 }
 
                 Divider()
 
                 // Save Button
                 Button(action: {
-                    // Action to save the values
+                    // Save the data logic can be implemented here
                 }) {
                     Text("Save")
                         .frame(maxWidth: .infinity)
@@ -124,10 +72,30 @@ struct MetalRateMenu: View {
     }
 }
 
-struct PurityRate: Identifiable {
-    let id = UUID()
-    var purity: String
-    var percentage: Float
-    var rate: Float
+struct PurityRateRow: View {
+    @ObservedObject var purityRate: PurityRate
+    @Binding var metalRate: Float
+
+    var body: some View {
+        HStack {
+            Text(purityRate.purity)
+                .font(.subheadline)
+                .frame(width: 50, alignment: .leading)
+            TextField("0.0", value: $purityRate.percentage, format: .number)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .keyboardType(.decimalPad)
+                .frame(width: 100)
+            Text("=")
+            Text("\((metalRate * purityRate.percentage / 100), specifier: "%.2f")")
+                .frame(width: 100, alignment: .trailing)
+                .foregroundColor(.purple)
+        }
+        .padding(.horizontal)
+    }
 }
 
+
+
+#Preview {
+    MetalRateMenu()
+}
