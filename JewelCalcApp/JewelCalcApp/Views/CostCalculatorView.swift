@@ -161,6 +161,33 @@ struct CostCalculatorView: View {
         let subtotal = metalCost + labourCost + solitaireCost + sideDiaCost + colStoneCost + charges
         let tax = subtotal * (taxPercentage / 100)
         totalPrice = subtotal + tax
+
+        // Generate Image
+        let estimateView = EstimateView(
+            itemName: itemName,
+            isNatural: isNatural,
+            purity: purity,
+            metalWeight: metalWeight,
+            metalRate: metalRate,
+            labourWeight: labour,
+            labourRate: labourRate,
+            solitaireWeight: solitaireWeight,
+            solitaireRate: solitaireRate,
+            sideDiaWeight: sideDiaWeight,
+            sideDiaRate: sideDiaRate,
+            colStoneWeight: colStoneWeight,
+            colStoneRate: colStoneRate,
+            charges: charges,
+            taxPercentage: taxPercentage,
+            totalPrice: totalPrice
+        )
+
+        let renderer = EstimateImageRenderer(estimateView: estimateView)
+        let image = renderer.renderAsImage()
+
+        // Save to Photos
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        print("Estimate saved as image.")
     }
 }
 

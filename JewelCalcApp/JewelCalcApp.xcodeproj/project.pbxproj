@@ -39,6 +39,9 @@
 		46B25AFE2D0A3B13000D7625 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AFD2D0A3B13000D7625 /* ChatView.swift */; };
 		46B25B002D0A413E000D7625 /* SalesAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AFF2D0A413E000D7625 /* SalesAnalyticsViewModel.swift */; };
 		46B25B022D0A415D000D7625 /* AnalyticsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25B012D0A415D000D7625 /* AnalyticsDashboardView.swift */; };
+		46D0AB7C2D0DDC0700D5C29F /* EstimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D0AB7B2D0DDC0700D5C29F /* EstimateView.swift */; };
+		46D0AB7E2D0DDC6600D5C29F /* EstimateImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D0AB7D2D0DDC6600D5C29F /* EstimateImageRenderer.swift */; };
+		46D0AB812D0DE21700D5C29F /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D0AB802D0DE21700D5C29F /* ShareSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +97,9 @@
 		46B25AFD2D0A3B13000D7625 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		46B25AFF2D0A413E000D7625 /* SalesAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		46B25B012D0A415D000D7625 /* AnalyticsDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDashboardView.swift; sourceTree = "<group>"; };
+		46D0AB7B2D0DDC0700D5C29F /* EstimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateView.swift; sourceTree = "<group>"; };
+		46D0AB7D2D0DDC6600D5C29F /* EstimateImageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateImageRenderer.swift; sourceTree = "<group>"; };
+		46D0AB802D0DE21700D5C29F /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +208,8 @@
 				46B25AF52D0A2D90000D7625 /* NotificationManager.swift */,
 				46B25AFF2D0A413E000D7625 /* SalesAnalyticsViewModel.swift */,
 				465237C82D0B6B0700C6DF0B /* MetalRateManager.swift */,
+				46D0AB7D2D0DDC6600D5C29F /* EstimateImageRenderer.swift */,
+				46D0AB802D0DE21700D5C29F /* ShareSheet.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -222,6 +230,7 @@
 				46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */,
 				46B25B012D0A415D000D7625 /* AnalyticsDashboardView.swift */,
 				465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */,
+				46D0AB7B2D0DDC0700D5C29F /* EstimateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,9 +373,11 @@
 				465237C72D0B68C200C6DF0B /* PurityRate.swift in Sources */,
 				4660F9F32D00EE34002662B5 /* InvoiceViewModel.swift in Sources */,
 				46B25AFE2D0A3B13000D7625 /* ChatView.swift in Sources */,
+				46D0AB7C2D0DDC0700D5C29F /* EstimateView.swift in Sources */,
 				46B25B022D0A415D000D7625 /* AnalyticsDashboardView.swift in Sources */,
 				46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */,
 				46B25AFC2D0A3799000D7625 /* MessageComposeView.swift in Sources */,
+				46D0AB7E2D0DDC6600D5C29F /* EstimateImageRenderer.swift in Sources */,
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,
 				4660F9EF2D00EC88002662B5 /* InvoiceView.swift in Sources */,
 				46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */,
@@ -380,6 +391,7 @@
 				46B25AF82D0A304C000D7625 /* PreferencesView.swift in Sources */,
 				4660F9EA2D00EC52002662B5 /* AddInventoryItemView.swift in Sources */,
 				4660F9E02D00EBE4002662B5 /* InventoryItem.swift in Sources */,
+				46D0AB812D0DE21700D5C29F /* ShareSheet.swift in Sources */,
 				4660F9F12D00EE1C002662B5 /* Invoice.swift in Sources */,
 				4660F9F82D010626002662B5 /* CoreDataStack.xcdatamodeld in Sources */,
 			);
@@ -549,6 +561,8 @@
 				DEVELOPMENT_TEAM = QAC364DJ2H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JewelCalcApp/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save your estimate to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -578,6 +592,8 @@
 				DEVELOPMENT_TEAM = QAC364DJ2H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JewelCalcApp/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save your estimate to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
