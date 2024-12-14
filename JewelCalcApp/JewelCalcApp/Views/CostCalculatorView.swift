@@ -10,9 +10,7 @@ import SwiftUI
 struct CostCalculatorView: View {
     @StateObject private var viewModel = CostCalculatorViewModel()
     @StateObject private var metalRateManager = MetalRateManager.shared
-    
-    
-    
+
     @State private var isNatural = true
     @State private var itemName: String = ""
     @State private var purity: String = "18K"
@@ -30,8 +28,11 @@ struct CostCalculatorView: View {
     @State private var taxPercentage: Float = 0.0
     @State private var totalPrice: Float = 0.0
 
+    @State private var navigateToEstimateView = false // Use to trigger navigation
+    @State private var navigationPath = NavigationPath() // For NavigationStack
+    
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             ScrollView {
                 VStack(spacing: 16) {
                     // Toggle for Natural and Lab Grown
@@ -47,7 +48,6 @@ struct CostCalculatorView: View {
                         Toggle(isOn: $isNatural) {
                             Text(isNatural ? "Natural" : "Lab Grown")
                         }
-                        //.toggleStyle(SegmentedToggleStyle())
                     }
                     .padding(.horizontal)
 
@@ -69,7 +69,7 @@ struct CostCalculatorView: View {
                         }
                         .pickerStyle(MenuPickerStyle())
                         .frame(width: 100)
-                        .onChange(of: purity) { newValue in
+                        .onChange(of: purity) { oldValue, newValue in
                             if let rate = metalRateManager.ratesByPurity[newValue] {
                                 metalRate = rate
                             }
@@ -127,7 +127,10 @@ struct CostCalculatorView: View {
                     .padding(.horizontal)
 
                     // Save and Get Estimate Button
-                    Button(action: calculateTotalPrice) {
+                    Button(action: {
+                        calculateTotalPrice()
+                        navigateToEstimateView = true // Trigger navigation
+                    }) {
                         Text("Save and Get Estimate")
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -149,6 +152,26 @@ struct CostCalculatorView: View {
                     }
                 }
             }
+            .navigationDestination(isPresented: $navigateToEstimateView) {
+                EstimateView(
+                    itemName: itemName,
+                    isNatural: isNatural,
+                    purity: purity,
+                    metalWeight: metalWeight,
+                    metalRate: metalRate,
+                    labourWeight: labour,
+                    labourRate: labourRate,
+                    solitaireWeight: solitaireWeight,
+                    solitaireRate: solitaireRate,
+                    sideDiaWeight: sideDiaWeight,
+                    sideDiaRate: sideDiaRate,
+                    colStoneWeight: colStoneWeight,
+                    colStoneRate: colStoneRate,
+                    charges: charges,
+                    taxPercentage: taxPercentage,
+                    totalPrice: totalPrice
+                )
+            }
         }
     }
 
@@ -161,35 +184,9 @@ struct CostCalculatorView: View {
         let subtotal = metalCost + labourCost + solitaireCost + sideDiaCost + colStoneCost + charges
         let tax = subtotal * (taxPercentage / 100)
         totalPrice = subtotal + tax
-
-        // Generate Image
-        let estimateView = EstimateView(
-            itemName: itemName,
-            isNatural: isNatural,
-            purity: purity,
-            metalWeight: metalWeight,
-            metalRate: metalRate,
-            labourWeight: labour,
-            labourRate: labourRate,
-            solitaireWeight: solitaireWeight,
-            solitaireRate: solitaireRate,
-            sideDiaWeight: sideDiaWeight,
-            sideDiaRate: sideDiaRate,
-            colStoneWeight: colStoneWeight,
-            colStoneRate: colStoneRate,
-            charges: charges,
-            taxPercentage: taxPercentage,
-            totalPrice: totalPrice
-        )
-
-        let renderer = EstimateImageRenderer(estimateView: estimateView)
-        let image = renderer.renderAsImage()
-
-        // Save to Photos
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        print("Estimate saved as image.")
     }
 }
+
 
 struct CalculationRow: View {
     let label: String
