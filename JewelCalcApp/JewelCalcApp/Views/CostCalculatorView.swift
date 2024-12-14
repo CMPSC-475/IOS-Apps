@@ -125,6 +125,18 @@ struct CostCalculatorView: View {
                             .foregroundColor(.purple)
                     }
                     .padding(.horizontal)
+                    .onChange(of: metalWeight) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: metalRate) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: labour) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: labourRate) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: solitaireWeight) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: solitaireRate) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: sideDiaWeight) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: sideDiaRate) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: colStoneWeight) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: colStoneRate) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: charges) { oldValue, newValue in calculateTotalPrice() }
+                    .onChange(of: taxPercentage) { oldValue, newValue in calculateTotalPrice() }
 
                     // Save and Get Estimate Button
                     Button(action: {
