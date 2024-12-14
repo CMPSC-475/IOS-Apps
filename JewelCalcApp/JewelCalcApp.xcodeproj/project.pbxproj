@@ -29,7 +29,6 @@
 		4660F9F52D00F179002662B5 /* InvoiceViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */; };
 		4660F9F82D010626002662B5 /* CoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F62D010626002662B5 /* CoreDataStack.xcdatamodeld */; };
 		4660F9FA2D01074A002662B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4660F9F92D01074A002662B5 /* CoreDataStack.swift */; };
-		46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */; };
 		46B25AF22D0A212F000D7625 /* InvoiceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */; };
 		46B25AF42D0A2BD9000D7625 /* CostCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */; };
 		46B25AF62D0A2D90000D7625 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AF52D0A2D90000D7625 /* NotificationManager.swift */; };
@@ -87,7 +86,6 @@
 		4660F9F42D00F179002662B5 /* InvoiceViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceViewModelTests.swift; sourceTree = "<group>"; };
 		4660F9F72D010626002662B5 /* CoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStack.xcdatamodel; sourceTree = "<group>"; };
 		4660F9F92D01074A002662B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceFormView.swift; sourceTree = "<group>"; };
 		46B25AF32D0A2BD9000D7625 /* CostCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCalculatorViewModel.swift; sourceTree = "<group>"; };
 		46B25AF52D0A2D90000D7625 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 				4660F9E92D00EC52002662B5 /* AddInventoryItemView.swift */,
 				4660F9EB2D00EC68002662B5 /* CostCalculatorView.swift */,
 				4660F9EE2D00EC88002662B5 /* InvoiceView.swift */,
-				46B25AEF2D0A1B1B000D7625 /* DashboardView.swift */,
 				46B25AF12D0A212F000D7625 /* InvoiceFormView.swift */,
 				46B25B012D0A415D000D7625 /* AnalyticsDashboardView.swift */,
 				465237C42D0B638C00C6DF0B /* MetalRateMenu.swift */,
@@ -375,7 +372,6 @@
 				46B25AFE2D0A3B13000D7625 /* ChatView.swift in Sources */,
 				46D0AB7C2D0DDC0700D5C29F /* EstimateView.swift in Sources */,
 				46B25B022D0A415D000D7625 /* AnalyticsDashboardView.swift in Sources */,
-				46B25AF02D0A1B1B000D7625 /* DashboardView.swift in Sources */,
 				46B25AFC2D0A3799000D7625 /* MessageComposeView.swift in Sources */,
 				46D0AB7E2D0DDC6600D5C29F /* EstimateImageRenderer.swift in Sources */,
 				4660F9B72D00E9F3002662B5 /* Item.swift in Sources */,

@@ -8,13 +8,39 @@
 import Foundation
 
 class InventoryViewModel: ObservableObject {
-    @Published var inventory: [InventoryItem] = []
-
+    @Published var inventory: [InventoryItem] = [] {
+        didSet {
+            saveInventory()
+        }
+    }
+    
     // Search and filter properties
     @Published var searchText: String = ""
     @Published var selectedCategory: String = "All"
     @Published var selectedMaterial: String = "All"
     @Published var selectedGemstone: String = "All"
+
+    init() {
+        loadInventory()
+    }
+
+    private func saveInventory() {
+        do {
+            let encodedData = try JSONEncoder().encode(inventory)
+            UserDefaults.standard.set(encodedData, forKey: "inventory")
+        } catch {
+            print("Failed to save inventory: \(error)")
+        }
+    }
+
+    private func loadInventory() {
+        guard let savedData = UserDefaults.standard.data(forKey: "inventory") else { return }
+        do {
+            inventory = try JSONDecoder().decode([InventoryItem].self, from: savedData)
+        } catch {
+            print("Failed to load inventory: \(error)")
+        }
+    }
 
     func addItem(_ item: InventoryItem) {
         inventory.append(item)
@@ -76,23 +102,8 @@ class InventoryViewModel: ObservableObject {
         selectedMaterial = "All"
         selectedGemstone = "All"
     }
-}
 
-
-extension InventoryViewModel {
-    var totalInventoryValue: Double {
-        inventory.reduce(0) { $0 + ($1.weight * 100) } // Assume $100 per weight unit
-    }
-
-    var topGemstones: [String] {
-        let gemstoneCounts = inventory.reduce(into: [:]) { counts, item in
-            counts[item.gemstone, default: 0] += 1
-        }
-        return gemstoneCounts.sorted(by: { $0.value > $1.value }).prefix(3).map { $0.key }
-    }
-}
-
-extension InventoryViewModel {
+    // Alert for low inventory
     func checkLowInventory(threshold: Int = 5) {
         for item in inventory where item.quantity < threshold {
             let title = "Low Inventory Alert"

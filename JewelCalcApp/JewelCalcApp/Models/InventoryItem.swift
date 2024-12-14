@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct InventoryItem: Identifiable {
+struct InventoryItem: Identifiable, Codable {
     let id: UUID
     var name: String
     var category: String

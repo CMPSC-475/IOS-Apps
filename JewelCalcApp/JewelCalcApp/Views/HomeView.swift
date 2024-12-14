@@ -61,6 +61,7 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("PANROSA JEWELS")
+            .gridCellAnchor(.center)
             .toolbar {
                 Button(action: { showingPreferences = true }) {
                     Label("Preferences", systemImage: "gear")
