@@ -9,11 +9,11 @@ import SwiftUI
 
 struct MessagingView: View {
     let invoices: [Invoice]
-    @State private var selectedInvoice: Invoice? // Tracks the selected invoice
-    @State private var showingChat = false       // Toggles the chat view
+    @State private var selectedInvoice: Invoice?
+    @State private var showingChat = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List(invoices) { invoice in
                 Button(action: {
                     selectedInvoice = invoice
@@ -28,17 +28,19 @@ struct MessagingView: View {
                 }
             }
             .navigationTitle("Messaging")
-        }
-        .sheet(isPresented: $showingChat) {
-            if let selectedInvoice = selectedInvoice {
-                ChatView(
-                    customerName: selectedInvoice.customerName,
-                    phoneNumber: selectedInvoice.phoneNumber ?? ""
-                )
+            .navigationDestination(isPresented: $showingChat) {
+                if let selectedInvoice = selectedInvoice {
+                    ChatView(
+                        customerName: selectedInvoice.customerName,
+                        phoneNumber: selectedInvoice.phoneNumber ?? ""
+                    )
+                }
             }
         }
     }
 }
+
+
 
 struct MessagingView_Previews: PreviewProvider {
     static var previews: some View {

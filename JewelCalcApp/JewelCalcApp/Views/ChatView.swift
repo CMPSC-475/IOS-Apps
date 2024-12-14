@@ -12,8 +12,8 @@ struct ChatView: View {
     let customerName: String
     let phoneNumber: String
     @State private var messageText = ""
-    @State private var messageHistory: [String] = []
-    @State private var showingMessageCompose = false
+    @State private var messageHistory: [String] = ["Welcome!"]
+    @FocusState private var isMessageFieldFocused: Bool
 
     var body: some View {
         VStack {
@@ -32,6 +32,7 @@ struct ChatView: View {
             HStack {
                 TextField("Type a message...", text: $messageText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .focused($isMessageFieldFocused)
                 Button(action: sendMessage) {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.blue)
@@ -42,16 +43,10 @@ struct ChatView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: { showingMessageCompose = true }) {
-                    Label("Send via iMessage", systemImage: "message.fill")
+                Button(action: { isMessageFieldFocused = false }) {
+                    Label("Close Keyboard", systemImage: "keyboard.chevron.compact.down")
                 }
             }
-        }
-        .sheet(isPresented: $showingMessageCompose) {
-            MessageComposeView(
-                recipients: [phoneNumber],
-                body: ""
-            )
         }
     }
 
@@ -61,6 +56,8 @@ struct ChatView: View {
         messageText = ""
     }
 }
+
+
 
 
 struct ChatView_Previews: PreviewProvider {
