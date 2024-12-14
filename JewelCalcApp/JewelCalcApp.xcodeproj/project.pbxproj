@@ -564,6 +564,7 @@
 				INFOPLIST_FILE = JewelCalcApp/Info.plist;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save your estimate to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app accesses the photo library to share an estimate";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -596,6 +597,7 @@
 				INFOPLIST_FILE = JewelCalcApp/Info.plist;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save your estimate to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app accesses the photo library to share an estimate";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

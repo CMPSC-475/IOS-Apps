@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import UIKit
+import PDFKit
 
 struct EstimateView: View {
     let itemName: String
@@ -27,7 +27,7 @@ struct EstimateView: View {
     let totalPrice: Float
 
     @State private var isSharing = false
-    @State private var shareImage: UIImage?
+    @State private var pdfURL: URL?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -40,7 +40,7 @@ struct EstimateView: View {
                 Text(isNatural ? "Natural Diamond" : "Lab Grown")
                     .font(.title2)
                     .foregroundColor(.purple)
-                Text("Price Estimate , Date : \(Date.now.formatted(date: .numeric, time: .shortened))")
+                Text("Price Estimate, Date: \(Date.now.formatted(date: .numeric, time: .shortened))")
                     .font(.subheadline)
             }
             Divider()
@@ -99,7 +99,7 @@ struct EstimateView: View {
             .padding(.horizontal)
 
             // Share Button
-            Button(action: shareEstimate) {
+            Button(action: sharePDF) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
                     Text("Share Estimate")
@@ -117,8 +117,8 @@ struct EstimateView: View {
         .cornerRadius(10)
         .shadow(radius: 4)
         .sheet(isPresented: $isSharing) {
-            if let shareImage = shareImage {
-                ShareSheet(activityItems: [shareImage])
+            if let pdfURL = pdfURL {
+                ShareSheet(activityItems: [pdfURL])
             }
         }
     }
@@ -151,17 +151,80 @@ struct EstimateView: View {
         return subtotal * (taxPercentage / 100)
     }
 
-    private func shareEstimate() {
-        let renderer = UIGraphicsImageRenderer(size: UIScreen.main.bounds.size)
-        let image = renderer.image { _ in
-            let hostingController = UIHostingController(rootView: self)
-            hostingController.view.frame = UIScreen.main.bounds
-            hostingController.view.backgroundColor = .white
-            hostingController.view.drawHierarchy(in: hostingController.view.bounds, afterScreenUpdates: true)
+    private func sharePDF() {
+        guard let pdfURL = generatePDF() else {
+            print("Failed to generate PDF")
+            return
         }
-        shareImage = image
-        isSharing = true
+
+        // Move file to a stable location
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let sharedURL = documentsDirectory.appendingPathComponent("SharedEstimate.pdf")
+        do {
+            if FileManager.default.fileExists(atPath: sharedURL.path) {
+                try FileManager.default.removeItem(at: sharedURL)
+            }
+            try FileManager.default.copyItem(at: pdfURL, to: sharedURL)
+            print("File copied to: \(sharedURL)")
+        } catch {
+            print("Error copying file: \(error)")
+            return
+        }
+
+        // Share the file
+        DispatchQueue.main.async {
+            let activityVC = UIActivityViewController(activityItems: [sharedURL], applicationActivities: nil)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }),
+               let topVC = keyWindow.rootViewController {
+                topVC.present(activityVC, animated: true, completion: nil)
+            }
+        }
     }
+
+
+    private func generatePDF() -> URL? {
+        let pdfRenderer = UIGraphicsPDFRenderer(bounds: UIScreen.main.bounds)
+        let outputFileURL = FileManager.default.temporaryDirectory.appendingPathComponent("Estimate.pdf")
+
+        do {
+            try pdfRenderer.writePDF(to: outputFileURL) { context in
+                context.beginPage()
+
+                let pdfContext = context.cgContext
+
+                // Fix the inverted coordinate system by flipping the context
+                pdfContext.saveGState()
+                pdfContext.translateBy(x: 0, y: UIScreen.main.bounds.height)
+                pdfContext.scaleBy(x: 1.0, y: -1.0)
+
+                // Render SwiftUI view to PDF
+                let hostingController = UIHostingController(rootView: self)
+                hostingController.view.bounds = UIScreen.main.bounds
+
+                if let hostingView = hostingController.view {
+                    let rendererFormat = UIGraphicsImageRendererFormat()
+                    rendererFormat.scale = UIScreen.main.scale
+                    let renderer = UIGraphicsImageRenderer(bounds: hostingView.bounds, format: rendererFormat)
+
+                    let image = renderer.image { _ in
+                        hostingView.drawHierarchy(in: hostingView.bounds, afterScreenUpdates: true)
+                    }
+
+                    if let cgImage = image.cgImage {
+                        pdfContext.draw(cgImage, in: UIScreen.main.bounds)
+                    }
+                }
+
+                pdfContext.restoreGState() // Restore the original context state
+            }
+
+            print("PDF successfully generated at \(outputFileURL)")
+            return outputFileURL
+        } catch {
+            print("Error generating PDF: \(error)")
+            return nil
+        }
+    }
+
 }
-
-

@@ -99,17 +99,6 @@ struct InvoiceView: View {
 }
 
 
-struct ShareSheet: UIViewControllerRepresentable {
-    let activityItems: [Any]
-    let applicationActivities: [UIActivity]? = nil
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
-    }
-
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
-}
-
 extension DateFormatter {
     static let shortDate: DateFormatter = {
         let formatter = DateFormatter()
