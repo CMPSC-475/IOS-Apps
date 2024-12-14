@@ -60,7 +60,7 @@ struct HomeView: View {
                     .padding()
                 }
             }
-            .navigationTitle("JewelCalc")
+            .navigationTitle("PANROSA JEWELS")
             .toolbar {
                 Button(action: { showingPreferences = true }) {
                     Label("Preferences", systemImage: "gear")
